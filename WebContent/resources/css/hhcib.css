@@ -1,0 +1,39 @@
+body,html {
+	margin: 0;
+	padding: 0;
+	color: #000;
+	background: white;
+}
+
+#wrap {
+    width: 80%;
+    margin: 0px auto;
+    background: none repeat scroll 0% 0% rgb(153, 153, 204);
+}
+
+#top {
+	background: white;
+}
+
+#left {
+ float:left;
+ width:20%
+}
+
+#content {
+ float:left;
+ width:80%;
+}
+
+
+#footer {
+	clear:both;
+	background: #cc9;
+}
+
+h3 {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 18pt;
+	padding-top: 10px;
+	padding-bottom: 3px;
+}
