@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html;
+charset=UTF-8" />
+	<link
+		href="${facesContext.externalContext.requestContextPath}/resources/css/hhcib.css"
+		rel="stylesheet" type="text/css" />
+	<title>HowHardCouldItBe</title>
+</h:head>
+<h:body>
+	<div id="container">
+		<div id="header">
+			<ui:insert name="top">
+				<h3>Välkommen till HurSvårtKanDetVara.se - Sajten för alla
+					hemmafixare!</h3>
+			</ui:insert>
+		</div>
+
+
+		<div id="left">
+			<ui:insert name="left">
+				<a href="${facesContext.externalContext.requestContextPath}">Hem</a>
+				<br />
+				<ui:repeat var="category" value="#{categoryFacade.categories}">
+		#{category.name}<br />
+				</ui:repeat>
+				<a
+					href="${facesContext.externalContext.requestContextPath}/categories/economy.xhtml">Ekonomi</a>
+
+			</ui:insert>
+
+		</div>
+
+		<div id="content">
+			<ui:insert name="content">Template Content</ui:insert>
+		</div>
+
+	</div>
+
+</h:body>
+</html>
