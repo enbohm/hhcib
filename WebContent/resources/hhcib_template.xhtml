@@ -13,18 +13,25 @@ charset=UTF-8" />
 	<title>HowHardCouldItBe</title>
 </h:head>
 <h:body>
-	<div id="wrap">
-		<div id="top">
-			<ui:insert name="top">Template Top</ui:insert>
+	<div id="container">
+		<div id="header">
+			<ui:insert name="top">
+				<h3>Välkommen till HurSvårtKanDetVara.se - Sajten för alla
+					hemmafixare!</h3>
+			</ui:insert>
 		</div>
-		<div>
-			<div id="left">
-				<ui:insert name="left">Template Left</ui:insert>
-			</div>
-			<div id="content">
-				<ui:insert name="content">Template Content</ui:insert>
-			</div>
+
+
+		<div id="left">
+			<ui:insert name="left">Template Left</ui:insert>
+
 		</div>
+
+		<div id="content">
+			<ui:insert name="content">Template Content</ui:insert>
+		</div>
+
 	</div>
+
 </h:body>
 </html>

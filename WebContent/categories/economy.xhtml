@@ -5,16 +5,17 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <body>
 	<ui:composition template="/resources/hhcib_template.xhtml">
+		
 
+		
 		<ui:define name="left">
 			<ui:repeat var="category" value="#{categoryFacade.categories}">
 		#{category.name}<br />
 			</ui:repeat>
 		</ui:define>
-
+		
 		<ui:define name="content">
-             index.html content
-        </ui:define>
+             economy content         </ui:define>
 	</ui:composition>
 </body>
 </html>
