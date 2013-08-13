@@ -23,7 +23,16 @@ charset=UTF-8" />
 
 
 		<div id="left">
-			<ui:insert name="left">Template Left</ui:insert>
+			<ui:insert name="left">
+				<a href="${facesContext.externalContext.requestContextPath}">Hem</a>
+				<br />
+				<ui:repeat var="category" value="#{categoryFacade.categories}">
+		#{category.name}<br />
+				</ui:repeat>
+				<a
+					href="${facesContext.externalContext.requestContextPath}/categories/economy.xhtml">Ekonomi</a>
+
+			</ui:insert>
 
 		</div>
 
