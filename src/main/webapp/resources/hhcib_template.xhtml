@@ -24,14 +24,21 @@ charset=UTF-8" />
 
 		<div id="left">
 			<ui:insert name="left">
-				<a href="${facesContext.externalContext.requestContextPath}">Hem</a>
-				<br />
-				<ui:repeat var="category" value="#{categoryFacade.categories}">
-		#{category.name}<br />
-				</ui:repeat>
-				<a
-					href="${facesContext.externalContext.requestContextPath}/categories/economy.xhtml">Ekonomi</a>
-
+				<ul id="navigation">
+					<li><a
+						href="${facesContext.externalContext.requestContextPath}">Hem</a></li>
+					<li><a
+						href="${facesContext.externalContext.requestContextPath}/categories/house_and_garden.xhtml">Hus och trädgård</a></li>
+						
+					<li><a
+						href="${facesContext.externalContext.requestContextPath}/categories/food.xhtml">Matlagning</a></li>
+						
+<!-- 					<UI:REPEAT VAR="CATEGORY" VALUE="#{CATEGORYFACADE.CATEGORIES}"> -->
+<!-- 						<LI>#{CATEGORY.NAME}</LI> -->
+<!-- 					</ui:repeat> -->
+					<li><a
+						href="${facesContext.externalContext.requestContextPath}/categories/economy.xhtml">Ekonomi</a></li>
+				</ul>
 			</ui:insert>
 
 		</div>

@@ -1,8 +1,8 @@
-HowHardCoultItBe (HHCIB) project. A web page where people can submit their way of doing things such as 'How to build a swimming pool foundation'
-or 'How making tax reduction'. HHCIB Also includes a voting mechanism. 
+HowHardCoultItBe (HHCIB) project. A web application where people can submit their way of craftmanship things such as 'How to build a swimming pool foundation', 'Preparing a Lobster' 
+or 'How making a certain tax reduction'. HHCIB also includes a voting mechanism. 
 
 License
 
 Copyright © 2012-2013 Andreas Enbohm
 
-Distributed under the GPLv3 license
+Distributed under Apache License v2.0
