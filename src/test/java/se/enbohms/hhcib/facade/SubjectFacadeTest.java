@@ -1,5 +1,7 @@
 package se.enbohms.hhcib.facade;
 
+import static org.fest.assertions.Assertions.assertThat;
+
 import java.util.List;
 
 import org.junit.Test;
@@ -18,6 +20,6 @@ public class SubjectFacadeTest {
 		List<Subject> result = facade.getSubjectFor(Category.ECONOMY);
 		
 		//then
-		
+		assertThat(result).isNotEmpty();
 	}
 }
