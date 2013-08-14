@@ -29,23 +29,6 @@ h3 {
 	color: white;
 }
 
-ul#navigation {
-	width: 12em;
-}
-ul#navigation li {
-	list-style: none;
-	background-color: black;
-	text-align: left;
-	margin: 0;
-}
-
-ul#navigation li a {
-	display: block;
-	text-decoration: none;
-	padding: .25em;
-	border-bottom1: 1px solid #3399FF;
-	border-right1: 1px solid #3399FF;
-}
 
 ul#navigation {
 	margin: 0;
@@ -64,6 +47,11 @@ ul#navigation li {
 	border-bottom: 10px solid #761A1A;
 }
 
+ul#navigation li#home {
+    color: #5f;
+    margin-bottom: 5%;
+}
+
 ul#navigation li a {
 	display: block;
 	text-decoration: none;
@@ -79,8 +67,3 @@ ul#navigation li a:hover {
 		no-repeat 0 9px;
 }
 
-ul#navigation li a.current,ul.vert-one li a.current:hover {
-	background: #933
-	url("http://www.cssportal.com/vertical-menus/images/vert-one_arrow.gif")
-	no-repeat 0 9px;
-}
