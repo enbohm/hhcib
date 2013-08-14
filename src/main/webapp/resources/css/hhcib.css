@@ -10,14 +10,17 @@
 
 #left {
 	float: left;
-	width: 15%
+	width: 15%;
+	overflow: hidden;
 }
+
 
 #content {
 	float: left;
 	width: 75%;
 	margin-left: 2%;
 	margin-top: 1%;
+	overflow:auto;
 }
 
 h3 {

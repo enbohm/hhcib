@@ -1,25 +1,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:body>
 	<ui:composition template="/resources/hhcib_template.xhtml">
 		<ui:define name="content">
-		New Subject
+		Lägg till en ny How-To beskrivning
 			<h:form id="form">
-
-				<p:editor id="editor" value="#{howToDescriptionFacade.value}"/>
-
-				<h:panelGrid columns="2" style="margin-top:10px">
-					<p:commandButton id="submitButton" value="Submit" update="display"
-						oncomplete="PF('dlg').show()" icon="ui-icon-disk" />
-					<p:commandButton id="clearButton" type="button" value="Clear"
-						onclick="PF('editor').clear()" icon="ui-icon-close" />
-				</h:panelGrid>
-
+				<h:inputTextarea value="#{howToFacade.description}" id="description" cols="125" rows="25"/>
+				<h:commandButton value="Spara" action="#{howToFacade.save()}" />
 			</h:form>
+
 		</ui:define>
 	</ui:composition>
 </h:body>
