@@ -8,11 +8,34 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>hhcib</name>
 
+
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
 			<version>7.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>3.5</version>
+		</dependency>
+		
+		<!-- As JSF 2.2 brings its own file uploader -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.2</version>
 		</dependency>
 
 		<!-- Test dependencies -->

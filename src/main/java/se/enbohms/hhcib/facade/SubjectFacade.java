@@ -24,7 +24,7 @@ public class SubjectFacade {
 	 * @return a list of subject for the corresponding {@link Category} or empty
 	 *         list if no subjects exist for the supplied category
 	 */
-	public List<Subject> getSubjectFor(Category category) {
+	public List<Subject> getSubjectsFor(Category category) {
 
 		switch (category) {
 		case ECONOMY:

@@ -17,7 +17,7 @@ public class SubjectFacadeTest {
 		SubjectFacade facade = new SubjectFacade();
 		
 		//when
-		List<Subject> result = facade.getSubjectFor(Category.ECONOMY);
+		List<Subject> result = facade.getSubjectsFor(Category.ECONOMY);
 		
 		//then
 		assertThat(result).isNotEmpty();
