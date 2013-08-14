@@ -6,7 +6,7 @@
 <body>
 	<ui:composition template="/resources/hhcib_template.xhtml">
 		<ui:define name="content">
-             economy content goes here...     
+		#{subjectFacade.getSubjectsFor('ECONOMY')}
          </ui:define>
 	</ui:composition>
 </body>

@@ -1,17 +1,10 @@
 package se.enbohms.hhcib.entity;
 
-public class Category {
-	private String name;
+/**
+ * Represents the various categories
+ * 
+ */
+public enum Category {
 
-	private Category(String name) {
-		this.name = name;
-	}
-
-	public static Category of(String name) {
-		return new Category(name);
-	}
-
-	public String getName() {
-		return name;
-	}
+	ECONOMY, FOOD, HOUSE_AND_GARDEN;
 }
