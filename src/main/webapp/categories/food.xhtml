@@ -1,11 +1,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
 
 <body>
 	<ui:composition template="/resources/hhcib_template.xhtml">
 		<ui:define name="content">
-             Food content goes here...   
-         </ui:define>
+			<ui:repeat var="subject"
+				value="#{subjectFacade.getSubjectsFor('FOOD')}">
+				<div id="subjectDescription">
+					<h:outputText value="#{subject.description}" escape="false" />
+				</div>
+				<br />
+			</ui:repeat>
+		</ui:define>
 	</ui:composition>
 </body>
 </html>

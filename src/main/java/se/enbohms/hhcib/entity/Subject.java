@@ -1,29 +1,31 @@
 package se.enbohms.hhcib.entity;
 
-import javax.persistence.Entity;
 
 /**
  * Represents an actual subject with its corresponding 'How-to'-description
  * 
  * 
  */
-@Entity
 public class Subject {
-	private int id;
+	private String id;
 	private String heading;
 	private String description;
 
-	private Subject(int id, String heading, String description) {
+	public static final String ID = "_id";
+	public static final String HEADING = "heading";
+	public static final String DESCRIPTION = "heading";
+
+	private Subject(String id, String heading, String description) {
 		this.id = id;
 		this.heading = heading;
 		this.description = description;
 	}
 
-	public static Subject of(int id, String heading, String description) {
+	public static Subject of(String id, String heading, String description) {
 		return new Subject(id, heading, description);
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 

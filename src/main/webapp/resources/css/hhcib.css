@@ -23,6 +23,11 @@
 	overflow:auto;
 }
 
+#subjectDescription {
+    border-bottom: 1px solid #761A1A;
+}
+
+
 h3 {
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	font-size: 18pt;
