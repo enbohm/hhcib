@@ -1,16 +1,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:body>
 	<f:view encoding="UTF-8">
 		<ui:composition template="/resources/hhcib_template.xhtml">
 			<ui:define name="content">
 		Lägg till en ny How-To beskrivning
-			<h:form id="form">
+	
+				<h:form id="form">
+					<h:selectOneRadio value="#{howToFacade.category}">
+						<f:selectItem itemValue="Red" itemLabel="Color1 - Red" />
+						<f:selectItem itemValue="Green" itemLabel="Color1 - Green" />
+						<f:selectItem itemValue="Blue" itemLabel="Color1 - Blue" />
+					</h:selectOneRadio>
+
 					<h:inputTextarea value="#{howToFacade.description}"
-						id="description" cols="125" rows="25" />
+						id="description" cols="135" rows="25" p:class="editable"/>
 					<h:commandButton value="Spara" action="#{howToFacade.save()}" />
 					<h:commandButton value="Rensa" action="#{howToFacade.clear()}" />
 				</h:form>

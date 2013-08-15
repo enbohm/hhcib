@@ -16,9 +16,18 @@ public class HowToFacade implements Serializable {
 	private static final long serialVersionUID = -3633333461394775021L;
 
 	private String description;
+	private String category;
 
 	@Inject
 	private CrudService service;
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
 	public String getDescription() {
 		return description;

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Singleton;
 
 import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
@@ -17,8 +18,14 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 
+/**
+ * The MongoDB implementation
+ * 
+ */
+@Singleton
 public class MongoCrudService implements CrudService {
 
+	private static final String HHCIB_DB = "hhcib";
 	private DB db = null;
 
 	@PostConstruct
@@ -26,7 +33,7 @@ public class MongoCrudService implements CrudService {
 		MongoClient mongoClient;
 		try {
 			mongoClient = new MongoClient();
-			db = mongoClient.getDB("hhcib");
+			db = mongoClient.getDB(HHCIB_DB);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);

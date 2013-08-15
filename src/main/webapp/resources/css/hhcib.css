@@ -24,9 +24,10 @@
 }
 
 #subjectDescription {
-    border-bottom: 1px solid #761A1A;
+    padding: 10px;
+    margin:1px;
+    border: 1px solid #761A1A;
 }
-
 
 h3 {
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
