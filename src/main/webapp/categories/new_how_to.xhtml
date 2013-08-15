@@ -10,8 +10,8 @@
 			<h:form id="form">
 				<h:inputTextarea value="#{howToFacade.description}" id="description" cols="125" rows="25"/>
 				<h:commandButton value="Spara" action="#{howToFacade.save()}" />
+				<h:commandButton value="Rensa" action="#{howToFacade.clear()}" />
 			</h:form>
-
 		</ui:define>
 	</ui:composition>
 </h:body>
