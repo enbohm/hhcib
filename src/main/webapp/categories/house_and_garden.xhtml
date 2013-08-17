@@ -1,11 +1,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	
 <body>
 	<ui:composition template="/resources/hhcib_template.xhtml">
 		<ui:define name="content">
-             House and garden content goes here...  ..   
-         </ui:define>
+             <ui:decorate template="/subject/show_subjects.xhtml">
+				<ui:param name="category" value="HOUSE_AND_GARDEN" />
+			</ui:decorate>
+        </ui:define>
 	</ui:composition>
 </body>
 </html>

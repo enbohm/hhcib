@@ -12,16 +12,16 @@
 		Lägg till en ny How-To beskrivning
 	
 				<h:form id="form">
-					<h:selectOneRadio value="#{howToFacade.category}">
-						<f:selectItem itemValue="Red" itemLabel="Color1 - Red" />
-						<f:selectItem itemValue="Green" itemLabel="Color1 - Green" />
-						<f:selectItem itemValue="Blue" itemLabel="Color1 - Blue" />
-					</h:selectOneRadio>
-
 					<h:inputTextarea value="#{howToFacade.description}"
-						id="description" cols="135" rows="25" p:class="editable"/>
+						id="description" cols="135" rows="25" p:class="editable" />
 					<h:commandButton value="Spara" action="#{howToFacade.save()}" />
 					<h:commandButton value="Rensa" action="#{howToFacade.clear()}" />
+					<h:message showSummary="true" showDetail="false"
+						style="color: #d20005;
+                       font-family: 'New Century Schoolbook', serif;
+                       font-style: oblique;
+                       text-decoration: overline"
+						id="errors1" for="description" />
 				</h:form>
 			</ui:define>
 		</ui:composition>
