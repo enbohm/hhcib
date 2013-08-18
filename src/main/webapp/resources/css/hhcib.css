@@ -25,7 +25,7 @@
 
 #subjectDescription {
     padding: 10px;
-    margin:1px;
+    margin: 1%;
     border: 1px solid #761A1A;
 }
 
@@ -37,12 +37,15 @@
     text-decoration: none;
 }
 
-#hhcibButtons {
+
+.button {
+    padding:5px;
+    background-color: #dcdcdc;
+    border: 1px solid #666;
+    color:#000;
+    text-decoration:none;
     margin-top: 2%;
     margin-left:2%;
-    float:left;
-    font-size:12px;
-    width:200px;
 }
 
 h3 {

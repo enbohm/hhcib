@@ -4,7 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 	
 	<a href="
-	${facesContext.externalContext.requestContextPath}/subject/new_subject_description.xhtml?category=#{category}">Ny beskrivning</a>
+	${facesContext.externalContext.requestContextPath}/subject/new_subject_description.xhtml?category=#{category}" class="button">Lägg till ny beskrivning>>></a>
 	
 	<ui:repeat var="subject"
 		value="#{subjectFacade.getSubjectsFor(category)}">

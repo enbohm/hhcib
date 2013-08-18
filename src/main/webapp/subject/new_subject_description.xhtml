@@ -12,16 +12,16 @@
 		Lägg till en ny How-To beskrivning
 		<f:metadata>
 			<f:viewParam id="category" name="category"
-				value="#{subjectDescriptionFacade.category}" required="true" />
+				value="#{subjectFacade.category}" required="true" />
 		</f:metadata>
 				<h:form id="form">
-					<h:inputTextarea value="#{subjectDescriptionFacade.description}"
+					<h:inputTextarea value="#{subjectFacade.description}"
 						id="new_subject_description" cols="135" rows="25"
 						p:class="editable" />
-					<h:commandButton value="Spara" p:id="hhcibButtons"
-						action="#{subjectDescriptionFacade.save()}" />
-					<h:commandButton value="Rensa" p:id="hhcibButtons"
-						action="#{subjectDescriptionFacade.clear()}" />
+					<h:commandButton value="Spara" p:class="button"
+						action="#{subjectFacade.save()}" />
+					<h:commandButton value="Rensa" p:class="button"
+						action="#{subjectFacade.clear()}" />
 					<h:message showSummary="true" showDetail="false"
 						style="color: red;" p:id="newSubjectError"
 						for="new_subject_description" />

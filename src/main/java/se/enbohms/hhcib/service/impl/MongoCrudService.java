@@ -19,7 +19,7 @@ import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
 
 /**
- * The MongoDB implementation
+ * The MongoDB implementation of the HHCIB {@link CrudService}
  * 
  */
 @Singleton
@@ -40,6 +40,22 @@ public class MongoCrudService implements CrudService {
 		}
 	}
 
+	/**
+	 * {@inheritDoc} This implementation uses MongoDB as database
+	 */
+	public void createSubject(String heading, String description,
+			Category category) {
+		DBCollection coll = db.getCollection(category.name());
+
+		BasicDBObject doc = new BasicDBObject(Subject.HEADING, heading).append(
+				Subject.DESCRIPTION, description).append("creator", "enbohm");
+
+		coll.insert(doc);
+	}
+
+	/**
+	 * {@inheritDoc} This implementation uses MongoDB as database
+	 */
 	public List<Subject> getSubjectsFor(Category category) {
 		DBCollection coll = db.getCollection(category.name());
 
@@ -51,7 +67,7 @@ public class MongoCrudService implements CrudService {
 		}
 	}
 
-	protected List<Subject> fetchResults(DBCursor cursor) {
+	private List<Subject> fetchResults(DBCursor cursor) {
 		List<Subject> result = new ArrayList<>();
 		while (cursor.hasNext()) {
 			DBObject dbObj = cursor.next();
@@ -59,18 +75,6 @@ public class MongoCrudService implements CrudService {
 					dbObj.get(Subject.HEADING).toString(),
 					dbObj.get(Subject.DESCRIPTION).toString()));
 		}
-
 		return result;
-	}
-
-	@Override
-	public void createSubject(String heading, String description,
-			Category category) {
-		DBCollection coll = db.getCollection(category.name());
-
-		BasicDBObject doc = new BasicDBObject(Subject.HEADING, heading).append(
-				Subject.DESCRIPTION, description).append("creator", "enbohm");
-
-		coll.insert(doc);
 	}
 }
