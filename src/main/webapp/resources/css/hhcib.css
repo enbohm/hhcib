@@ -29,6 +29,22 @@
     border: 1px solid #761A1A;
 }
 
+#newSubjectError {
+    clear:both;
+	margin-top: 2%;
+    margin-left:2%;
+    float:left;
+    text-decoration: none;
+}
+
+#hhcibButtons {
+    margin-top: 2%;
+    margin-left:2%;
+    float:left;
+    font-size:12px;
+    width:200px;
+}
+
 h3 {
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	font-size: 18pt;

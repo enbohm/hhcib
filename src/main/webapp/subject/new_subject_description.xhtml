@@ -1,0 +1,33 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:body>
+	<f:view encoding="UTF-8">
+		<ui:composition template="/hhcib_template.xhtml">
+			<ui:define name="content">
+		Lägg till en ny How-To beskrivning
+		<f:metadata>
+			<f:viewParam id="category" name="category"
+				value="#{subjectDescriptionFacade.category}" required="true" />
+		</f:metadata>
+				<h:form id="form">
+					<h:inputTextarea value="#{subjectDescriptionFacade.description}"
+						id="new_subject_description" cols="135" rows="25"
+						p:class="editable" />
+					<h:commandButton value="Spara" p:id="hhcibButtons"
+						action="#{subjectDescriptionFacade.save()}" />
+					<h:commandButton value="Rensa" p:id="hhcibButtons"
+						action="#{subjectDescriptionFacade.clear()}" />
+					<h:message showSummary="true" showDetail="false"
+						style="color: red;" p:id="newSubjectError"
+						for="new_subject_description" />
+				</h:form>
+			</ui:define>
+		</ui:composition>
+	</f:view>
+</h:body>
+</html>

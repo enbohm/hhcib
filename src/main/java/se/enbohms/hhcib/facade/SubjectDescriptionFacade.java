@@ -2,7 +2,7 @@ package se.enbohms.hhcib.facade;
 
 import java.io.Serializable;
 
-import javax.faces.bean.RequestScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
@@ -12,10 +12,12 @@ import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.service.api.CrudService;
 
 @Named
-@RequestScoped
-public class HowToFacade implements Serializable {
+@ViewScoped
+public class SubjectDescriptionFacade implements Serializable {
 
 	private static final long serialVersionUID = -3633333461394775021L;
+
+	private String category;
 
 	@NotNull
 	@Size(min = 10)
@@ -32,11 +34,25 @@ public class HowToFacade implements Serializable {
 		this.description = description;
 	}
 
-	public void save() {
-		System.out.println("submitted value  " + description);
-		service.createSubject("a heading", description, Category.FOOD);
+	public String getCategory() {
+		return category;
 	}
 
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	/**
+	 * Saves the new subject description in the database
+	 */
+	public void save() {
+		service.createSubject("a heading", this.description,
+				Category.valueOf(this.category));
+	}
+
+	/**
+	 * Clears the new subscription form
+	 */
 	public void clear() {
 		description = null;
 	}
