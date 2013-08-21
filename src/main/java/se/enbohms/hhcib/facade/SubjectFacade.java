@@ -52,7 +52,7 @@ public class SubjectFacade implements Serializable {
 	 * Saves the new subject description in the database
 	 */
 	public void save() {
-		service.createSubject("a heading", this.description,
+		service.insertSubject("a heading", this.description,
 				Category.valueOf(this.category));
 	}
 

@@ -25,6 +25,14 @@
 		</plugins>
 	</build>
 
+	<repositories>
+		<repository>
+			<id>in-project</id>
+			<name>In Project Repo</name>
+			<url>file://${project.basedir}/libs</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<dependency>
 			<groupId>javax</groupId>
@@ -36,6 +44,13 @@
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
 			<version>2.11.2</version>
+		</dependency>
+
+		<!-- Some JSF external libs -->
+		<dependency>
+			<groupId>playerfinder</groupId>
+			<artifactId>playerfinder-jsf</artifactId>
+			<version>0.5</version>
 		</dependency>
 
 		<!-- Test dependencies -->

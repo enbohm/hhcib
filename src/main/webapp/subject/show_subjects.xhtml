@@ -2,14 +2,21 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core">
-	
-	<a href="
-	${facesContext.externalContext.requestContextPath}/subject/new_subject_description.xhtml?category=#{category}" class="button">Lägg till ny beskrivning>>></a>
-	
+
+	<a
+		href="
+	${facesContext.externalContext.requestContextPath}/subject/new_subject_description.xhtml?category=#{category}"
+		class="button">Lägg till ny beskrivning>>></a>
+
 	<ui:repeat var="subject"
 		value="#{subjectFacade.getSubjectsFor(category)}">
 
+
 		<div id="subjectDescription">
+			<a
+				href="
+	${facesContext.externalContext.requestContextPath}/subject/update_subject.xhtml?subjectId=#{subject.id}"
+				class="button">Ändra</a>
 			<h:outputText value="#{subject.description}" escape="false" />
 		</div>
 	</ui:repeat>

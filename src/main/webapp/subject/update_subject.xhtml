@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:pf="http://jsf.playerfinder.net/components">
+
+<h:body>
+	<f:view encoding="UTF-8">
+		<ui:composition template="/hhcib_template.xhtml">
+			<ui:define name="content">
+				<f:metadata>
+					<f:viewParam id="subjectId" value="#{updateSubjectFacade.subjectId}" name="subjectId"
+						required="true" />
+					<f:viewAction action="#{updateSubjectFacade.fetchSubject}" />
+				</f:metadata>
+				<h:form>
+					<pf:rating totalStars="5" step="1"
+						value="#{updateSubjectFacade.rating}">
+						<f:ajax event="change" render="output" />
+					</pf:rating>
+
+					<h2>
+						<h:outputText id="output" value="#{updateSubjectFacade.rating}" />
+					</h2>
+					
+					id: #{updateSubjectFacade.subject.id} <br/>
+					heading : #{updateSubjectFacade.subject.heading}
+
+				</h:form>
+
+			</ui:define>
+		</ui:composition>
+	</f:view>
+</h:body>
+</html>

@@ -16,6 +16,8 @@ import com.mongodb.MongoClient;
 
 public class MongoCrudServiceTest {
 
+	private static final String UPDATED_DESCRIPTION = "Updated Description";
+
 	@Before
 	public void setUp() throws UnknownHostException {
 		MongoClient mongoClient = new MongoClient();
@@ -28,7 +30,7 @@ public class MongoCrudServiceTest {
 		// given
 		MongoCrudService service = new MongoCrudService();
 		service.initDB();
-		service.createSubject("a heading goes here",
+		service.insertSubject("a heading goes here",
 				"a description goes here...", Category.FOOD);
 
 		// when
@@ -36,5 +38,28 @@ public class MongoCrudServiceTest {
 
 		// then
 		assertThat(result).isNotEmpty();
+	}
+
+	@Test
+	public void should_update_object_in_db() throws Exception {
+		// given
+		MongoCrudService service = new MongoCrudService();
+		service.initDB();
+		service.insertSubject("a heading goes here",
+				"a description goes here...", Category.FOOD);
+
+		Subject existingSubject = service.getSubjectsFor(Category.FOOD).get(0);
+
+		// when
+		existingSubject.setRating(5d);
+		existingSubject.setDescription(UPDATED_DESCRIPTION);
+
+		service.update(existingSubject, Category.FOOD);
+
+		// then
+		Subject result = service.find(existingSubject.getId(), Category.FOOD);
+		assertThat(result).isNotNull();
+		assertThat(result.getRating().doubleValue()).isEqualTo(5d);
+		assertThat(result.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
 	}
 }

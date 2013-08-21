@@ -7,6 +7,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 
+import org.bson.types.ObjectId;
+
 import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.service.api.CrudService;
@@ -43,7 +45,7 @@ public class MongoCrudService implements CrudService {
 	/**
 	 * {@inheritDoc} This implementation uses MongoDB as database
 	 */
-	public void createSubject(String heading, String description,
+	public void insertSubject(String heading, String description,
 			Category category) {
 		DBCollection coll = db.getCollection(category.name());
 
@@ -71,10 +73,51 @@ public class MongoCrudService implements CrudService {
 		List<Subject> result = new ArrayList<>();
 		while (cursor.hasNext()) {
 			DBObject dbObj = cursor.next();
-			result.add(Subject.of(dbObj.get(Subject.ID).toString(),
-					dbObj.get(Subject.HEADING).toString(),
-					dbObj.get(Subject.DESCRIPTION).toString()));
+			result.add(Subject
+					.of(dbObj.get(Subject.ID).toString(),
+							dbObj.get(Subject.HEADING).toString(),
+							dbObj.get(Subject.DESCRIPTION).toString(),
+							getRating(dbObj)));
 		}
 		return result;
+	}
+
+	private Double getRating(DBObject dbObj) {
+		Double rating = dbObj.get(Subject.RATING) != null ? Double
+				.valueOf((Double) dbObj.get(Subject.RATING)) : 0d;
+		return rating;
+	}
+
+	@Override
+	public void update(Subject subject, Category category) {
+		DBCollection collection = db.getCollection(category.name());
+		BasicDBObject newDocument = new BasicDBObject();
+
+		newDocument.append("$set",
+				new BasicDBObject().append(Subject.RATING, subject.getRating())
+						.append(Subject.DESCRIPTION, subject.getDescription()));
+
+		ObjectId objectId = new ObjectId(subject.getId());
+		BasicDBObject searchQuery = new BasicDBObject(Subject.ID, objectId);
+
+		collection.update(searchQuery, newDocument);
+	}
+
+	@Override
+	public Subject find(String objectID, Category category) {
+		DBCollection collection = db.getCollection(category.name());
+		BasicDBObject query = new BasicDBObject();
+		query.put("_id", new ObjectId(objectID));
+		DBObject dbObj = collection.findOne(query);
+
+		if (dbObj != null) {
+			return Subject
+					.of(dbObj.get(Subject.ID).toString(),
+							dbObj.get(Subject.HEADING).toString(),
+							dbObj.get(Subject.DESCRIPTION).toString(),
+							getRating(dbObj));
+		}
+
+		return null;
 	}
 }

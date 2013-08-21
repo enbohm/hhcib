@@ -16,12 +16,13 @@ charset=UTF-8" />
 
 	<!-- load the jQuery and require.js libraries -->
 	<script type="text/javascript"
-		src="http://cdn.aloha-editor.org/latest/lib/require.js"></script>
+		src="${facesContext.externalContext.requestContextPath}/resources/javascript/require.js"></script>
 	<script type="text/javascript"
-		src="http://cdn.aloha-editor.org/latest/lib/vendor/jquery-1.7.2.js"></script>
+		src="${facesContext.externalContext.requestContextPath}/resources/javascript/jquery-1.7.2.js"></script>
 
 	<!-- load the Aloha Editor core and some plugins -->
-	<script src="http://cdn.aloha-editor.org/latest/lib/aloha.js"
+	<script
+		src="${facesContext.externalContext.requestContextPath}/resources/javascript/aloha.js"
 		data-aloha-plugins="common/ui, common/format, common/list, common/link, common/highlighteditables, common/image">
      </script>
 

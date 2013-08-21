@@ -18,5 +18,21 @@ public interface CrudService {
 	 */
 	List<Subject> getSubjectsFor(Category category);
 
-	void createSubject(String heading, String description, Category category);
+	/**
+	 * Inserts (creates) a new object in the data base
+	 * 
+	 * @param heading
+	 * @param description
+	 * @param category
+	 */
+	void insertSubject(String heading, String description, Category category);
+
+	/**
+	 * Updates a current subject in the DB
+	 * 
+	 * @param existingSubject
+	 */
+	void update(Subject existingSubject, Category category);
+	
+	Subject find(String objectID, Category category);
 }
