@@ -15,7 +15,7 @@
 		<div id="subjectDescription">
 			<a
 				href="
-	${facesContext.externalContext.requestContextPath}/subject/update_subject.xhtml?subjectId=#{subject.id}"
+	${facesContext.externalContext.requestContextPath}/subject/update_subject.xhtml?subjectId=#{subject.id}&amp;category=#{subject.category}"
 				class="button">Ändra</a>
 			<h:outputText value="#{subject.description}" escape="false" />
 		</div>

@@ -5,6 +5,8 @@ import static org.fest.assertions.Assertions.assertThat;
 import java.net.UnknownHostException;
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -61,5 +63,20 @@ public class MongoCrudServiceTest {
 		assertThat(result).isNotNull();
 		assertThat(result.getRating().doubleValue()).isEqualTo(5d);
 		assertThat(result.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+	}
+
+	@Test(expected = EntityNotFoundException.class)
+	public void should_throw_exception_when_object_not_found_in_db()
+			throws Exception {
+		// given
+		MongoCrudService service = new MongoCrudService();
+		service.initDB();
+
+		// when
+		service.find("000000000000000000000099", Category.ECONOMY);
+
+		// then
+		// exception should be thrown
+
 	}
 }

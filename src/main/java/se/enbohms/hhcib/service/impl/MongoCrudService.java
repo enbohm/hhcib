@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
+import javax.persistence.EntityNotFoundException;
 
 import org.bson.types.ObjectId;
 
@@ -63,21 +64,20 @@ public class MongoCrudService implements CrudService {
 
 		DBCursor cursor = coll.find();
 		try {
-			return fetchResults(cursor);
+			return fetchResults(cursor, category);
 		} finally {
 			cursor.close();
 		}
 	}
 
-	private List<Subject> fetchResults(DBCursor cursor) {
+	private List<Subject> fetchResults(DBCursor cursor, Category category) {
 		List<Subject> result = new ArrayList<>();
 		while (cursor.hasNext()) {
 			DBObject dbObj = cursor.next();
-			result.add(Subject
-					.of(dbObj.get(Subject.ID).toString(),
-							dbObj.get(Subject.HEADING).toString(),
-							dbObj.get(Subject.DESCRIPTION).toString(),
-							getRating(dbObj)));
+			result.add(Subject.of(dbObj.get(Subject.ID).toString(),
+					dbObj.get(Subject.HEADING).toString(),
+					dbObj.get(Subject.DESCRIPTION).toString(),
+					getRating(dbObj), category));
 		}
 		return result;
 	}
@@ -111,13 +111,12 @@ public class MongoCrudService implements CrudService {
 		DBObject dbObj = collection.findOne(query);
 
 		if (dbObj != null) {
-			return Subject
-					.of(dbObj.get(Subject.ID).toString(),
-							dbObj.get(Subject.HEADING).toString(),
-							dbObj.get(Subject.DESCRIPTION).toString(),
-							getRating(dbObj));
+			return Subject.of(dbObj.get(Subject.ID).toString(),
+					dbObj.get(Subject.HEADING).toString(),
+					dbObj.get(Subject.DESCRIPTION).toString(),
+					getRating(dbObj), category);
 		}
-
-		return null;
+		throw new EntityNotFoundException("Could not find object with id "
+				+ objectID + " and category " + category + " in DB");
 	}
 }

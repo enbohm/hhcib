@@ -3,6 +3,7 @@ package se.enbohms.hhcib.service.api;
 import java.util.List;
 
 import javax.ejb.Local;
+import javax.persistence.EntityNotFoundException;
 
 import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
@@ -34,5 +35,5 @@ public interface CrudService {
 	 */
 	void update(Subject existingSubject, Category category);
 	
-	Subject find(String objectID, Category category);
+	Subject find(String objectID, Category category) throws EntityNotFoundException;
 }

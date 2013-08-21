@@ -15,6 +15,16 @@ import se.enbohms.hhcib.service.api.CrudService;
 public class UpdateSubjectFacade implements Serializable {
 	private static final long serialVersionUID = -1712331748877385330L;
 	private String subjectId;
+	private String category;
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	private Subject subject;
 
 	public String getSubjectId() {
@@ -25,7 +35,7 @@ public class UpdateSubjectFacade implements Serializable {
 	private CrudService service;
 
 	public void fetchSubject() {
-		this.subject = service.find(subjectId, Category.FOOD);
+		this.subject = service.find(subjectId, Category.valueOf(category));
 	}
 
 	private Double rating = Double.valueOf(0d);

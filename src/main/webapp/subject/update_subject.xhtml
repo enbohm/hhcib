@@ -13,6 +13,8 @@
 				<f:metadata>
 					<f:viewParam id="subjectId" value="#{updateSubjectFacade.subjectId}" name="subjectId"
 						required="true" />
+					<f:viewParam id="category" value="#{updateSubjectFacade.category}" name="category"
+						required="true" />		
 					<f:viewAction action="#{updateSubjectFacade.fetchSubject}" />
 				</f:metadata>
 				<h:form>
@@ -26,7 +28,8 @@
 					</h2>
 					
 					id: #{updateSubjectFacade.subject.id} <br/>
-					heading : #{updateSubjectFacade.subject.heading}
+					heading : #{updateSubjectFacade.subject.heading} <br/>
+					description : #{updateSubjectFacade.subject.description}
 
 				</h:form>
 
