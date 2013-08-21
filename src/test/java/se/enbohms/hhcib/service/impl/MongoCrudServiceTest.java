@@ -40,6 +40,7 @@ public class MongoCrudServiceTest {
 
 		// then
 		assertThat(result).isNotEmpty();
+		assertThat(result.get(0).getCategory()).isEqualTo(Category.FOOD);
 	}
 
 	@Test
@@ -63,6 +64,7 @@ public class MongoCrudServiceTest {
 		assertThat(result).isNotNull();
 		assertThat(result.getRating().doubleValue()).isEqualTo(5d);
 		assertThat(result.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+		assertThat(result.getCategory()).isEqualTo(Category.FOOD);
 	}
 
 	@Test(expected = EntityNotFoundException.class)
