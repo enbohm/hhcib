@@ -10,12 +10,28 @@ import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.service.api.CrudService;
 
+/**
+ * Facade which is responsible for loading/fetching existing subject and
+ * updating them in the DB
+ * 
+ * <p>
+ * Note: All facades (incl this) should only act as a facade and delegate all
+ * business logic to the existing services. Validation and coordination between
+ * service is the facade main responsibility
+ */
 @Named
 @ViewScoped
 public class UpdateSubjectFacade implements Serializable {
+
 	private static final long serialVersionUID = -1712331748877385330L;
+
 	private String subjectId;
+	private Subject subject;
 	private String category;
+	private Double rating = Double.valueOf(0d);
+
+	@Inject
+	private CrudService service;
 
 	public String getCategory() {
 		return category;
@@ -25,20 +41,9 @@ public class UpdateSubjectFacade implements Serializable {
 		this.category = category;
 	}
 
-	private Subject subject;
-
 	public String getSubjectId() {
 		return subjectId;
 	}
-
-	@Inject
-	private CrudService service;
-
-	public void fetchSubject() {
-		this.subject = service.find(subjectId, Category.valueOf(category));
-	}
-
-	private Double rating = Double.valueOf(0d);
 
 	public Double getRating() {
 		return rating;
@@ -55,5 +60,20 @@ public class UpdateSubjectFacade implements Serializable {
 	public void setRating(Double rating) {
 		this.rating = rating;
 
+	}
+
+	/**
+	 * Fetches the subject from the database using the supplied subjectId and
+	 * category (parameters from the Http Request)
+	 */
+	public void fetchSubject() {
+		this.subject = service.find(subjectId, Category.valueOf(category));
+	}
+
+	/**
+	 * Updates the current subject in the database
+	 */
+	public void update() {
+		service.update(subject);
 	}
 }

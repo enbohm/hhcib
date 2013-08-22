@@ -9,11 +9,11 @@
 	<f:view encoding="UTF-8">
 		<ui:composition template="/hhcib_template.xhtml">
 			<ui:define name="content">
-		Lägg till en ny How-To beskrivning
-		<f:metadata>
-			<f:viewParam id="category" name="category"
-				value="#{subjectFacade.category}" required="true" />
-		</f:metadata>
+				Lägg till en ny How-To beskrivning
+				<f:metadata>
+					<f:viewParam id="category" name="category"
+						value="#{subjectFacade.category}" required="true" />
+				</f:metadata>
 				<h:form id="form">
 					<h:inputTextarea value="#{subjectFacade.description}"
 						id="new_subject_description" cols="135" rows="25"

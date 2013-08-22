@@ -82,15 +82,16 @@ public class MongoCrudService implements CrudService {
 		return result;
 	}
 
+	//TODO: remove hard codes 2.0 string, just for demo 
 	private Double getRating(DBObject dbObj) {
 		Double rating = dbObj.get(Subject.RATING) != null ? Double
-				.valueOf((Double) dbObj.get(Subject.RATING)) : 0d;
+				.valueOf((Double) dbObj.get(Subject.RATING)) : 2.0d;
 		return rating;
 	}
 
-	@Override
-	public void update(Subject subject, Category category) {
-		DBCollection collection = db.getCollection(category.name());
+	public void update(Subject subject) {
+		DBCollection collection = db
+				.getCollection(subject.getCategory().name());
 		BasicDBObject newDocument = new BasicDBObject();
 
 		newDocument.append("$set",
@@ -103,7 +104,6 @@ public class MongoCrudService implements CrudService {
 		collection.update(searchQuery, newDocument);
 	}
 
-	@Override
 	public Subject find(String objectID, Category category) {
 		DBCollection collection = db.getCollection(category.name());
 		BasicDBObject query = new BasicDBObject();

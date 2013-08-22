@@ -11,28 +11,28 @@
 		<ui:composition template="/hhcib_template.xhtml">
 			<ui:define name="content">
 				<f:metadata>
-					<f:viewParam id="subjectId" value="#{updateSubjectFacade.subjectId}" name="subjectId"
+					<f:viewParam id="subjectId"
+						value="#{updateSubjectFacade.subjectId}" name="subjectId"
 						required="true" />
-					<f:viewParam id="category" value="#{updateSubjectFacade.category}" name="category"
-						required="true" />		
+					<f:viewParam id="category" value="#{updateSubjectFacade.category}"
+						name="category" required="true" />
 					<f:viewAction action="#{updateSubjectFacade.fetchSubject}" />
 				</f:metadata>
 				<h:form>
 					<pf:rating totalStars="5" step="1"
 						value="#{updateSubjectFacade.rating}">
-						<f:ajax event="change" render="output" />
+						<f:ajax event="change" />
 					</pf:rating>
 
-					<h2>
-						<h:outputText id="output" value="#{updateSubjectFacade.rating}" />
-					</h2>
-					
-					id: #{updateSubjectFacade.subject.id} <br/>
-					heading : #{updateSubjectFacade.subject.heading} <br/>
-					description : #{updateSubjectFacade.subject.description}
-
+					<h:inputTextarea value="#{updateSubjectFacade.subject.description}"
+						id="update_subject_description" cols="135" rows="25"
+						p:class="editable" />
+					<h:commandButton value="Ändra" p:class="button"
+						action="#{updateSubjectFacade.update()}" />
+					<h:message showSummary="true" showDetail="false"
+						style="color: red;" p:id="newSubjectError"
+						for="new_subject_description" />
 				</h:form>
-
 			</ui:define>
 		</ui:composition>
 	</f:view>

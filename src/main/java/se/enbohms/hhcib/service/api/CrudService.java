@@ -33,7 +33,7 @@ public interface CrudService {
 	 * 
 	 * @param existingSubject
 	 */
-	void update(Subject existingSubject, Category category);
+	void update(Subject existingSubject);
 	
 	Subject find(String objectID, Category category) throws EntityNotFoundException;
 }

@@ -28,6 +28,10 @@
 	border: 1px solid #761A1A;
 }
 
+#rating {
+	padding: 10px;
+	float:right;
+}
 #newSubjectError {
 	clear: both;
 	margin-top: 2%;

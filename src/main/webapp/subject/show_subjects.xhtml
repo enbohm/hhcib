@@ -1,22 +1,27 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:pf="http://jsf.playerfinder.net/components">
 
 	<a
 		href="
 	${facesContext.externalContext.requestContextPath}/subject/new_subject_description.xhtml?category=#{category}"
-		class="button">Lägg till ny beskrivning>>></a>
+		class="button">Lägg till ny beskrivning &gt;&gt;&gt;</a>
 
 	<ui:repeat var="subject"
 		value="#{subjectFacade.getSubjectsFor(category)}">
-
 
 		<div id="subjectDescription">
 			<a
 				href="
 	${facesContext.externalContext.requestContextPath}/subject/update_subject.xhtml?subjectId=#{subject.id}&amp;category=#{subject.category}"
 				class="button">Ändra</a>
+			<div id="rating">
+				<pf:rating totalStars="5" step="1" value="#{subject.rating}"
+					disabled="true">
+				</pf:rating>
+			</div>
 			<h:outputText value="#{subject.description}" escape="false" />
 		</div>
 	</ui:repeat>

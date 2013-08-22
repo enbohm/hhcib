@@ -57,7 +57,7 @@ public class MongoCrudServiceTest {
 		existingSubject.setRating(5d);
 		existingSubject.setDescription(UPDATED_DESCRIPTION);
 
-		service.update(existingSubject, Category.FOOD);
+		service.update(existingSubject);
 
 		// then
 		Subject result = service.find(existingSubject.getId(), Category.FOOD);
