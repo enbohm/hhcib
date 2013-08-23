@@ -10,13 +10,17 @@
 		class="button">Lägg till ny beskrivning &gt;&gt;&gt;</a>
 
 	<ui:repeat var="subject"
-		value="#{subjectFacade.getSubjectsFor(category)}">
+		value="#{categoryFacade.getSubjectsFor(category)}">
 
 		<div id="subjectDescription">
 			<a
 				href="
 	${facesContext.externalContext.requestContextPath}/subject/update_subject.xhtml?subjectId=#{subject.id}&amp;category=#{subject.category}"
-				class="button">Ändra</a>
+				class="button">Ändra</a> 
+				<a
+				href="
+	${facesContext.externalContext.requestContextPath}/subject/show_subject.xhtml?subjectId=#{subject.id}&amp;category=#{subject.category}"
+				class="button">Detaljer</a>
 			<div id="rating">
 				<pf:rating totalStars="5" step="1" value="#{subject.rating}"
 					disabled="true">

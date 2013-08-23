@@ -1,7 +1,6 @@
 package se.enbohms.hhcib.facade;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -19,7 +18,7 @@ import se.enbohms.hhcib.service.api.CrudService;
  */
 @Named
 @ViewScoped
-public class SubjectFacade implements Serializable {
+public class NewSubjectFacade implements Serializable {
 
 	private static final long serialVersionUID = -3633333461394775021L;
 
@@ -61,15 +60,5 @@ public class SubjectFacade implements Serializable {
 	 */
 	public void clear() {
 		description = null;
-	}
-
-	/**
-	 * 
-	 * @param category
-	 * @return a list of subject for the corresponding {@link Category} or empty
-	 *         list if no subjects exist for the supplied category
-	 */
-	public List<Subject> getSubjectsFor(Category category) {
-		return service.getSubjectsFor(category);
-	}
+	}	
 }

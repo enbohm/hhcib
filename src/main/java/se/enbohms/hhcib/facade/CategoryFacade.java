@@ -1,17 +1,24 @@
 package se.enbohms.hhcib.facade;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.ejb.Singleton;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import se.enbohms.hhcib.entity.Category;
+import se.enbohms.hhcib.entity.Subject;
+import se.enbohms.hhcib.service.api.CrudService;
 
 @Singleton
 @Named
 public class CategoryFacade implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
+	@Inject
+	private CrudService service;
 
 	private String categoryValue;
 
@@ -25,5 +32,15 @@ public class CategoryFacade implements Serializable {
 
 	public Category[] getCategories() {
 		return Category.values();
+	}
+
+	/**
+	 * 
+	 * @param category
+	 * @return a list of subject for the corresponding {@link Category} or empty
+	 *         list if no subjects exist for the supplied category
+	 */
+	public List<Subject> getSubjectsFor(Category category) {
+		return service.getSubjectsFor(category);
 	}
 }

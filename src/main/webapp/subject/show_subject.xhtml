@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:pf="http://jsf.playerfinder.net/components">
+
+<h:body>
+	<f:view encoding="UTF-8">
+		<ui:composition template="/hhcib_template.xhtml">
+			<ui:define name="content">
+				<f:metadata>
+					<f:viewParam id="subjectId" value="#{showSubjectFacade.subjectId}"
+						name="subjectId" required="true" />
+					<f:viewParam id="category" value="#{showSubjectFacade.category}"
+						name="category" required="true" />
+					<f:viewAction action="#{showSubjectFacade.fetchSubject}" />
+				</f:metadata>
+				<h:form>
+					<pf:rating totalStars="5" step="1" disabled="true"
+						value="#{showSubjectFacade.subject.rating}">
+					</pf:rating>
+
+					<div id="subjectDescription">
+						<h:outputText value="#{showSubjectFacade.subject.description}"
+							escape="false" />
+					</div>
+					<pf:socialShare layout="1" url="http://www.twitter.com"
+						text="have a look at this" showGooglePlus="true"
+						showFacebook="true" showTwitter="true"/>
+				</h:form>
+			</ui:define>
+		</ui:composition>
+	</f:view>
+</h:body>
+</html>
