@@ -10,6 +10,7 @@
 	<f:view encoding="UTF-8">
 		<ui:composition template="/hhcib_template.xhtml">
 			<ui:define name="content">
+
 				<f:metadata>
 					<f:viewParam id="subjectId" value="#{showSubjectFacade.subjectId}"
 						name="subjectId" required="true" />
@@ -17,6 +18,7 @@
 						name="category" required="true" />
 					<f:viewAction action="#{showSubjectFacade.fetchSubject}" />
 				</f:metadata>
+
 				<h:form>
 					<pf:rating totalStars="5" step="1" disabled="true"
 						value="#{showSubjectFacade.subject.rating}">
@@ -26,9 +28,11 @@
 						<h:outputText value="#{showSubjectFacade.subject.description}"
 							escape="false" />
 					</div>
-					<pf:socialShare layout="1" url="http://www.twitter.com"
-						text="have a look at this" showGooglePlus="true"
-						showFacebook="true" showTwitter="true"/>
+					<div id="social-share">
+						<pf:socialShare layout="1" url="http://www.liu.se"
+							text="nike" showGooglePlus="true"
+							showFacebook="true" showTwitter="true" />
+					</div>
 				</h:form>
 			</ui:define>
 		</ui:composition>

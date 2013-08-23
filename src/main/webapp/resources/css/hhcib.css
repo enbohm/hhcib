@@ -32,6 +32,7 @@
 	padding: 10px;
 	float:right;
 }
+
 #newSubjectError {
 	clear: both;
 	margin-top: 2%;
@@ -49,6 +50,13 @@
 	margin-top: 2%;
 	margin-left: 2%;
 }
+
+#social-share .button {
+    background-color : white;
+    border: none;
+    margin: auto;
+}
+
 
 h3 {
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
