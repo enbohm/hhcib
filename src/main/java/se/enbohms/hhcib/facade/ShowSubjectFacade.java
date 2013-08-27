@@ -6,7 +6,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.service.api.CrudService;
 

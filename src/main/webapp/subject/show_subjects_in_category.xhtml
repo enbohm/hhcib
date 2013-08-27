@@ -12,21 +12,21 @@
 	<ui:repeat var="subject"
 		value="#{categoryFacade.getSubjectsFor(category)}">
 
-		<div id="subjectDescription">
-			<a
-				href="
-	${facesContext.externalContext.requestContextPath}/subject/update_subject.xhtml?subjectId=#{subject.id}&amp;category=#{subject.category}"
-				class="button">Ändra</a> 
-				<a
-				href="
-	${facesContext.externalContext.requestContextPath}/subject/show_subject.xhtml?subjectId=#{subject.id}&amp;category=#{subject.category}"
-				class="button">Detaljer</a>
+		<div id="subject-description">
+
 			<div id="rating">
 				<pf:rating totalStars="5" step="1" value="#{subject.rating}"
 					disabled="true">
 				</pf:rating>
 			</div>
 			<h:outputText value="#{subject.description}" escape="false" />
+			<a
+				href="
+	${facesContext.externalContext.requestContextPath}/subject/update_subject.xhtml?subjectId=#{subject.id}&amp;category=#{subject.category}"
+				class="button">Ändra</a> <a
+				href="
+	${facesContext.externalContext.requestContextPath}/subject/show_subject.xhtml?subjectId=#{subject.id}&amp;category=#{subject.category}"
+				class="button">Detaljer</a>
 		</div>
 	</ui:repeat>
 </ui:composition>

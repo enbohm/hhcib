@@ -22,9 +22,9 @@
 						action="#{newSubjectFacade.save()}" />
 					<h:commandButton value="Rensa" p:class="button"
 						action="#{newSubjectFacade.clear()}" />
-					<h:message showSummary="true" showDetail="false"
-						style="color: red;" p:id="newSubjectError"
-						for="new_subject_description" />
+					<h:message
+							showSummary="true" showDetail="false" style="color: red;"
+							p:id="new_subject_description" for="new_subject_description" />
 				</h:form>
 			</ui:define>
 		</ui:composition>

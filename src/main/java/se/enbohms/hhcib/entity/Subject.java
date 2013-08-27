@@ -1,5 +1,8 @@
 package se.enbohms.hhcib.entity;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 /**
  * Represents an actual subject with its corresponding 'How-to'-description
  * 
@@ -8,7 +11,11 @@ package se.enbohms.hhcib.entity;
 public class Subject {
 	private String id;
 	private String heading;
+	
+	@NotNull
+	@Size(min = 10)
 	private String description;
+	
 	private Double rating = new Double(0d);
 	private Category category;
 
