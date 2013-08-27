@@ -57,6 +57,6 @@ public class ShowSubjectFacade implements Serializable {
 	 * category (parameters from the Http Request)
 	 */
 	public void fetchSubject() {
-		this.subject = service.find(subjectId, Category.valueOf(category));
+		this.subject = service.find(subjectId);
 	}
 }

@@ -29,6 +29,7 @@ import com.mongodb.MongoClient;
 public class MongoCrudService implements CrudService {
 
 	private static final String HHCIB_DB = "hhcib";
+	private static final String SUBJECT_COLLECTION_NAME = "subject";
 	private DB db = null;
 
 	@PostConstruct
@@ -48,10 +49,12 @@ public class MongoCrudService implements CrudService {
 	 */
 	public void insertSubject(String heading, String description,
 			Category category) {
-		DBCollection coll = db.getCollection(category.name());
+		DBCollection coll = db.getCollection(SUBJECT_COLLECTION_NAME);
 
-		BasicDBObject doc = new BasicDBObject(Subject.HEADING, heading).append(
-				Subject.DESCRIPTION, description).append("creator", "enbohm");
+		BasicDBObject doc = new BasicDBObject(Subject.CATEGORY,
+				category.toString()).append(Subject.HEADING, heading)
+				.append(Subject.DESCRIPTION, description)
+				.append(Subject.CREATED_BY, "enbohm");
 
 		coll.insert(doc);
 	}
@@ -60,38 +63,44 @@ public class MongoCrudService implements CrudService {
 	 * {@inheritDoc} This implementation uses MongoDB as database
 	 */
 	public List<Subject> getSubjectsFor(Category category) {
-		DBCollection coll = db.getCollection(category.name());
+		DBCollection coll = db.getCollection(SUBJECT_COLLECTION_NAME);
 
-		DBCursor cursor = coll.find();
+		BasicDBObject searchQuery = new BasicDBObject(Subject.CATEGORY,
+				category.toString());
+
+		DBCursor cursor = coll.find(searchQuery);
 		try {
-			return fetchResults(cursor, category);
+			return fetchResults(cursor);
 		} finally {
 			cursor.close();
 		}
 	}
 
-	private List<Subject> fetchResults(DBCursor cursor, Category category) {
+	private List<Subject> fetchResults(DBCursor cursor) {
 		List<Subject> result = new ArrayList<>();
 		while (cursor.hasNext()) {
 			DBObject dbObj = cursor.next();
 			result.add(Subject.of(dbObj.get(Subject.ID).toString(),
 					dbObj.get(Subject.HEADING).toString(),
 					dbObj.get(Subject.DESCRIPTION).toString(),
-					getRating(dbObj), category));
+					getRatingFrom(dbObj), getCategoryFrom(dbObj)));
 		}
 		return result;
 	}
 
-	//TODO: remove hard codes 2.0 string, just for demo 
-	private Double getRating(DBObject dbObj) {
+	private Category getCategoryFrom(DBObject dbObj) {
+		return Category.valueOf(dbObj.get(Subject.CATEGORY).toString());
+	}
+
+	// TODO: remove hard codes 2.0 string, just for demo
+	private Double getRatingFrom(DBObject dbObj) {
 		Double rating = dbObj.get(Subject.RATING) != null ? Double
 				.valueOf((Double) dbObj.get(Subject.RATING)) : 2.0d;
 		return rating;
 	}
 
 	public void update(Subject subject) {
-		DBCollection collection = db
-				.getCollection(subject.getCategory().name());
+		DBCollection collection = db.getCollection(SUBJECT_COLLECTION_NAME);
 		BasicDBObject newDocument = new BasicDBObject();
 
 		newDocument.append("$set",
@@ -104,8 +113,8 @@ public class MongoCrudService implements CrudService {
 		collection.update(searchQuery, newDocument);
 	}
 
-	public Subject find(String objectID, Category category) {
-		DBCollection collection = db.getCollection(category.name());
+	public Subject find(String objectID) {
+		DBCollection collection = db.getCollection(SUBJECT_COLLECTION_NAME);
 		BasicDBObject query = new BasicDBObject();
 		query.put("_id", new ObjectId(objectID));
 		DBObject dbObj = collection.findOne(query);
@@ -114,9 +123,9 @@ public class MongoCrudService implements CrudService {
 			return Subject.of(dbObj.get(Subject.ID).toString(),
 					dbObj.get(Subject.HEADING).toString(),
 					dbObj.get(Subject.DESCRIPTION).toString(),
-					getRating(dbObj), category);
+					getRatingFrom(dbObj), getCategoryFrom(dbObj));
 		}
 		throw new EntityNotFoundException("Could not find object with id "
-				+ objectID + " and category " + category + " in DB");
+				+ objectID + " in DB");
 	}
 }

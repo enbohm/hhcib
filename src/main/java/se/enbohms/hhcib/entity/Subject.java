@@ -20,6 +20,8 @@ public class Subject {
 	public static final String HEADING = "heading";
 	public static final String DESCRIPTION = "description";
 	public static final String RATING = "rating";
+	public static final String CATEGORY = "category";
+	public static final String CREATED_BY = "created_by";
 
 	private Subject(String id, String heading, String description,
 			Double rating, Category category) {

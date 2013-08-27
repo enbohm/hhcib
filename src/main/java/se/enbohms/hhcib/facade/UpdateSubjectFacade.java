@@ -6,7 +6,6 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.service.api.CrudService;
 
@@ -67,7 +66,7 @@ public class UpdateSubjectFacade implements Serializable {
 	 * category (parameters from the Http Request)
 	 */
 	public void fetchSubject() {
-		this.subject = service.find(subjectId, Category.valueOf(category));
+		this.subject = service.find(subjectId);
 	}
 
 	/**

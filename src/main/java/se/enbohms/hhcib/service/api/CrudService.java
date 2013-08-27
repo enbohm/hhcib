@@ -34,6 +34,14 @@ public interface CrudService {
 	 * @param existingSubject
 	 */
 	void update(Subject existingSubject);
-	
-	Subject find(String objectID, Category category) throws EntityNotFoundException;
+
+	/**
+	 * Find a subject in the database from the supplied objectId or throws
+	 * {@link EntityNotFoundException} of no match is found
+	 * 
+	 * @param objectID
+	 * @return a new subject
+	 * @throws EntityNotFoundException
+	 */
+	Subject find(String objectID) throws EntityNotFoundException;
 }

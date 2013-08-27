@@ -24,7 +24,7 @@ public class MongoCrudServiceTest {
 	public void setUp() throws UnknownHostException {
 		MongoClient mongoClient = new MongoClient();
 		DB db = mongoClient.getDB("hhcib");
-		db.getCollection(Category.FOOD.name()).drop();
+		db.getCollection("subject").drop();
 	}
 
 	@Test
@@ -60,7 +60,7 @@ public class MongoCrudServiceTest {
 		service.update(existingSubject);
 
 		// then
-		Subject result = service.find(existingSubject.getId(), Category.FOOD);
+		Subject result = service.find(existingSubject.getId());
 		assertThat(result).isNotNull();
 		assertThat(result.getRating().doubleValue()).isEqualTo(5d);
 		assertThat(result.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
@@ -75,10 +75,9 @@ public class MongoCrudServiceTest {
 		service.initDB();
 
 		// when
-		service.find("000000000000000000000099", Category.ECONOMY);
+		service.find("000000000000000000000099");
 
 		// then
 		// exception should be thrown
-
 	}
 }
