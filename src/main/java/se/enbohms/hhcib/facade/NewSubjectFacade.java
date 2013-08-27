@@ -2,6 +2,8 @@ package se.enbohms.hhcib.facade;
 
 import java.io.Serializable;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -53,6 +55,11 @@ public class NewSubjectFacade implements Serializable {
 	public void save() {
 		service.insertSubject("a heading", this.description,
 				Category.valueOf(this.category));
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Ny beskrivning har skapats",
+						"Ny beskrivning har skapats"));
 	}
 
 	/**
@@ -60,5 +67,5 @@ public class NewSubjectFacade implements Serializable {
 	 */
 	public void clear() {
 		description = null;
-	}	
+	}
 }

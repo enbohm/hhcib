@@ -20,7 +20,7 @@
 					<f:viewAction action="#{updateSubjectFacade.fetchSubject}" />
 				</f:metadata>
 
-				<h:form>
+				<h:form id="updateSubject">
 					<pf:rating totalStars="5" step="1"
 						value="#{updateSubjectFacade.rating}">
 						<f:ajax event="change" />
@@ -29,12 +29,10 @@
 					<h:inputTextarea value="#{updateSubjectFacade.subject.description}"
 						id="update_subject_description" cols="135" rows="25"
 						p:class="editable" />
-					<span id="update-subject-button"> <h:commandButton
-							value="Ändra" p:class="button"
-							action="#{updateSubjectFacade.update()}" /> <h:message
-							showSummary="true" showDetail="false" style="color: red;"
-							p:id="update_subject_description" for="update_subject_description" />
-					</span>
+					<h:commandButton value="Ändra" p:class="button"
+						action="#{updateSubjectFacade.update()}"
+						id="update-subject-button" />
+					<h:messages errorStyle="color:red;"/>
 				</h:form>
 			</ui:define>
 		</ui:composition>

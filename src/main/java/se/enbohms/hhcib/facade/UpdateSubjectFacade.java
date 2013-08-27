@@ -2,6 +2,8 @@ package se.enbohms.hhcib.facade;
 
 import java.io.Serializable;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -74,5 +76,9 @@ public class UpdateSubjectFacade implements Serializable {
 	 */
 	public void update() {
 		service.update(subject);
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Uppdatering lyckades", "Uppdatering lyckades"));
 	}
 }
