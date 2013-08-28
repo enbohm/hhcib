@@ -11,35 +11,27 @@
 charset=UTF-8" />
 	<title>HowHardCouldItBe</title>
 
-	<!-- load the jQuery and require.js libraries -->
-	<script type="text/javascript"
-		src="${facesContext.externalContext.requestContextPath}/resources/javascript/require.js"></script>
-	<script type="text/javascript"
-		src="${facesContext.externalContext.requestContextPath}/resources/javascript/jquery-1.7.2.js"></script>
+	<script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+	
+	<script type="text/javascript">
+	tinymce.init({
+    	selector: "textarea",
+    	plugins: [
+        	"advlist autolink lists link image charmap print preview anchor",
+        	"searchreplace visualblocks code fullscreen",
+        	"insertdatetime media table contextmenu paste "
+    	],
+    	toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+		});
+	</script>
 
-	<!-- load the Aloha Editor core and some plugins -->
-	<script
-		src="${facesContext.externalContext.requestContextPath}/resources/javascript/aloha.js"
-		data-aloha-plugins="common/ui, common/format, common/list, common/link, common/highlighteditables, common/image">
-     </script>
-
-	<!-- load the Aloha Editor CSS styles -->
-	<link href="http://cdn.aloha-editor.org/latest/css/aloha.css"
-		rel="stylesheet" type="text/css" />
 	<link
 		href="${facesContext.externalContext.requestContextPath}/resources/css/hhcib.css"
-		rel="stylesheet" type="text/css"/>
+		rel="stylesheet" type="text/css" />
 	<link
 		href="${facesContext.externalContext.requestContextPath}/resources/css/hhcib_print.css"
-		rel="stylesheet" type="text/css" media="print"/>
+		rel="stylesheet" type="text/css" media="print" />
 
-	<!-- make all elements with class="editable" editable with Aloha Editor -->
-	<script type="text/javascript">
-                     Aloha.ready( function() {
-                            var $ = Aloha.jQuery;
-                            $('.editable').aloha();
-                     });
-    </script>
 </h:head>
 
 <h:body>
