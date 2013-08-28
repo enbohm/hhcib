@@ -37,6 +37,9 @@
 	float:right;
 }
 
+#print-page {
+    float:right;
+}
 
 .button{
     margin-left: 1%;

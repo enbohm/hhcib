@@ -20,18 +20,22 @@
 				</f:metadata>
 
 				<h:form>
+
 					<pf:rating totalStars="5" step="1" disabled="true"
 						value="#{showSubjectFacade.subject.rating}">
 					</pf:rating>
+
+					<span id="print-page"> <a
+						href="javascript:if(window.print)window.print()">Skriv ut</a>
+					</span>
 
 					<div id="subject-description">
 						<h:outputText value="#{showSubjectFacade.subject.description}"
 							escape="false" />
 					</div>
 					<div id="social-share">
-						<pf:socialShare layout="1" url="http://www.liu.se"
-							text="nike" showGooglePlus="false"
-							showFacebook="true" showTwitter="true" />
+						<pf:socialShare layout="1" url="http://www.liu.se" text="nike"
+							showGooglePlus="false" showFacebook="true" showTwitter="true" />
 					</div>
 				</h:form>
 			</ui:define>
