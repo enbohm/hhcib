@@ -32,6 +32,12 @@
 	border: 1px solid #761A1A;
 }
 
+#subject-description-input {
+	width: 95%;
+    height: 400px;
+	float: left;
+}
+
 #rating {
 	padding: 10px;
 	float:right;

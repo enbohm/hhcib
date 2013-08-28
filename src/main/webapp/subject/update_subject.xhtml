@@ -28,7 +28,7 @@
 
 					<h:inputTextarea value="#{updateSubjectFacade.subject.description}"
 						id="update_subject_description" cols="135" rows="25"
-						p:class="editable" />
+						p:class="editable" p:id="subject-description-input" escape="false"/>
 					<h:commandButton value="Ändra" p:class="button"
 						action="#{updateSubjectFacade.update()}"
 						id="update-subject-button" />

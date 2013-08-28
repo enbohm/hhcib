@@ -16,8 +16,8 @@
 				</f:metadata>
 				<h:form id="form">
 					<h:inputTextarea value="#{newSubjectFacade.description}"
-						id="new_subject_description" cols="135" rows="25"
-						p:class="editable" />
+						id="new_subject_description" 
+						p:class="editable" p:id="subject-description-input"/>
 					<h:commandButton value="Spara" p:class="button"
 						action="#{newSubjectFacade.save()}" />
 					<h:commandButton value="Rensa" p:class="button"

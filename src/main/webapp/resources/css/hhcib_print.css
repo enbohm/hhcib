@@ -10,6 +10,15 @@ a {
 	color: #0000ff;
 }
 
-#header,#left,#social-share, #print-page {
+#header,#left,#social-share, #print-page, #aloha-ui-context {
 	display: none;
+}
+
+
+.aloha.aloha-surface.aloha-toolbar, .aloha-sidebar-handle {
+	display: none;
+}
+
+.aloha-sidebar-bar.aloha-sidebar-right {
+    display: none;
 }
