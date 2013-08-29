@@ -1,4 +1,5 @@
 $(document).ready(function() {
-	window.unoSlider = $('#subject-slider').unoSlider();
-	window.unoSlider.speed = 2;
+	window.unoSlider = $('#subject-slider').unoSlider({speed:2,
+		animSpeed:  500});
+
 });
