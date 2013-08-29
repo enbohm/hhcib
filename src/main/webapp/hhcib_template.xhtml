@@ -12,7 +12,13 @@ charset=UTF-8" />
 	<title>HowHardCouldItBe</title>
 
 	<script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
-	
+
+	<script
+		src="${facesContext.externalContext.requestContextPath}/resources/javascript/jquery-2.0.3.min.js"></script>
+
+	<script
+		src="${facesContext.externalContext.requestContextPath}/resources/javascript/unoSlider.min.js"></script>
+
 	<script type="text/javascript">
 	tinymce.init({
     	selector: "textarea",
@@ -25,6 +31,9 @@ charset=UTF-8" />
 		});
 	</script>
 
+	<link rel="stylesheet"
+		href="${facesContext.externalContext.requestContextPath}/resources/css/unoSlider.min.css"
+		type="text/css" media="screen" />
 	<link
 		href="${facesContext.externalContext.requestContextPath}/resources/css/hhcib.css"
 		rel="stylesheet" type="text/css" />
@@ -65,5 +74,7 @@ charset=UTF-8" />
 			<ui:insert name="content">Template Content</ui:insert>
 		</div>
 	</div>
+
+	
 </h:body>
 </html>

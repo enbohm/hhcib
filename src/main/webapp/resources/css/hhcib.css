@@ -26,10 +26,15 @@
 	margin-top: 1%;
 }
 
-#subject-description {
+#subject-description, #subject-slider {
 	padding: 10px;
-	margin: 1%;
+	margin-top: 5%;
 	border: 1px solid #761A1A;
+}
+
+#subject-slider {
+    width: 70%;
+    margin-left:15%;
 }
 
 #subject-description-input {
