@@ -10,6 +10,7 @@ import javax.persistence.EntityNotFoundException;
 
 import org.bson.types.ObjectId;
 
+import se.enbohms.hhcib.common.PerformanceMonitored;
 import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.service.api.CrudService;
@@ -50,8 +51,11 @@ public class MongoCrudService implements CrudService {
 	}
 
 	/**
-	 * {@inheritDoc} This implementation uses MongoDB as database
+	 * {@inheritDoc}
+	 * <p>
+	 * This implementation uses MongoDB as database
 	 */
+	@PerformanceMonitored
 	public Subject insertSubject(String heading, String description,
 			Category category) {
 		DBCollection coll = db.getCollection(SUBJECT_COLLECTION_NAME);
@@ -68,8 +72,11 @@ public class MongoCrudService implements CrudService {
 	}
 
 	/**
-	 * {@inheritDoc} This implementation uses MongoDB as database
+	 * {@inheritDoc}
+	 * <p>
+	 * This implementation uses MongoDB as database
 	 */
+	@PerformanceMonitored
 	public List<Subject> getSubjectsFor(Category category) {
 		DBCollection coll = db.getCollection(SUBJECT_COLLECTION_NAME);
 
@@ -86,7 +93,10 @@ public class MongoCrudService implements CrudService {
 
 	/**
 	 * {@inheritDoc}
+	 * <p>
+	 * This implementation uses MongoDB as database
 	 */
+	@PerformanceMonitored
 	public void update(Subject subject) {
 		DBCollection collection = db.getCollection(SUBJECT_COLLECTION_NAME);
 		BasicDBObject newDocument = new BasicDBObject();
@@ -103,7 +113,10 @@ public class MongoCrudService implements CrudService {
 
 	/**
 	 * {@inheritDoc}
+	 * <p>
+	 * This implementation uses MongoDB as database
 	 */
+	@PerformanceMonitored
 	public Subject find(String objectID) {
 		DBCollection collection = db.getCollection(SUBJECT_COLLECTION_NAME);
 		BasicDBObject query = new BasicDBObject();
@@ -122,7 +135,10 @@ public class MongoCrudService implements CrudService {
 
 	/**
 	 * {@inheritDoc}
+	 * <p>
+	 * This implementation uses MongoDB as database
 	 */
+	@PerformanceMonitored
 	public void delete(String objectID) {
 		DBCollection collection = db.getCollection(SUBJECT_COLLECTION_NAME);
 		BasicDBObject dbObj = new BasicDBObject();
