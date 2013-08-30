@@ -14,13 +14,12 @@ What needs to be done?
 - Improve social sharing
 - Refactor Facades, add an abstract subject facade
 - Support for users and accounts (i.e login support)
-- Support for supplying a custom connection string to MongoDB (localhost hardcoded today)
+- Support for supplying a custom connection string to MongoDB (MongoHQ URL hardcoded today)
 
 Getting started:
 - Requires Java 7
 - Maven 3.x
 - Git
-- MongoDB 2.4.5 (running at localhost, default settings)
 - A JavaEE 7 compliant application server (tested on Glassfish 4)
 
 
