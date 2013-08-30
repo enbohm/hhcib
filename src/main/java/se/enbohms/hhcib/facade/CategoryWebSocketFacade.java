@@ -34,7 +34,7 @@ public class CategoryWebSocketFacade {
 		peers.add(peer);
 	}
 
-	@Schedule(second = "*/10", minute = "*", hour = "*", info = "Time Event publisher")
+	@Schedule(persistent = false, second = "*/10", minute = "*", hour = "*", info = "Time Event publisher")
 	public void onTimeEvent() {
 		for (Session peer : peers) {
 			try {
