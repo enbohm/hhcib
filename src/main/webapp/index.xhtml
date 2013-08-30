@@ -7,6 +7,7 @@
 
 		<ui:define name="content">
 			<h:outputScript library="javascript" name="slider.js" target="head" />
+			<h:outputScript library="javascript" name="websocket.js" target="head" />
 				
 Välkommen till HurSvårtKanDeVa.se - sajten för alla hemmafixare och proffs! Här kan du...
 		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 
@@ -15,23 +16,31 @@ Välkommen till HurSvårtKanDeVa.se - sajten för alla hemmafixare och proffs! H
 		
 		<div id="subject-slider">
 				<ul>
-					<li class="current">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-		aliquip ex ea commodo consequat.Välkommen till HurSvårtKanDeVa.se - sajten för alla hemmafixare och proffs! Här kan du...
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 
-		labore et dolore magna aliqua.</li>
+					<li class="current" id="current">Ut enim ad minim veniam, quis nostrud
+						exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat.Välkommen till HurSvårtKanDeVa.se - sajten för alla
+						hemmafixare och proffs! Här kan du... Lorem ipsum dolor sit amet,
+						consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+						labore et dolore magna aliqua.</li>
 					<li>HUr svårt kan det vara att bygga en sajt som denna?</li>
-					<li>Välkommen till HurSvårtKanDeVa.se - sajten för alla hemmafixare och proffs! Här kan du...
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 
-		labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-		aliquip ex ea commodo consequat.Välkommen till HurSvårtKanDeVa.se - sajten för alla hemmafixare och proffs! Här kan du...
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 
-		labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-		aliquip ex ea commodo consequat.Välkommen till HurSvårtKanDeVa.se - sajten för alla hemmafixare och proffs! Här kan du...
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut 
-		labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut 
-		aliquip ex ea commodo consequat.</li>
+					<li>Välkommen till HurSvårtKanDeVa.se - sajten för alla
+						hemmafixare och proffs! Här kan du... Lorem ipsum dolor sit amet,
+						consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+						labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+						nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat.Välkommen till HurSvårtKanDeVa.se - sajten för alla
+						hemmafixare och proffs! Här kan du... Lorem ipsum dolor sit amet,
+						consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+						labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+						nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat.Välkommen till HurSvårtKanDeVa.se - sajten för alla
+						hemmafixare och proffs! Här kan du... Lorem ipsum dolor sit amet,
+						consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+						labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+						nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat.</li>
 				</ul>
-			</div>
+			</div>		
 		</ui:define>
 	</ui:composition>
 </h:body>
