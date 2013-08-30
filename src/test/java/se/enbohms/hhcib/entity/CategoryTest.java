@@ -14,12 +14,12 @@ import org.junit.Test;
  */
 public class CategoryTest {
 
-	private static final int ENOUGh_RANDOM = 50;
+	private static final int ENOUGH_RANDOM = 50;
 
 	@Test
 	public void should_return_randon_category() throws Exception {
 		List<Category> randomCategories = new ArrayList<>();
-		for (int i = 0; i < ENOUGh_RANDOM; i++) {
+		for (int i = 0; i < ENOUGH_RANDOM; i++) {
 			randomCategories.add(Category.getRandom());
 		}
 

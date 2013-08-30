@@ -8,62 +8,52 @@ import java.util.List;
 import javax.persistence.EntityNotFoundException;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
 
-import com.mongodb.DB;
-import com.mongodb.MongoClient;
-
 public class MongoCrudServiceTest {
 
 	private static final String UPDATED_DESCRIPTION = "Updated Description";
+	private MongoCrudService crudService;
 
 	@Before
 	public void setUp() throws UnknownHostException {
-		MongoClient mongoClient = new MongoClient();
-		DB db = mongoClient.getDB("hhcib");
-		db.getCollection("subject").drop();
+		crudService = new MongoCrudService();
+		crudService.initDB();
 	}
 
 	@Test
-	@Ignore("until is can run on cloudbees")
 	public void should_insert_and_return_object_in_db() throws Exception {
 		// given
-		MongoCrudService service = new MongoCrudService();
-		service.initDB();
-		service.insertSubject("a heading goes here",
+		Subject subject = crudService.insertSubject("a heading goes here",
 				"a description goes here...", Category.FOOD);
 
 		// when
-		List<Subject> result = service.getSubjectsFor(Category.FOOD);
+		List<Subject> result = crudService.getSubjectsFor(Category.FOOD);
 
 		// then
 		assertThat(result).isNotEmpty();
-		assertThat(result.get(0).getCategory()).isEqualTo(Category.FOOD);
+		assertThat(subject.getId()).isNotNull();
+		// assertThat(result.get(0).getCategory()).isEqualTo(Category.FOOD);
 	}
 
 	@Test
-	@Ignore("until is can run on cloudbees")
 	public void should_update_object_in_db() throws Exception {
 		// given
-		MongoCrudService service = new MongoCrudService();
-		service.initDB();
-		service.insertSubject("a heading goes here",
-				"a description goes here...", Category.FOOD);
-
-		Subject existingSubject = service.getSubjectsFor(Category.FOOD).get(0);
+		Subject existingSubject = crudService.insertSubject(
+				"a heading goes here", "a description goes here...",
+				Category.FOOD);
 
 		// when
 		existingSubject.setRating(5d);
 		existingSubject.setDescription(UPDATED_DESCRIPTION);
 
-		service.update(existingSubject);
+		crudService.update(existingSubject);
 
 		// then
-		Subject result = service.find(existingSubject.getId());
+		Subject result = crudService.find(existingSubject.getId());
 		assertThat(result).isNotNull();
 		assertThat(result.getRating().doubleValue()).isEqualTo(5d);
 		assertThat(result.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
@@ -71,17 +61,28 @@ public class MongoCrudServiceTest {
 	}
 
 	@Test(expected = EntityNotFoundException.class)
-	@Ignore("until is can run on cloudbees")
 	public void should_throw_exception_when_object_not_found_in_db()
 			throws Exception {
-		// given
-		MongoCrudService service = new MongoCrudService();
-		service.initDB();
-
 		// when
-		service.find("000000000000000000000099");
+		crudService.find("000000000000000000000099");
 
 		// then
 		// exception should be thrown
+	}
+
+	@Test
+	public void should_delete_object_in_db() throws Exception {
+		// given
+		Subject subject = crudService.insertSubject("a heading goes here",
+				"a description goes here...", Category.FOOD);
+
+		int sizeBefore = crudService.getSubjectsFor(Category.FOOD).size();
+
+		// when
+		crudService.delete(subject.getId());
+		int sizeAfter = crudService.getSubjectsFor(Category.FOOD).size();
+
+		// then
+		assertThat(sizeAfter).isLessThan(sizeBefore);
 	}
 }

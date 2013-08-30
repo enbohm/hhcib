@@ -28,7 +28,11 @@ import com.mongodb.MongoClient;
 @Singleton
 public class MongoCrudService implements CrudService {
 
-	private static final String HHCIB_DB = "hhcib";
+	private static final int MONGO_DB_PORT = 10041;
+	private static final String MONGO_DB_URL = "paulo.mongohq.com";
+	private static final String HHCIB_DB = "RdbIrCfawkRwew7GqwZYw";// name from
+																	// MongoHQ
+																	// DaPAAS
 	private static final String SUBJECT_COLLECTION_NAME = "subject";
 	private DB db = null;
 
@@ -36,8 +40,9 @@ public class MongoCrudService implements CrudService {
 	public void initDB() {
 		MongoClient mongoClient;
 		try {
-			mongoClient = new MongoClient();
+			mongoClient = new MongoClient(MONGO_DB_URL, MONGO_DB_PORT);
 			db = mongoClient.getDB(HHCIB_DB);
+			db.authenticate("enbohm", "enbohm".toCharArray());
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 			throw new RuntimeException(e);
@@ -47,7 +52,7 @@ public class MongoCrudService implements CrudService {
 	/**
 	 * {@inheritDoc} This implementation uses MongoDB as database
 	 */
-	public void insertSubject(String heading, String description,
+	public Subject insertSubject(String heading, String description,
 			Category category) {
 		DBCollection coll = db.getCollection(SUBJECT_COLLECTION_NAME);
 
@@ -57,6 +62,9 @@ public class MongoCrudService implements CrudService {
 				.append(Subject.CREATED_BY, "enbohm");
 
 		coll.insert(doc);
+
+		return Subject.of(doc.get(Subject.ID).toString(), heading, description,
+				Double.valueOf(0d), category);
 	}
 
 	/**
@@ -74,6 +82,52 @@ public class MongoCrudService implements CrudService {
 		} finally {
 			cursor.close();
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public void update(Subject subject) {
+		DBCollection collection = db.getCollection(SUBJECT_COLLECTION_NAME);
+		BasicDBObject newDocument = new BasicDBObject();
+
+		newDocument.append("$set",
+				new BasicDBObject().append(Subject.RATING, subject.getRating())
+						.append(Subject.DESCRIPTION, subject.getDescription()));
+
+		ObjectId objectId = new ObjectId(subject.getId());
+		BasicDBObject searchQuery = new BasicDBObject(Subject.ID, objectId);
+
+		collection.update(searchQuery, newDocument);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public Subject find(String objectID) {
+		DBCollection collection = db.getCollection(SUBJECT_COLLECTION_NAME);
+		BasicDBObject query = new BasicDBObject();
+		query.put("_id", new ObjectId(objectID));
+		DBObject dbObj = collection.findOne(query);
+
+		if (dbObj != null) {
+			return Subject.of(dbObj.get(Subject.ID).toString(),
+					dbObj.get(Subject.HEADING).toString(),
+					dbObj.get(Subject.DESCRIPTION).toString(),
+					getRatingFrom(dbObj), getCategoryFrom(dbObj));
+		}
+		throw new EntityNotFoundException("Could not find object with id "
+				+ objectID + " in DB");
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public void delete(String objectID) {
+		DBCollection collection = db.getCollection(SUBJECT_COLLECTION_NAME);
+		BasicDBObject dbObj = new BasicDBObject();
+		dbObj.put("_id", new ObjectId(objectID));
+		collection.remove(dbObj);
 	}
 
 	private List<Subject> fetchResults(DBCursor cursor) {
@@ -99,33 +153,4 @@ public class MongoCrudService implements CrudService {
 		return rating;
 	}
 
-	public void update(Subject subject) {
-		DBCollection collection = db.getCollection(SUBJECT_COLLECTION_NAME);
-		BasicDBObject newDocument = new BasicDBObject();
-
-		newDocument.append("$set",
-				new BasicDBObject().append(Subject.RATING, subject.getRating())
-						.append(Subject.DESCRIPTION, subject.getDescription()));
-
-		ObjectId objectId = new ObjectId(subject.getId());
-		BasicDBObject searchQuery = new BasicDBObject(Subject.ID, objectId);
-
-		collection.update(searchQuery, newDocument);
-	}
-
-	public Subject find(String objectID) {
-		DBCollection collection = db.getCollection(SUBJECT_COLLECTION_NAME);
-		BasicDBObject query = new BasicDBObject();
-		query.put("_id", new ObjectId(objectID));
-		DBObject dbObj = collection.findOne(query);
-
-		if (dbObj != null) {
-			return Subject.of(dbObj.get(Subject.ID).toString(),
-					dbObj.get(Subject.HEADING).toString(),
-					dbObj.get(Subject.DESCRIPTION).toString(),
-					getRatingFrom(dbObj), getCategoryFrom(dbObj));
-		}
-		throw new EntityNotFoundException("Could not find object with id "
-				+ objectID + " in DB");
-	}
 }

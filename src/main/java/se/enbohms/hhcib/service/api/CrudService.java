@@ -25,8 +25,9 @@ public interface CrudService {
 	 * @param heading
 	 * @param description
 	 * @param category
+	 * @return the newly created subject
 	 */
-	void insertSubject(String heading, String description, Category category);
+	Subject insertSubject(String heading, String description, Category category);
 
 	/**
 	 * Updates a current subject in the DB
@@ -39,9 +40,17 @@ public interface CrudService {
 	 * Find a subject in the database from the supplied objectId or throws
 	 * {@link EntityNotFoundException} of no match is found
 	 * 
-	 * @param objectID
+	 * @param objectId
 	 * @return a new subject
 	 * @throws EntityNotFoundException
+	 *             - if no subject is found with the supplied objectId
 	 */
-	Subject find(String objectID) throws EntityNotFoundException;
+	Subject find(String objectId) throws EntityNotFoundException;
+
+	/**
+	 * Deletes a subject from the database
+	 * 
+	 * @param objectId
+	 */
+	void delete(String objectId);
 }

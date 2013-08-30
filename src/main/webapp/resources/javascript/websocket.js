@@ -16,12 +16,12 @@ function onOpen() {
 }
 
 function writeToScreen(message) {
-	document.getElementById("current").innerHTML = message;;
+	document.getElementById("current").innerHTML = message;
 }
 
 websocket.onmessage = function(evt) { onMessage(evt) };
                 
 function onMessage(evt) {
-    console.log("received: " + evt.data);
+    //console.log("received: " + evt.data);
     writeToScreen(evt.data);
 }
