@@ -2,16 +2,28 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <body>
 	<ui:composition>
-		<ul id="navigation">
-			<li id="home"><a
-				href="${facesContext.externalContext.requestContextPath}">Hem</a></li>
-			<li><a
-				href="${facesContext.externalContext.requestContextPath}/categories/subjects_in_category.xhtml?category=HOUSE_AND_GARDEN">Hushåll</a></li>
-			<li><a
-				href="${facesContext.externalContext.requestContextPath}/categories/subjects_in_category.xhtml?category=FOOD">Matlagning</a></li>
-			<li><a
-				href="${facesContext.externalContext.requestContextPath}/categories/subjects_in_category.xhtml?category=ECONOMY">Ekonomi</a></li>
-		</ul>
+
+		<div id='cssmenu'>
+			<ul>
+				<li class='active'><a href='${facesContext.externalContext.requestContextPath}/'><span>Hem</span></a></li>
+				<li class='has-sub'><a href='#'><span>Hushåll</span></a>
+					<ul>
+						<li><a
+							href="${facesContext.externalContext.requestContextPath}/categories/subjects_in_category.xhtml?category=HOUSE_AND_GARDEN"><span>underkategory 1</span></a></li>
+						<li><a
+							href="${facesContext.externalContext.requestContextPath}/categories/subjects_in_category.xhtml?category=HOUSE_AND_GARDEN"><span>underkategory 2</span></a></li>
+					</ul></li>
+				<li class='has-sub'><a href='#'><span>Ekonomi</span></a>
+					<ul>
+						<li><a
+							href="${facesContext.externalContext.requestContextPath}/categories/subjects_in_category.xhtml?category=ECONOMY"><span>underkategory 1</span></a></li>
+						<li class='last'><a
+							href="${facesContext.externalContext.requestContextPath}/categories/subjects_in_category.xhtml?category=ECONOMY"><span>underkategory 2</span></a></li>
+					</ul></li>
+				<li class='last'><a href='#'><span>Kontakta oss</span></a></li>
+			</ul>
+		</div>
+
 	</ui:composition>
 </body>
 </html>

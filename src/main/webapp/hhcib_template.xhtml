@@ -11,26 +11,6 @@
 charset=UTF-8" />
 	<title>HowHardCouldItBe</title>
 
-	<script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
-
-	<script
-		src="${facesContext.externalContext.requestContextPath}/resources/javascript/jquery-2.0.3.min.js"></script>
-
-	<script
-		src="${facesContext.externalContext.requestContextPath}/resources/javascript/unoSlider.min.js"></script>
-
-	<script type="text/javascript">
-	tinymce.init({
-    	selector: "textarea",
-    	plugins: [
-        	"advlist autolink lists link image charmap print preview anchor",
-        	"searchreplace visualblocks code fullscreen",
-        	"insertdatetime media table contextmenu paste "
-    	],
-    	toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
-		});
-	</script>
-
 	<link rel="stylesheet"
 		href="${facesContext.externalContext.requestContextPath}/resources/css/unoSlider.min.css"
 		type="text/css" media="screen" />
@@ -40,6 +20,23 @@ charset=UTF-8" />
 	<link
 		href="${facesContext.externalContext.requestContextPath}/resources/css/hhcib_print.css"
 		rel="stylesheet" type="text/css" media="print" />
+
+	<link
+		href="${facesContext.externalContext.requestContextPath}/resources/css/hhcib_menu.css"
+		rel="stylesheet" type="text/css" />
+
+	<script src='http://code.jquery.com/jquery-latest.min.js'></script>
+
+	<script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+
+	<script
+		src="${facesContext.externalContext.requestContextPath}/resources/javascript/unoSlider.min.js"></script>
+
+	<script
+		src="${facesContext.externalContext.requestContextPath}/resources/javascript/menu.js"></script>
+
+	<script type="text/javascript" src="${facesContext.externalContext.requestContextPath}/resources/javascript/tinymce.js">
+	</script>
 
 </h:head>
 

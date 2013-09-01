@@ -10,7 +10,7 @@
 
 #left {
 	float: left;
-	width: 15%;
+	width: 20%;
 	overflow: hidden;
 }
 
@@ -34,7 +34,7 @@
 
 #subject-slider {
     width: 70%;
-    margin-left:15%;
+    margin-left:10%;
     height: 250px;
 }
 
