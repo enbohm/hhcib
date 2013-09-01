@@ -3,10 +3,10 @@
 <body>
 	<ui:composition template="/hhcib_template.xhtml">
 		<ui:define name="content">
-             <ui:decorate template="/subject/show_subjects_in_category.xhtml">
-				<ui:param name="category" value="HOUSE_AND_GARDEN" />
+			<ui:decorate template="/subject/show_subjects_in_category.xhtml">
+				<ui:param name="category" value="#{param['category']}" />
 			</ui:decorate>
-        </ui:define>
+		</ui:define>
 	</ui:composition>
 </body>
 </html>

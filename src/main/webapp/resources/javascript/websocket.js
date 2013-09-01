@@ -1,4 +1,6 @@
 var wsUri = "ws://" + document.location.host + document.location.pathname + "hhcibWebSocketSliderFacade";
+//var wsUri = "ws://hhcib-app.enbohm.cloudbees.net/hhcib/app/hhcibWebSocketSliderFacade";
+
 var websocket = new WebSocket(wsUri);
 
 websocket.onerror = function(evt) { onError(evt) };
