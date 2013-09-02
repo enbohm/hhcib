@@ -29,7 +29,6 @@ public class UpdateSubjectFacade implements Serializable {
 	private String subjectId;
 	private Subject subject;
 	private String category;
-	private Double rating = Double.valueOf(0d);
 
 	@Inject
 	private CrudService service;
@@ -47,7 +46,7 @@ public class UpdateSubjectFacade implements Serializable {
 	}
 
 	public Double getRating() {
-		return rating;
+		return subject.getRating();
 	}
 
 	public void setSubjectId(String subjectId) {
@@ -59,8 +58,7 @@ public class UpdateSubjectFacade implements Serializable {
 	}
 
 	public void setRating(Double rating) {
-		this.rating = rating;
-
+		this.subject.setRating(rating);
 	}
 
 	/**
