@@ -59,7 +59,6 @@ public class MongoCrudService implements CrudService {
 	public Subject insertSubject(String heading, String description,
 			Category category) {
 		DBCollection coll = db.getCollection(SUBJECT_COLLECTION_NAME);
-
 		BasicDBObject doc = new BasicDBObject(Subject.CATEGORY,
 				category.toString()).append(Subject.HEADING, heading)
 				.append(Subject.DESCRIPTION, description)
@@ -83,7 +82,8 @@ public class MongoCrudService implements CrudService {
 		BasicDBObject searchQuery = new BasicDBObject(Subject.CATEGORY,
 				category.toString());
 
-		DBCursor cursor = coll.find(searchQuery);
+		DBObject descendingOrder = new BasicDBObject("rating", -1d);
+		DBCursor cursor = coll.find(searchQuery).sort(descendingOrder);
 		try {
 			return fetchResults(cursor);
 		} finally {

@@ -26,38 +26,51 @@ public class MongoCrudServiceTest {
 
 	@Test
 	public void should_insert_and_return_object_in_db() throws Exception {
-		// given
-		Subject subject = crudService.insertSubject("a heading goes here",
-				"a description goes here...", Category.FOOD);
+		Subject subject = null;
+		try {
+			// given
+			subject = crudService.insertSubject("a heading goes here",
+					"a description goes here...", Category.FOOD);
 
-		// when
-		List<Subject> result = crudService.getSubjectsFor(Category.FOOD);
+			// when
+			List<Subject> result = crudService.getSubjectsFor(Category.FOOD);
 
-		// then
-		assertThat(result).isNotEmpty();
-		assertThat(subject.getId()).isNotNull();
-		// assertThat(result.get(0).getCategory()).isEqualTo(Category.FOOD);
+			// then
+			assertThat(result).isNotEmpty();
+			assertThat(subject.getId()).isNotNull();
+			assertThat(result.get(0).getCategory()).isEqualTo(Category.FOOD);
+		} finally {
+			if (subject != null) {
+				crudService.delete(subject.getId());
+			}
+		}
 	}
 
 	@Test
 	public void should_update_object_in_db() throws Exception {
-		// given
-		Subject existingSubject = crudService.insertSubject(
-				"a heading goes here", "a description goes here...",
-				Category.FOOD);
+		Subject existingSubject = null;
+		try {
+			// given
+			existingSubject = crudService.insertSubject("a heading goes here",
+					"a description goes here...", Category.FOOD);
 
-		// when
-		existingSubject.setRating(5d);
-		existingSubject.setDescription(UPDATED_DESCRIPTION);
+			// when
+			existingSubject.setRating(5d);
+			existingSubject.setDescription(UPDATED_DESCRIPTION);
 
-		crudService.update(existingSubject);
+			crudService.update(existingSubject);
 
-		// then
-		Subject result = crudService.find(existingSubject.getId());
-		assertThat(result).isNotNull();
-		assertThat(result.getRating().doubleValue()).isEqualTo(5d);
-		assertThat(result.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-		assertThat(result.getCategory()).isEqualTo(Category.FOOD);
+			// then
+			Subject result = crudService.find(existingSubject.getId());
+			assertThat(result).isNotNull();
+			assertThat(result.getRating().doubleValue()).isEqualTo(5d);
+			assertThat(result.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+			assertThat(result.getCategory()).isEqualTo(Category.FOOD);
+		} finally {
+			if (existingSubject != null) {
+				crudService.delete(existingSubject.getId());
+			}
+		}
 	}
 
 	@Test(expected = EntityNotFoundException.class)
