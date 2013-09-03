@@ -21,7 +21,9 @@ public class MongoCrudServiceTest {
 	@Before
 	public void setUp() throws UnknownHostException {
 		crudService = new MongoCrudService();
-		crudService.initDB();
+		MongoDBInitiator dbInitiator = new MongoDBInitiator();
+		dbInitiator.initDB();
+		crudService.setDBInitiator(dbInitiator);
 	}
 
 	@Test

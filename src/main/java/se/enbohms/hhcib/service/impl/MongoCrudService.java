@@ -1,11 +1,11 @@
 package se.enbohms.hhcib.service.impl;
 
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
+import javax.ejb.DependsOn;
 import javax.ejb.Singleton;
+import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 
 import org.bson.types.ObjectId;
@@ -16,38 +16,26 @@ import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.service.api.CrudService;
 
 import com.mongodb.BasicDBObject;
-import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
-import com.mongodb.MongoClient;
 
 /**
  * The MongoDB implementation of the HHCIB {@link CrudService}
  * 
  */
 @Singleton
+@DependsOn("MongoDBInitiator")
 public class MongoCrudService implements CrudService {
 
-	private static final int MONGO_DB_PORT = 10041;
-	private static final String MONGO_DB_URL = "paulo.mongohq.com";
-	private static final String HHCIB_DB = "RdbIrCfawkRwew7GqwZYw";// name from
-																	// MongoHQ
-																	// DaPAAS
 	private static final String SUBJECT_COLLECTION_NAME = "subject";
-	private DB db = null;
 
-	@PostConstruct
-	public void initDB() {
-		MongoClient mongoClient;
-		try {
-			mongoClient = new MongoClient(MONGO_DB_URL, MONGO_DB_PORT);
-			db = mongoClient.getDB(HHCIB_DB);
-			db.authenticate("enbohm", "enbohm".toCharArray());
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-			throw new RuntimeException(e);
-		}
+	private MongoDBInitiator mongoDBInitiator;
+
+	@Inject
+	public void setDBInitiator(MongoDBInitiator initiator) {
+		this.mongoDBInitiator = initiator;
+
 	}
 
 	/**
@@ -58,7 +46,8 @@ public class MongoCrudService implements CrudService {
 	@PerformanceMonitored
 	public Subject insertSubject(String heading, String description,
 			Category category) {
-		DBCollection coll = db.getCollection(SUBJECT_COLLECTION_NAME);
+		DBCollection coll = mongoDBInitiator.getMongoDB().getCollection(
+				SUBJECT_COLLECTION_NAME);
 		BasicDBObject doc = new BasicDBObject(Subject.CATEGORY,
 				category.toString()).append(Subject.HEADING, heading)
 				.append(Subject.DESCRIPTION, description)
@@ -77,7 +66,8 @@ public class MongoCrudService implements CrudService {
 	 */
 	@PerformanceMonitored
 	public List<Subject> getSubjectsFor(Category category) {
-		DBCollection coll = db.getCollection(SUBJECT_COLLECTION_NAME);
+		DBCollection coll = mongoDBInitiator.getMongoDB().getCollection(
+				SUBJECT_COLLECTION_NAME);
 
 		BasicDBObject searchQuery = new BasicDBObject(Subject.CATEGORY,
 				category.toString());
@@ -98,7 +88,8 @@ public class MongoCrudService implements CrudService {
 	 */
 	@PerformanceMonitored
 	public void update(Subject subject) {
-		DBCollection collection = db.getCollection(SUBJECT_COLLECTION_NAME);
+		DBCollection collection = mongoDBInitiator.getMongoDB().getCollection(
+				SUBJECT_COLLECTION_NAME);
 		BasicDBObject newDocument = new BasicDBObject();
 
 		newDocument.append("$set",
@@ -118,7 +109,8 @@ public class MongoCrudService implements CrudService {
 	 */
 	@PerformanceMonitored
 	public Subject find(String objectID) {
-		DBCollection collection = db.getCollection(SUBJECT_COLLECTION_NAME);
+		DBCollection collection = mongoDBInitiator.getMongoDB().getCollection(
+				SUBJECT_COLLECTION_NAME);
 		BasicDBObject query = new BasicDBObject();
 		query.put("_id", new ObjectId(objectID));
 		DBObject dbObj = collection.findOne(query);
@@ -140,7 +132,8 @@ public class MongoCrudService implements CrudService {
 	 */
 	@PerformanceMonitored
 	public void delete(String objectID) {
-		DBCollection collection = db.getCollection(SUBJECT_COLLECTION_NAME);
+		DBCollection collection = mongoDBInitiator.getMongoDB().getCollection(
+				SUBJECT_COLLECTION_NAME);
 		BasicDBObject dbObj = new BasicDBObject();
 		dbObj.put("_id", new ObjectId(objectID));
 		collection.remove(dbObj);
