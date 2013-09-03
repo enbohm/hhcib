@@ -14,10 +14,6 @@
 		<filter-name>LoginFilter</filter-name>
 		<filter-class>se.enbohms.hhcib.filter.LoginFilter</filter-class>
 	</filter>
-	<filter-mapping>
-		<filter-name>LoginFilter</filter-name>
-		<url-pattern>/secured/*</url-pattern>
-	</filter-mapping>
 
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
@@ -43,8 +39,7 @@
 	</servlet-mapping>
 	<context-param>
 		<param-name>
-			javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL
-		</param-name>
+			javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
 		<param-value>true</param-value>
 	</context-param>
 </web-app>

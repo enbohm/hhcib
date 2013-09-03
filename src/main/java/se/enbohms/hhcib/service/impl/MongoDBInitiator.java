@@ -32,6 +32,10 @@ public class MongoDBInitiator {
 		}
 	}
 
+	/**
+	 * 
+	 * @return a {@link DB} instance (only one per VM)
+	 */
 	public DB getMongoDB() {
 		return db;
 	}
