@@ -3,19 +3,24 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html">
 
 <h:body>
-	<p>Login to access secure pages:</p>
-	<h:messages />
-	<h:form id="loginForm">
-		<h:panelGrid columns="2">
-			<h:outputLabel for="username" value="Username:" />
-			<h:inputText id="username" value="#{loginFacade.username}" />
+	<ui:composition template="/hhcib_template.xhtml">
 
-			<h:outputLabel for="password" value="Password:" />
-			<h:inputSecret id="password" value="#{loginFacade.password}" />
+		<ui:define name="content">
+			<p>Login to access secure pages:</p>
+			<h:messages />
+			<h:form id="loginForm">
+				<h:panelGrid columns="2">
+					<h:outputLabel for="username" value="Username:" />
+					<h:inputText id="username" value="#{loginFacade.username}" />
 
-			<h:commandButton id="loginButton" value="Login"
-				action="#{loginFacade.login}" />
-		</h:panelGrid>
-	</h:form>
+					<h:outputLabel for="password" value="Password:" />
+					<h:inputSecret id="password" value="#{loginFacade.password}" />
+
+					<h:commandButton id="loginButton" value="Login"
+						action="#{loginFacade.login}" />
+				</h:panelGrid>
+			</h:form>
+		</ui:define>
+	</ui:composition>
 </h:body>
 </html>
