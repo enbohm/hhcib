@@ -1,5 +1,7 @@
 package se.enbohms.hhcib.service.api;
 
+import se.enbohms.hhcib.entity.User;
+
 /**
  * Describes the various method needed for logging in/out users
  * 
@@ -7,14 +9,15 @@ package se.enbohms.hhcib.service.api;
 public interface LoginService {
 
 	/**
-	 * Logs in a user
+	 * Logs in a user.
 	 * 
 	 * @param userName
 	 * @param password
+	 * @return the logged in user
 	 * @throws UserAuthenticationException
 	 *             if authentication fails
 	 */
-	public void login(String userName, String password)
+	public User login(String userName, String password)
 			throws UserAuthenticationException;
 
 	/**

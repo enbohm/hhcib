@@ -5,6 +5,7 @@ import javax.ejb.Singleton;
 import javax.inject.Inject;
 
 import se.enbohms.hhcib.common.PerformanceMonitored;
+import se.enbohms.hhcib.entity.User;
 import se.enbohms.hhcib.service.api.LoginService;
 import se.enbohms.hhcib.service.api.UserAuthenticationException;
 
@@ -22,7 +23,7 @@ public class MongoDBLoginService implements LoginService {
 	private MongoDBInitiator dbInitiator;
 
 	@PerformanceMonitored
-	public void login(String userName, String password)
+	public User login(String userName, String password)
 			throws UserAuthenticationException {
 		DBCollection collection = dbInitiator.getMongoDB().getCollection(
 				USER_COLLECTION_NAME);
@@ -31,12 +32,13 @@ public class MongoDBLoginService implements LoginService {
 		DBObject dbObj = collection.findOne(query);
 
 		if (dbObj != null) {
-			
+
 			if (!dbObj.get("password").toString().equals(password)) {
-				
+
 			}
 
 		}
+		return null;
 	}
 
 	public void logout() {
