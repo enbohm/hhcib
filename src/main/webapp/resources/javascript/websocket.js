@@ -1,5 +1,4 @@
 var wsUri = "ws://" + document.location.host + "/hhcib/hhcibWebSocketSliderFacade";
-//var wsUri = "ws://hhcib-app.enbohm.cloudbees.net/hhcib/app/hhcibWebSocketSliderFacade";
 
 var websocket = new WebSocket(wsUri);
 

@@ -1,25 +1,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html">
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:body>
 	<ui:composition template="/hhcib_template.xhtml">
 
 		<ui:define name="content">
-			<p>Login to access secure pages:</p>
-			<h:messages />
-			<h:form id="loginForm">
-				<h:panelGrid columns="2">
-					<h:outputLabel for="username" value="Username:" />
-					<h:inputText id="username" value="#{loginFacade.username}" />
+			<div id="login-form">
 
-					<h:outputLabel for="password" value="Password:" />
-					<h:inputSecret id="password" value="#{loginFacade.password}" />
+				<h:form id="loginForm">
+					<h:panelGrid columns="1">
+						<h:inputText id="username" value="#{loginFacade.username}"
+							p:placeholder="användarnamn" />
+						<h:inputSecret id="password" value="#{loginFacade.password}"
+							p:placeholder="lösenord" />
+						<h:commandButton id="loginButton" value="Login"
+							action="#{loginFacade.login}" />
+					</h:panelGrid>
+				</h:form>
+				<span style="display: block"><a href="reset_password.xhtml"
+					id="forgot-password">Glömt lösenord?</a></span> <a href="#"
+					id="create-account">Skapa konto</a>
 
-					<h:commandButton id="loginButton" value="Login"
-						action="#{loginFacade.login}" />
-				</h:panelGrid>
-			</h:form>
+				<h:messages errorStyle="color:red;" />
+			</div>
 		</ui:define>
 	</ui:composition>
 </h:body>
