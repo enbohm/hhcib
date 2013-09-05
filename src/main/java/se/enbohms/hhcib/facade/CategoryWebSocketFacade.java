@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
@@ -23,6 +24,9 @@ import se.enbohms.hhcib.service.api.CrudService;
 @ServerEndpoint("/hhcibWebSocketSliderFacade")
 public class CategoryWebSocketFacade {
 
+	private final static Logger LOG = Logger
+			.getLogger(CategoryWebSocketFacade.class.getName());
+
 	private static Set<Session> peers = Collections
 			.synchronizedSet(new HashSet<Session>());
 
@@ -39,8 +43,8 @@ public class CategoryWebSocketFacade {
 		for (Session peer : peers) {
 			try {
 
-				List<Subject> subjects = crudService
-						.getSubjectsFor(Category.getRandom());
+				List<Subject> subjects = crudService.getSubjectsFor(Category
+						.getRandom());
 				Random random = new Random();
 				peer.getBasicRemote().sendText(
 						subjects.get(random.nextInt(subjects.size()))
@@ -53,7 +57,7 @@ public class CategoryWebSocketFacade {
 
 	@OnClose
 	public void onClose(Session peer) {
-		System.out.println("closing web socket connection....");
+		LOG.info("closing web socket connection");
 		peers.remove(peer);
 	}
 }

@@ -44,7 +44,6 @@ public class ShowSubjectFacade implements Serializable {
 	}
 
 	public void setSubjectId(String subjectId) {
-		System.out.println("****subject id " +subjectId);
 		this.subjectId = subjectId;
 	}
 
@@ -57,7 +56,6 @@ public class ShowSubjectFacade implements Serializable {
 	 * category (parameters from the Http Request)
 	 */
 	public void fetchSubject() {
-		System.out.println("******Fetch subjec " +subjectId);
 		this.subject = service.find(subjectId);
 	}
 }
