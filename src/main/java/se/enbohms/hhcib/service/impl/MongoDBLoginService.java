@@ -5,6 +5,7 @@ import javax.ejb.Singleton;
 import javax.inject.Inject;
 
 import se.enbohms.hhcib.common.PerformanceMonitored;
+import se.enbohms.hhcib.entity.Email;
 import se.enbohms.hhcib.entity.User;
 import se.enbohms.hhcib.service.api.LoginService;
 import se.enbohms.hhcib.service.api.UserAuthenticationException;
@@ -32,13 +33,12 @@ public class MongoDBLoginService implements LoginService {
 		DBObject dbObj = collection.findOne(query);
 
 		if (dbObj != null) {
-
-			if (!dbObj.get("password").toString().equals(password)) {
-
-			}
+			// TODO: Validato pwd
+			return User.creteUser(userName,
+					Email.of((String) dbObj.get("email")));
 
 		}
-		return null;
+		throw new UserAuthenticationException();
 	}
 
 	public void logout() {

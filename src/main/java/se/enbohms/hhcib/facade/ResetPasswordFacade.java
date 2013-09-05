@@ -1,5 +1,7 @@
 package se.enbohms.hhcib.facade;
 
+import java.io.Serializable;
+
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -11,9 +13,14 @@ import javax.validation.constraints.NotNull;
 import se.enbohms.hhcib.entity.Email;
 import se.enbohms.hhcib.service.impl.UserService;
 
+/**
+ * Facade which handles the case when uses has forgotten his password
+ */
 @Named
 @RequestScoped
-public class ResetPasswordFacade {
+public class ResetPasswordFacade implements Serializable {
+
+	private static final long serialVersionUID = -1712331748877385330L;
 
 	@NotNull(message = "E-post får inte vara tomt")
 	private String email;
