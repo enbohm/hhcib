@@ -13,8 +13,10 @@ What needs to be done?
 - Application.properties file (maybe CDI to inject properties)
 - Improve social sharing
 - Refactor Facades, add an abstract subject facade
-- Support for users and accounts (i.e login support)
+- My Pages needs functionality like changing passwords and deleting (own) subjects.
 - Support for supplying a custom connection string to MongoDB (MongoHQ URL hardcoded today)
+- Voting handling must be improved, you must not be able to vote on your own subjects.
+- A admin page
 
 Getting started:
 - Requires Java 7
