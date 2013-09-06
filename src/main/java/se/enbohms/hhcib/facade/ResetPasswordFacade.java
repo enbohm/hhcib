@@ -38,12 +38,21 @@ public class ResetPasswordFacade implements Serializable {
 		this.email = email;
 	}
 
+	/**
+	 * Handles JSF ajax event
+	 * 
+	 * @param event
+	 */
 	public void emailChanged(AjaxBehaviorEvent event) {
-		try {
+		if (correctEmail()) {
 			setValid(userService.existing(Email.of(getEmail())));
-		} catch (IllegalArgumentException e) {
+		} else {
 			setValid(false);
 		}
+	}
+
+	private boolean correctEmail() {
+		return getEmail() != null && getEmail().contains("@");
 	}
 
 	public boolean isValid() {
