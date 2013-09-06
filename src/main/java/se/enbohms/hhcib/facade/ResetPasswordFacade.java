@@ -2,10 +2,10 @@ package se.enbohms.hhcib.facade;
 
 import java.io.Serializable;
 
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
@@ -17,7 +17,7 @@ import se.enbohms.hhcib.service.impl.UserServiceUtil;
  * Facade which handles the case when uses has forgotten his password
  */
 @Named
-@RequestScoped
+@ViewScoped
 public class ResetPasswordFacade implements Serializable {
 
 	private static final long serialVersionUID = -1712331748877385330L;
@@ -55,21 +55,33 @@ public class ResetPasswordFacade implements Serializable {
 	}
 
 	public void resetPassword() {
-		if (userService.existing(Email.of(getEmail()))) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_INFO,
-							"Ett nytt lösenord har skickas med E-post",
-							"Ett nytt lösenord har skickas med E-post"));
-		} else {
-			FacesContext
-					.getCurrentInstance()
-					.addMessage(
-							null,
-							new FacesMessage(
-									FacesMessage.SEVERITY_ERROR,
-									"Angivet lösenord kan inte hittas, vänligen kontrollera.",
-									"Angivet lösenord kan inte hittas, vänligen kontrollera."));
+		try {
+			if (userService.existing(Email.of(getEmail()))) {
+				resetEmail();
+			} else {
+				handleEmailNotFound();
+			}
+		} catch (IllegalArgumentException e) {
+			handleEmailNotFound();
 		}
+	}
+
+	private void handleEmailNotFound() {
+		FacesContext
+				.getCurrentInstance()
+				.addMessage(
+						null,
+						new FacesMessage(
+								FacesMessage.SEVERITY_ERROR,
+								"Angivet lösenord kan inte hittas, vänligen kontrollera.",
+								"Angivet lösenord kan inte hittas, vänligen kontrollera."));
+	}
+
+	private void resetEmail() {
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Ett nytt lösenord har skickas med E-post",
+						"Ett nytt lösenord har skickas med E-post"));
 	}
 }

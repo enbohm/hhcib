@@ -23,7 +23,7 @@ public class UserServiceUtil {
 	public boolean existing(Email email) {
 		return userEmails.contains(email);
 	}
-
+	
 	public void setUserEmails(List<Email> userEmails) {
 		this.userEmails = userEmails;
 	}
