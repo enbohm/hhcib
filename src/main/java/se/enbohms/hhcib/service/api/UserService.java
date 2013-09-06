@@ -1,12 +1,13 @@
 package se.enbohms.hhcib.service.api;
 
+import se.enbohms.hhcib.entity.Email;
 import se.enbohms.hhcib.entity.User;
 
 /**
  * Describes the various method needed for logging in/out users
  * 
  */
-public interface LoginService {
+public interface UserService {
 
 	/**
 	 * Logs in a user.
@@ -17,12 +18,18 @@ public interface LoginService {
 	 * @throws UserAuthenticationException
 	 *             if authentication fails
 	 */
-	public User login(String userName, String password)
+	User login(String userName, String password)
 			throws UserAuthenticationException;
 
 	/**
-	 * Logs out the current logged in user
+	 * Creates a new user with the supplied information
+	 * 
+	 * @param userName
+	 * @param email
+	 * @param password
+	 * @return a new user instance
 	 */
-	public void logout();
+	User createUser(String userName, Email email, String password);
 
+	void delete(User user) throws UserNotFoundException;
 }

@@ -44,7 +44,7 @@ public class MongoCrudService implements CrudService {
 	 * This implementation uses MongoDB as database
 	 */
 	@PerformanceMonitored
-	public Subject insertSubject(String heading, String description,
+	public Subject createSubject(String heading, String description,
 			Category category) {
 		DBCollection coll = mongoDBInitiator.getMongoDB().getCollection(
 				SUBJECT_COLLECTION_NAME);

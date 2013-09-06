@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 
 import se.enbohms.hhcib.common.Constants;
 import se.enbohms.hhcib.entity.User;
-import se.enbohms.hhcib.service.api.LoginService;
+import se.enbohms.hhcib.service.api.UserService;
 import se.enbohms.hhcib.service.api.UserAuthenticationException;
 
 @Named
@@ -32,7 +32,7 @@ public class LoginFacade implements Serializable {
 	private String password;
 
 	@Inject
-	private LoginService loginService;
+	private UserService loginService;
 
 	/**
 	 * Invalidated the HttpSession and redirect to the start page

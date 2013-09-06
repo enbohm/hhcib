@@ -9,26 +9,27 @@ import javax.validation.constraints.Size;
  * 
  */
 public class Subject {
-	private String id;
-	private String heading;
 	
-	@NotNull
-	@Size(min = 10)
-	private String description;
-	
-	private Double rating = new Double(0d);
-	private Category category;
-
-	public Category getCategory() {
-		return category;
-	}
-
 	public static final String ID = "_id";
 	public static final String HEADING = "heading";
 	public static final String DESCRIPTION = "description";
 	public static final String RATING = "rating";
 	public static final String CATEGORY = "category";
 	public static final String CREATED_BY = "created_by";
+
+	private String id;
+	private String heading;
+
+	@NotNull
+	@Size(min = 10)
+	private String description;
+
+	private Double rating = new Double(0d);
+	private Category category;
+
+	public Category getCategory() {
+		return category;
+	}
 
 	private Subject(String id, String heading, String description,
 			Double rating, Category category) {

@@ -27,7 +27,7 @@ public interface CrudService {
 	 * @param category
 	 * @return the newly created subject
 	 */
-	Subject insertSubject(String heading, String description, Category category);
+	Subject createSubject(String heading, String description, Category category);
 
 	/**
 	 * Updates a current subject in the DB

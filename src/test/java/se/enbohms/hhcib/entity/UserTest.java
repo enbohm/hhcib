@@ -9,25 +9,28 @@ import org.junit.Test;
  */
 public class UserTest {
 
+	private static final String ID = "id";
 	private static final String USER_NAME = "username";
 	private static final Email EMAIL = Email.of("email@email.com");
 
 	@Test
 	public void should_create_admin_user() throws Exception {
-		User adminUser = User.creteAdminUser(USER_NAME, EMAIL);
+		User adminUser = User.creteAdminUser(ID, USER_NAME, EMAIL);
 
 		assertThat(adminUser.getGroup()).isEqualTo(Group.ADMINISTRATOR);
 		assertThat(adminUser.getUserName()).isEqualTo(USER_NAME);
 		assertThat(adminUser.getEmail()).isEqualTo(EMAIL);
+		assertThat(adminUser.getId()).isEqualTo(ID);
 	}
 
 	@Test
 	public void should_create_default_user() throws Exception {
-		User user = User.creteUser(USER_NAME, EMAIL);
+		User user = User.creteUser(ID, USER_NAME, EMAIL);
 
 		assertThat(user.getGroup()).isEqualTo(Group.DEFAULT_USER);
 		assertThat(user.getUserName()).isEqualTo(USER_NAME);
 		assertThat(user.getEmail()).isEqualTo(EMAIL);
+		assertThat(user.getId()).isEqualTo(ID);
 
 	}
 }

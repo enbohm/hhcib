@@ -1,17 +1,23 @@
 package se.enbohms.hhcib.entity;
 
 /**
- * Represents a logged in user
- * 
+ * Represents a in user in HHCIB domain.
  * 
  */
 public class User {
 
+	public static final String ID = "_id";
+	public static final String EMAIL = "email";
+	public static final String USERNAME = "username";
+	public static final String PASSWORD = "password";
+
+	private String id;
 	private String userName;
 	private Email email;
 	private Group group;
 
-	private User(String userName, Email email, Group group) {
+	private User(String id, String userName, Email email, Group group) {
+		this.id = id;
 		this.userName = userName;
 		this.email = email;
 		this.group = group;
@@ -20,23 +26,27 @@ public class User {
 	/**
 	 * Factory method which create administrator users
 	 * 
+	 * @param id
 	 * @param userName
 	 * @param email
+	 * 
 	 * @return a new user with administrator privileges
 	 */
-	public static User creteAdminUser(String userName, Email email) {
-		return new User(userName, email, Group.ADMINISTRATOR);
+	public static User creteAdminUser(String id, String userName, Email email) {
+		return new User(id, userName, email, Group.ADMINISTRATOR);
 	}
 
 	/**
 	 * Factory method which create default/ordinary users
 	 * 
+	 * @param id
 	 * @param userName
 	 * @param email
+	 * 
 	 * @return a new user
 	 */
-	public static User creteUser(String userName, Email email) {
-		return new User(userName, email, Group.DEFAULT_USER);
+	public static User creteUser(String id, String userName, Email email) {
+		return new User(id, userName, email, Group.DEFAULT_USER);
 	}
 
 	public String getUserName() {
@@ -49,5 +59,9 @@ public class User {
 
 	public Group getGroup() {
 		return group;
+	}
+
+	public String getId() {
+		return id;
 	}
 }

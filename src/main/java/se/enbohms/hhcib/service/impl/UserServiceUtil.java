@@ -11,7 +11,7 @@ import se.enbohms.hhcib.entity.Email;
 
 @Singleton
 @Startup
-public class UserService {
+public class UserServiceUtil {
 
 	private List<Email> userEmails = new ArrayList<>();
 

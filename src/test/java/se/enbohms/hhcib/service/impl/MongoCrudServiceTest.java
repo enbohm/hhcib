@@ -31,7 +31,7 @@ public class MongoCrudServiceTest {
 		Subject subject = null;
 		try {
 			// given
-			subject = crudService.insertSubject("a heading goes here",
+			subject = crudService.createSubject("a heading goes here",
 					"a description goes here...", Category.FOOD);
 
 			// when
@@ -53,7 +53,7 @@ public class MongoCrudServiceTest {
 		Subject existingSubject = null;
 		try {
 			// given
-			existingSubject = crudService.insertSubject("a heading goes here",
+			existingSubject = crudService.createSubject("a heading goes here",
 					"a description goes here...", Category.FOOD);
 
 			// when
@@ -88,7 +88,7 @@ public class MongoCrudServiceTest {
 	@Test
 	public void should_delete_object_in_db() throws Exception {
 		// given
-		Subject subject = crudService.insertSubject("a heading goes here",
+		Subject subject = crudService.createSubject("a heading goes here",
 				"a description goes here...", Category.FOOD);
 
 		int sizeBefore = crudService.getSubjectsFor(Category.FOOD).size();

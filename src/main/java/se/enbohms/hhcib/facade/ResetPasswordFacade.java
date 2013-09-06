@@ -11,7 +11,7 @@ import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 
 import se.enbohms.hhcib.entity.Email;
-import se.enbohms.hhcib.service.impl.UserService;
+import se.enbohms.hhcib.service.impl.UserServiceUtil;
 
 /**
  * Facade which handles the case when uses has forgotten his password
@@ -28,7 +28,7 @@ public class ResetPasswordFacade implements Serializable {
 	private boolean valid = true;
 
 	@Inject
-	private UserService userService;
+	private UserServiceUtil userService;
 
 	public String getEmail() {
 		return email;
