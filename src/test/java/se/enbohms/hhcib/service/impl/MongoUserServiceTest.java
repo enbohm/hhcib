@@ -6,20 +6,23 @@ import java.net.UnknownHostException;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import se.enbohms.hhcib.entity.Email;
+import se.enbohms.hhcib.entity.IntegrationTest;
 import se.enbohms.hhcib.entity.User;
 
 /**
- * Test client for the {@link MongoDBUserService}
+ * Test client for the {@link MongoUserService}
  */
-public class MongoDBUserServiceTest {
+@Category(IntegrationTest.class)
+public class MongoUserServiceTest {
 
-	private MongoDBUserService userService;
+	private MongoUserService userService;
 
 	@Before
 	public void setUp() throws UnknownHostException {
-		userService = new MongoDBUserService();
+		userService = new MongoUserService();
 		MongoDBInitiator dbInitiator = new MongoDBInitiator();
 		dbInitiator.initDB();
 		userService.setDBInitiator(dbInitiator);
@@ -35,14 +38,14 @@ public class MongoDBUserServiceTest {
 			// then
 			assertThat(user.getId()).isNotEmpty();
 			assertThat(user.getId().length()).isGreaterThan(10);
-			
+
 		} finally {
 			if (user != null) {
 				userService.delete(user);
 			}
 		}
 	}
-	
+
 	@Test
 	public void should_create_login_and_delete_a_user() throws Exception {
 		User user = null;
@@ -50,14 +53,15 @@ public class MongoDBUserServiceTest {
 			// when
 			user = userService.createUser("test", Email.of("test@test.com"),
 					"password");
-			
-			User loggedInUser = userService.login("test","password");
-			
+
+			User loggedInUser = userService.login("test", "password");
+
 			// then
 			assertThat(loggedInUser).isNotNull();
-			assertThat(loggedInUser.getEmail().getEmail()).isEqualTo("test@test.com");
+			assertThat(loggedInUser.getEmail().getEmail()).isEqualTo(
+					"test@test.com");
 			assertThat(loggedInUser.getId()).isEqualTo(user.getId());
-			
+
 		} finally {
 			if (user != null) {
 				userService.delete(user);

@@ -11,8 +11,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import se.enbohms.hhcib.entity.Category;
+import se.enbohms.hhcib.entity.IntegrationTest;
 import se.enbohms.hhcib.entity.Subject;
 
+/**
+ * Test client for the {@link MongoCrudService}
+ */
+@org.junit.experimental.categories.Category(IntegrationTest.class)
 public class MongoCrudServiceTest {
 
 	private static final String UPDATED_DESCRIPTION = "Updated Description";

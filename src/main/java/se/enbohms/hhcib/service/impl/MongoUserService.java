@@ -22,7 +22,7 @@ import com.mongodb.DBObject;
  */
 @Singleton
 @DependsOn("MongoDBInitiator")
-public class MongoDBUserService implements UserService {
+public class MongoUserService implements UserService {
 
 	private static final String USER_COLLECTION_NAME = "user";
 
