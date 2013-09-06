@@ -48,12 +48,16 @@ public class MongoDBUserService implements UserService {
 		DBObject dbObj = collection.findOne(query);
 
 		if (dbObj != null
-				&& (password.equals(dbObj.get(User.PASSWORD).toString()))) {
+				&& (password.equals(passwordFromDB(dbObj)))) {
 			return User.creteUser(dbObj.get(User.ID).toString(), userName,
 					Email.of((String) dbObj.get("email")));
 		}
 
 		throw new UserAuthenticationException();
+	}
+
+	private String passwordFromDB(DBObject dbObj) {
+		return dbObj.get(User.PASSWORD).toString();
 	}
 
 	/**
