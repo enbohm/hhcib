@@ -2,10 +2,10 @@ package se.enbohms.hhcib.facade;
 
 import java.io.Serializable;
 
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
@@ -17,7 +17,7 @@ import se.enbohms.hhcib.service.impl.UserServiceUtil;
  * Facade which handles the case when uses has forgotten his password
  */
 @Named
-@ViewScoped
+@RequestScoped
 public class ResetPasswordFacade implements Serializable {
 
 	private static final long serialVersionUID = -1712331748877385330L;
@@ -64,13 +64,9 @@ public class ResetPasswordFacade implements Serializable {
 	}
 
 	public void resetPassword() {
-		try {
-			if (userService.existing(Email.of(getEmail()))) {
-				resetEmail();
-			} else {
-				handleEmailNotFound();
-			}
-		} catch (IllegalArgumentException e) {
+		if (correctEmail() && userService.existing(Email.of(getEmail()))) {
+			resetEmail();
+		} else {
 			handleEmailNotFound();
 		}
 	}
