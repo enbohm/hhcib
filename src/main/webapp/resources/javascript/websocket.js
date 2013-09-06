@@ -1,4 +1,4 @@
-var wsUri = "ws://" + document.location.host + "/hhcib/hhcibWebSocketSliderFacade";
+var wsUri = "ws://" + document.location.host + "/hhcib/webSocketSliderFacade";
 
 var websocket = new WebSocket(wsUri);
 

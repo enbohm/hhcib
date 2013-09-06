@@ -21,7 +21,7 @@ import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.service.api.CrudService;
 
 @Singleton
-@ServerEndpoint("/hhcibWebSocketSliderFacade")
+@ServerEndpoint("/webSocketSliderFacade")
 public class CategoryWebSocketFacade {
 
 	private final static Logger LOG = Logger
