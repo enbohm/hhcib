@@ -23,6 +23,7 @@ public class ResetPasswordFacade implements Serializable {
 	private static final long serialVersionUID = -1712331748877385330L;
 
 	@NotNull(message = "E-post får inte vara tomt")
+	@se.enbohms.hhcib.entity.validator.Email(message = "E-post är inte giltigt")
 	private String email;
 
 	private boolean valid = true;
@@ -63,8 +64,12 @@ public class ResetPasswordFacade implements Serializable {
 		this.valid = valid;
 	}
 
+	/**
+	 * Resets the password for a user (i.e. send a new one to the supplied email
+	 * address)
+	 */
 	public void resetPassword() {
-		if (correctEmail() && userService.existing(Email.of(getEmail()))) {
+		if (userService.existing(Email.of(getEmail()))) {
 			resetEmail();
 		} else {
 			handleEmailNotFound();

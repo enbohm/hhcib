@@ -14,8 +14,9 @@ import javax.validation.constraints.NotNull;
 
 import se.enbohms.hhcib.common.Constants;
 import se.enbohms.hhcib.entity.User;
-import se.enbohms.hhcib.service.api.UserService;
+import se.enbohms.hhcib.entity.validator.NotNullOrEmpty;
 import se.enbohms.hhcib.service.api.UserAuthenticationException;
+import se.enbohms.hhcib.service.api.UserService;
 
 @Named
 @RequestScoped
@@ -25,7 +26,7 @@ public class LoginFacade implements Serializable {
 
 	private static Logger LOG = Logger.getLogger(LoginFacade.class.getName());
 
-	@NotNull(message = "Fyll i ett användarnamn")
+	@NotNullOrEmpty(message = "Fyll i ett användarnamn")
 	private String username;
 
 	@NotNull(message = "Fyll i ett lösenord")

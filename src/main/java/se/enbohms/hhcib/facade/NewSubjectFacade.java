@@ -7,11 +7,11 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
+import se.enbohms.hhcib.entity.validator.NotNullOrEmpty;
 import se.enbohms.hhcib.service.api.CrudService;
 
 /**
@@ -26,7 +26,7 @@ public class NewSubjectFacade implements Serializable {
 
 	private String category;
 
-	@NotNull
+	@NotNullOrEmpty(message = "Beskrivingen kan inte vara tom")
 	@Size(min = 10)
 	private String description;
 

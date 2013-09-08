@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:body>
+	<ui:composition template="/hhcib_template.xhtml">
+
+		<ui:define name="content">
+			<div id="signup">
+				<h:form id="signup">
+					<span style="display: block;">Skapa nytt konto</span>
+					<h:inputText id="username" value="#{signUpFacade.userName}"
+						p:placeholder="Användarnamn" style="display: block;">
+					</h:inputText>
+					<h:inputText id="email" value="#{signUpFacade.email}"
+						p:placeholder="E-post" style="display: block;">
+					</h:inputText>
+					<h:inputSecret id="password" value="#{signUpFacade.password}"
+						p:placeholder="Lösenord" style="display: block;"
+						p:autocomplete="off">
+					</h:inputSecret>
+				
+
+					<h:commandButton value="Skapa konto" p:class="button"
+						action="#{signUpFacade.signUp()}" />
+					<h:messages errorStyle="color:red;" />
+				</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
