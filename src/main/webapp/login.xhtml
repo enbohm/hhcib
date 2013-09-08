@@ -10,13 +10,13 @@
 		<ui:define name="content">
 			<div id="login-form">
 
-				<h:form id="loginForm">
+				<h:form id="login-form">
 					<h:panelGrid columns="1">
 						<h:inputText id="username" value="#{loginFacade.username}"
 							p:placeholder="användarnamn" />
 						<h:inputSecret id="password" value="#{loginFacade.password}"
 							p:placeholder="lösenord" />
-						<h:commandButton id="loginButton" value="Login"
+						<h:commandButton id="loginButton" value="Login" p:class="button"
 							action="#{loginFacade.login}" />
 					</h:panelGrid>
 				</h:form>

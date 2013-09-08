@@ -18,7 +18,11 @@
 						p:placeholder="E-post" style="display: block;">
 					</h:inputText>
 					<h:inputSecret id="password" value="#{signUpFacade.password}"
-						p:placeholder="Lösenord" style="display: block;"
+						p:placeholder="Lösenord (min 4 tecken)" style="display: block;"
+						p:autocomplete="off">
+					</h:inputSecret>
+					<h:inputSecret id="repeatedPassword" value="#{signUpFacade.repeatedPassword}"
+						p:placeholder="Lösenord (repetera)" style="display: block;"
 						p:autocomplete="off">
 					</h:inputSecret>
 				

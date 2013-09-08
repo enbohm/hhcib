@@ -53,6 +53,10 @@
 	float: right;
 }
 
+#login-form {
+	margin-bottom : 1%;
+}
+
 .button {
 	margin-left: 1%;
 	text-decoration: none;

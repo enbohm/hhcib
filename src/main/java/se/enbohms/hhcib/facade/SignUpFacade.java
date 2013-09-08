@@ -32,6 +32,8 @@ public class SignUpFacade implements Serializable {
 	@Size(min = 4, max = 50, message = "Lösenord måste var minst 4 tecken långt")
 	private String password;
 
+	private String repeatedPassword;
+
 	@Inject
 	private UserService loginService;
 
@@ -39,16 +41,19 @@ public class SignUpFacade implements Serializable {
 	 * Creates a new user with the supplied username, email and password
 	 */
 	public void signUp() {
-		try {
-			Email validEmail = Email.of(email);
-			loginService.createUser(userName, validEmail, password);
+		if (!password.equals(repeatedPassword)) {
+			addPasswordDiffersMessage();
+		} else {
+			loginService.createUser(userName, Email.of(email), password);
 			addSuccessMesssage();
-		} catch (IllegalArgumentException e) {
-			FacesContext.getCurrentInstance().addMessage(
-					null,
-					new FacesMessage(FacesMessage.SEVERITY_ERROR,
-							"Ogiltig e-post", null));
 		}
+	}
+
+	private void addPasswordDiffersMessage() {
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_ERROR,
+						"Lösenorden skiljer sig åt", null));
 	}
 
 	private void addSuccessMesssage() {
@@ -80,5 +85,13 @@ public class SignUpFacade implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRepeatedPassword() {
+		return repeatedPassword;
+	}
+
+	public void setRepeatedPassword(String repeatedPassword) {
+		this.repeatedPassword = repeatedPassword;
 	}
 }
