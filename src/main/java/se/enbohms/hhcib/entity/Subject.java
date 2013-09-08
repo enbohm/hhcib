@@ -1,7 +1,8 @@
 package se.enbohms.hhcib.entity;
 
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import se.enbohms.hhcib.entity.validator.NotNullOrEmpty;
 
 /**
  * Represents an actual subject with its corresponding 'How-to'-description
@@ -9,7 +10,7 @@ import javax.validation.constraints.Size;
  * 
  */
 public class Subject {
-	
+
 	public static final String ID = "_id";
 	public static final String HEADING = "heading";
 	public static final String DESCRIPTION = "description";
@@ -20,7 +21,7 @@ public class Subject {
 	private String id;
 	private String heading;
 
-	@NotNull
+	@NotNullOrEmpty(message = "Beskrivning kan inte vara tom")
 	@Size(min = 10)
 	private String description;
 
