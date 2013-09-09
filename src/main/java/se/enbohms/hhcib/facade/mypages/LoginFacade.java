@@ -1,4 +1,4 @@
-package se.enbohms.hhcib.facade;
+package se.enbohms.hhcib.facade.mypages;
 
 import java.io.Serializable;
 import java.util.logging.Logger;
