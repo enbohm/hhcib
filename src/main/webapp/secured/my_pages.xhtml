@@ -9,7 +9,7 @@
 	<f:view encoding="UTF-8">
 		<ui:composition template="/hhcib_template.xhtml">
 			<ui:define name="content">
-				Välkommen!
+				Välkommen #{loggedInUserFacade.loggedInUser.userName}!
 				<h:form id="logout-form">
 					<h:commandLink value="Logga ut" action="#{loginFacade.logout}" />
 				</h:form>
