@@ -7,6 +7,7 @@ import java.util.Arrays;
 import org.junit.Test;
 
 import se.enbohms.hhcib.entity.Email;
+import se.enbohms.hhcib.service.api.UserCreatedEvent;
 
 /**
  * Test client for the {@link UserServiceUtil}
@@ -46,7 +47,7 @@ public class UserServiceUtilTest {
 	public void should_inform_when_username_is_not_unique() throws Exception {
 		// given
 		UserServiceUtil service = new UserServiceUtil();
-		service.setUserNames(Arrays.asList(USERNAME));
+		service.addUserName(UserCreatedEvent.of(USERNAME));
 
 		// when
 		boolean result = service.unique(USERNAME);
@@ -54,12 +55,12 @@ public class UserServiceUtilTest {
 		// then
 		assertThat(result).isFalse();
 	}
-	
+
 	@Test
 	public void should_inform_when_username_is_unique() throws Exception {
 		// given
 		UserServiceUtil service = new UserServiceUtil();
-		service.setUserNames(Arrays.asList(USERNAME));
+		service.addUserName(UserCreatedEvent.of(USERNAME));
 
 		// when
 		boolean result = service.unique(ANOTHER_USERNAME);

@@ -51,9 +51,19 @@ public class SignUpFacade implements Serializable {
 		if (!password.equals(repeatedPassword)) {
 			addPasswordDiffersMessage();
 		} else {
-			loginService.createUser(userName, Email.of(email), password);
-			addSuccessMesssage();
+			handleCreateUser();
 		}
+	}
+
+	protected void handleCreateUser() {
+		loginService.createUser(userName, Email.of(email), password);
+		addSuccessMesssage();
+		resetForm();
+	}
+
+	protected void resetForm() {
+		setUserName(null);
+		setEmail(null);
 	}
 
 	/**
@@ -75,21 +85,24 @@ public class SignUpFacade implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_ERROR,
-						"Användarnamnet är upptaget", null));
+						"Användarnamnet är upptaget",
+						"Användarnamnet är upptaget"));
 	}
 
 	private void addPasswordDiffersMessage() {
 		FacesContext.getCurrentInstance().addMessage(
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_ERROR,
-						"Lösenorden skiljer sig åt", null));
+						"Lösenorden skiljer sig åt",
+						"Lösenorden skiljer sig åt"));
 	}
 
 	private void addSuccessMesssage() {
 		FacesContext.getCurrentInstance().addMessage(
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"En ny användare har skapats", null));
+						"En ny användare har skapats",
+						"En ny användare har skapats"));
 	}
 
 	public String getUserName() {

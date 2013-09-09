@@ -2,25 +2,34 @@ package se.enbohms.hhcib.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
 import se.enbohms.hhcib.entity.Email;
+import se.enbohms.hhcib.service.api.UserCreatedEvent;
 import se.enbohms.hhcib.service.api.UserService;
 
+/**
+ * Contains various util methods for handling users
+ */
 @Singleton
 @Startup
 public class UserServiceUtil {
+
+	private final static Logger LOG = Logger.getLogger(UserServiceUtil.class
+			.getName());
 
 	private List<Email> userEmails = new ArrayList<>();
 	private List<String> userNames = new ArrayList<>();
 
 	@Inject
 	private UserService userService;
-	
+
 	@PostConstruct
 	private void init() {
 		userEmails.add(Email.of("admin@admin.com"));
@@ -50,7 +59,14 @@ public class UserServiceUtil {
 		this.userEmails = userEmails;
 	}
 
-	public void setUserNames(List<String> userNames) {
-		this.userNames = userNames;
+	/**
+	 * Adds a new username existing usernames when a {@link UserCreatedEvent} occurs
+	 * 
+	 * @param userCreatedEvent
+	 */
+	public void addUserName(@Observes UserCreatedEvent userCreatedEvent) {
+		LOG.info("New user created with username "
+				+ userCreatedEvent.getUserName());
+		this.userNames.add(userCreatedEvent.getUserName());
 	}
 }

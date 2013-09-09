@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.DependsOn;
 import javax.ejb.Singleton;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
 import org.bson.types.ObjectId;
@@ -13,6 +14,7 @@ import se.enbohms.hhcib.common.PerformanceMonitored;
 import se.enbohms.hhcib.entity.Email;
 import se.enbohms.hhcib.entity.User;
 import se.enbohms.hhcib.service.api.UserAuthenticationException;
+import se.enbohms.hhcib.service.api.UserCreatedEvent;
 import se.enbohms.hhcib.service.api.UserNotFoundException;
 import se.enbohms.hhcib.service.api.UserService;
 
@@ -31,6 +33,9 @@ public class MongoUserService implements UserService {
 	private static final String USER_COLLECTION_NAME = "user";
 
 	private MongoDBInitiator dbInitiator;
+
+	@Inject
+	private Event<UserCreatedEvent> events;
 
 	@Inject
 	public void setDBInitiator(MongoDBInitiator initiator) {
@@ -77,7 +82,7 @@ public class MongoUserService implements UserService {
 				User.EMAIL, email.getEmail()).append(User.PASSWORD, password);
 
 		collection.insert(doc);
-
+		events.fire(UserCreatedEvent.of(userName));
 		return User.creteUser(doc.get(User.ID).toString(), userName, email);
 	}
 
