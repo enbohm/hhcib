@@ -6,8 +6,10 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.inject.Inject;
 
 import se.enbohms.hhcib.entity.Email;
+import se.enbohms.hhcib.service.api.UserService;
 
 @Singleton
 @Startup
@@ -16,11 +18,13 @@ public class UserServiceUtil {
 	private List<Email> userEmails = new ArrayList<>();
 	private List<String> userNames = new ArrayList<>();
 
+	@Inject
+	private UserService userService;
+	
 	@PostConstruct
 	private void init() {
 		userEmails.add(Email.of("admin@admin.com"));
-		userNames.add("test");
-		userNames.add("admin");
+		userNames.addAll(userService.getUserNames());
 	}
 
 	/**
@@ -49,5 +53,4 @@ public class UserServiceUtil {
 	public void setUserNames(List<String> userNames) {
 		this.userNames = userNames;
 	}
-
 }

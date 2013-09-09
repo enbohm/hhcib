@@ -3,6 +3,7 @@ package se.enbohms.hhcib.service.impl;
 import static org.fest.assertions.Assertions.assertThat;
 
 import java.net.UnknownHostException;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -61,6 +62,26 @@ public class MongoUserServiceTest {
 			assertThat(loggedInUser.getEmail().getEmail()).isEqualTo(
 					"test@test.com");
 			assertThat(loggedInUser.getId()).isEqualTo(user.getId());
+
+		} finally {
+			if (user != null) {
+				userService.delete(user);
+			}
+		}
+	}
+
+	@Test
+	public void should_return_several_user_names() throws Exception {
+		User user = null;
+		try {
+			// when
+			user = userService.createUser("test", Email.of("test@test.com"),
+					"password");
+
+			List<String> userNames = userService.getUserNames();
+
+			// then
+			assertThat(userNames).isNotEmpty();
 
 		} finally {
 			if (user != null) {

@@ -1,5 +1,8 @@
 package se.enbohms.hhcib.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.DependsOn;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
@@ -15,6 +18,7 @@ import se.enbohms.hhcib.service.api.UserService;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 /**
@@ -47,8 +51,7 @@ public class MongoUserService implements UserService {
 		query.put(User.USERNAME, userName);
 		DBObject dbObj = collection.findOne(query);
 
-		if (dbObj != null
-				&& (password.equals(passwordFromDB(dbObj)))) {
+		if (dbObj != null && (password.equals(passwordFromDB(dbObj)))) {
 			return User.creteUser(dbObj.get(User.ID).toString(), userName,
 					Email.of((String) dbObj.get("email")));
 		}
@@ -90,5 +93,30 @@ public class MongoUserService implements UserService {
 		BasicDBObject dbObj = new BasicDBObject();
 		dbObj.put(User.ID, new ObjectId(user.getId()));
 		collection.remove(dbObj);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * <p>
+	 * This implementation fetches all user names from MongoDB
+	 */
+	public List<String> getUserNames() {
+		DBCollection collection = dbInitiator.getMongoDB().getCollection(
+				USER_COLLECTION_NAME);
+		DBCursor cursor = collection.find();
+		try {
+			return fetchResults(cursor);
+		} finally {
+			cursor.close();
+		}
+	}
+
+	private List<String> fetchResults(DBCursor cursor) {
+		List<String> result = new ArrayList<>();
+		while (cursor.hasNext()) {
+			DBObject dbObj = cursor.next();
+			result.add(dbObj.get(User.USERNAME).toString());
+		}
+		return result;
 	}
 }

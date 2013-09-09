@@ -1,5 +1,7 @@
 package se.enbohms.hhcib.service.api;
 
+import java.util.List;
+
 import se.enbohms.hhcib.entity.Email;
 import se.enbohms.hhcib.entity.User;
 
@@ -32,4 +34,6 @@ public interface UserService {
 	User createUser(String userName, Email email, String password);
 
 	void delete(User user) throws UserNotFoundException;
+	
+	List<String> getUserNames();
 }
