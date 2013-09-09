@@ -2,31 +2,43 @@ package se.enbohms.hhcib.service.impl;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-import java.net.UnknownHostException;
 import java.util.List;
 
-import org.junit.Before;
+import javax.inject.Inject;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
+import org.junit.runner.RunWith;
 
 import se.enbohms.hhcib.entity.Email;
 import se.enbohms.hhcib.entity.IntegrationTest;
 import se.enbohms.hhcib.entity.User;
+import se.enbohms.hhcib.service.api.UserService;
 
 /**
  * Test client for the {@link MongoUserService}
  */
 @Category(IntegrationTest.class)
+@RunWith(Arquillian.class)
 public class MongoUserServiceTest {
 
-	private MongoUserService userService;
+	private static final String EMAIL_STRING = "test@test.com";
+	private static final String TEST_USER = "junit_test_user";
 
-	@Before
-	public void setUp() throws UnknownHostException {
-		userService = new MongoUserService();
-		MongoDBInitiator dbInitiator = new MongoDBInitiator();
-		dbInitiator.initDB();
-		userService.setDBInitiator(dbInitiator);
+	@Inject
+	private UserService userService;
+
+	@Deployment
+	public static JavaArchive createDeployment() {
+		return ShrinkWrap.create(JavaArchive.class)
+				.addClass(MongoUserService.class)
+				.addClass(MongoDBInitiator.class)
+				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
 	@Test
@@ -34,7 +46,7 @@ public class MongoUserServiceTest {
 		User user = null;
 		try {
 			// when
-			user = userService.createUser("test", Email.of("test@test.com"),
+			user = userService.createUser(TEST_USER, Email.of(EMAIL_STRING),
 					"password");
 			// then
 			assertThat(user.getId()).isNotEmpty();
@@ -52,15 +64,15 @@ public class MongoUserServiceTest {
 		User user = null;
 		try {
 			// when
-			user = userService.createUser("test", Email.of("test@test.com"),
+			user = userService.createUser(TEST_USER, Email.of(EMAIL_STRING),
 					"password");
 
-			User loggedInUser = userService.login("test", "password");
+			User loggedInUser = userService.login(TEST_USER, "password");
 
 			// then
 			assertThat(loggedInUser).isNotNull();
 			assertThat(loggedInUser.getEmail().getEmail()).isEqualTo(
-					"test@test.com");
+					EMAIL_STRING);
 			assertThat(loggedInUser.getId()).isEqualTo(user.getId());
 
 		} finally {
@@ -75,7 +87,7 @@ public class MongoUserServiceTest {
 		User user = null;
 		try {
 			// when
-			user = userService.createUser("test", Email.of("test@test.com"),
+			user = userService.createUser(TEST_USER, Email.of(EMAIL_STRING),
 					"password");
 
 			List<String> userNames = userService.getUserNames();
