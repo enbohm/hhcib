@@ -64,9 +64,6 @@ public class MongoUserService implements UserService {
 		throw new UserAuthenticationException();
 	}
 
-	private String passwordFromDB(DBObject dbObj) {
-		return dbObj.get(User.PASSWORD).toString();
-	}
 
 	/**
 	 * {@inheritDoc}
@@ -151,5 +148,9 @@ public class MongoUserService implements UserService {
 			result.add(Email.of(dbObj.get(User.EMAIL).toString()));
 		}
 		return result;
+	}
+
+	private String passwordFromDB(DBObject dbObj) {
+		return dbObj.get(User.PASSWORD).toString();
 	}
 }
