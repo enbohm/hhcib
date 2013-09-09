@@ -2,8 +2,6 @@ package se.enbohms.hhcib.service.impl;
 
 import static org.fest.assertions.Assertions.assertThat;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 
 import se.enbohms.hhcib.entity.Email;
@@ -34,7 +32,8 @@ public class UserServiceUtilTest {
 	public void should_inform_that_email_exist() throws Exception {
 		// given
 		UserServiceUtil service = new UserServiceUtil();
-		service.setUserEmails(Arrays.asList(Email.of(EMAIL)));
+		service.addUserInformation(UserCreatedEvent.of(USERNAME,
+				Email.of(EMAIL)));
 
 		// when
 		boolean result = service.existing(Email.of(EMAIL));
@@ -47,7 +46,8 @@ public class UserServiceUtilTest {
 	public void should_inform_when_username_is_not_unique() throws Exception {
 		// given
 		UserServiceUtil service = new UserServiceUtil();
-		service.addUserName(UserCreatedEvent.of(USERNAME));
+		service.addUserInformation(UserCreatedEvent.of(USERNAME,
+				Email.of(EMAIL)));
 
 		// when
 		boolean result = service.unique(USERNAME);
@@ -60,7 +60,8 @@ public class UserServiceUtilTest {
 	public void should_inform_when_username_is_unique() throws Exception {
 		// given
 		UserServiceUtil service = new UserServiceUtil();
-		service.addUserName(UserCreatedEvent.of(USERNAME));
+		service.addUserInformation(UserCreatedEvent.of(USERNAME,
+				Email.of(EMAIL)));
 
 		// when
 		boolean result = service.unique(ANOTHER_USERNAME);

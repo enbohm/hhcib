@@ -32,7 +32,7 @@ public class UserServiceUtil {
 
 	@PostConstruct
 	private void init() {
-		userEmails.add(Email.of("admin@admin.com"));
+		userEmails.addAll(userService.getEmails());
 		userNames.addAll(userService.getUserNames());
 	}
 
@@ -55,18 +55,16 @@ public class UserServiceUtil {
 		return !userNames.contains(userName);
 	}
 
-	public void setUserEmails(List<Email> userEmails) {
-		this.userEmails = userEmails;
-	}
-
 	/**
-	 * Adds a new username existing usernames when a {@link UserCreatedEvent} occurs
+	 * Adds a new username and email to the exiting ones when a
+	 * {@link UserCreatedEvent} occurs
 	 * 
 	 * @param userCreatedEvent
 	 */
-	public void addUserName(@Observes UserCreatedEvent userCreatedEvent) {
+	public void addUserInformation(@Observes UserCreatedEvent userCreatedEvent) {
 		LOG.info("New user created with username "
 				+ userCreatedEvent.getUserName());
 		this.userNames.add(userCreatedEvent.getUserName());
+		this.userEmails.add(userCreatedEvent.getEmail());
 	}
 }

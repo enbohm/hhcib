@@ -82,7 +82,7 @@ public class MongoUserService implements UserService {
 				User.EMAIL, email.getEmail()).append(User.PASSWORD, password);
 
 		collection.insert(doc);
-		events.fire(UserCreatedEvent.of(userName));
+		events.fire(UserCreatedEvent.of(userName, email));
 		return User.creteUser(doc.get(User.ID).toString(), userName, email);
 	}
 
@@ -91,6 +91,7 @@ public class MongoUserService implements UserService {
 	 * <p>
 	 * This implementation deletes a user from the MongoDB
 	 */
+	@PerformanceMonitored
 	public void delete(User user) throws UserNotFoundException {
 		DBCollection collection = dbInitiator.getMongoDB().getCollection(
 				USER_COLLECTION_NAME);
@@ -105,22 +106,49 @@ public class MongoUserService implements UserService {
 	 * <p>
 	 * This implementation fetches all user names from MongoDB
 	 */
+	@PerformanceMonitored
 	public List<String> getUserNames() {
 		DBCollection collection = dbInitiator.getMongoDB().getCollection(
 				USER_COLLECTION_NAME);
 		DBCursor cursor = collection.find();
 		try {
-			return fetchResults(cursor);
+			return fetchUserNames(cursor);
 		} finally {
 			cursor.close();
 		}
 	}
 
-	private List<String> fetchResults(DBCursor cursor) {
+	/**
+	 * {@inheritDoc}
+	 * <p>
+	 * This implementation fetches all user names from MongoDB
+	 */
+	@PerformanceMonitored
+	public List<Email> getEmails() {
+		DBCollection collection = dbInitiator.getMongoDB().getCollection(
+				USER_COLLECTION_NAME);
+		DBCursor cursor = collection.find();
+		try {
+			return fetchEmails(cursor);
+		} finally {
+			cursor.close();
+		}
+	}
+
+	private List<String> fetchUserNames(DBCursor cursor) {
 		List<String> result = new ArrayList<>();
 		while (cursor.hasNext()) {
 			DBObject dbObj = cursor.next();
 			result.add(dbObj.get(User.USERNAME).toString());
+		}
+		return result;
+	}
+
+	private List<Email> fetchEmails(DBCursor cursor) {
+		List<Email> result = new ArrayList<>();
+		while (cursor.hasNext()) {
+			DBObject dbObj = cursor.next();
+			result.add(Email.of(dbObj.get(User.EMAIL).toString()));
 		}
 		return result;
 	}

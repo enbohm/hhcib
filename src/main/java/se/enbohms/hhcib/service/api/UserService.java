@@ -33,7 +33,23 @@ public interface UserService {
 	 */
 	User createUser(String userName, Email email, String password);
 
+	/**
+	 * Removes and existing user from the repository
+	 * 
+	 * @param user
+	 * @throws UserNotFoundException
+	 */
 	void delete(User user) throws UserNotFoundException;
-	
+
+	/**
+	 * 
+	 * @return all usernames that are found in the repository
+	 */
 	List<String> getUserNames();
+
+	/**
+	 * 
+	 * @return all email that are found in the repository
+	 */
+	List<Email> getEmails();
 }
