@@ -37,7 +37,7 @@ public class LoginFilter implements Filter {
 		((HttpServletRequest) request).getSession(true).setAttribute(
 				Constants.TARGET_URL, targetUrl);
 		((HttpServletResponse) response).sendRedirect(contextPath
-				+ "/login.xhtml");
+				+ "/login/login.xhtml");
 	}
 
 	private boolean noUserInSession(ServletRequest request) {
