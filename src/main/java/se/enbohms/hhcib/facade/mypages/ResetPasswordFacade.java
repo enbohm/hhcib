@@ -40,7 +40,7 @@ public class ResetPasswordFacade implements Serializable {
 	}
 
 	/**
-	 * Handles JSF ajax event
+	 * Handles JSF ajax event for determine if supplied email exist
 	 * 
 	 * @param event
 	 */

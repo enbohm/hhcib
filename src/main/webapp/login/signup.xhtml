@@ -2,7 +2,8 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:body>
 	<ui:composition template="/hhcib_template.xhtml">
@@ -11,9 +12,14 @@
 			<div id="signup">
 				<h:form id="signup">
 					<span style="display: block;">Skapa nytt konto</span>
-					<h:inputText id="username" value="#{signUpFacade.userName}"
-						p:placeholder="Användarnamn" style="display: block;">
-					</h:inputText>
+
+					<span id="username-input" style="display: block;"> <h:inputText
+							id="username" value="#{signUpFacade.userName}"
+							p:placeholder="Användarnamn">
+							<f:ajax event="keyup" listener="#{signUpFacade.userNameExist}"
+								render="userCredentials" />
+						</h:inputText>  
+					</span>
 					<h:inputText id="email" value="#{signUpFacade.email}"
 						p:placeholder="E-post" style="display: block;">
 					</h:inputText>
@@ -21,15 +27,16 @@
 						p:placeholder="Lösenord (min 4 tecken)" style="display: block;"
 						p:autocomplete="off">
 					</h:inputSecret>
-					<h:inputSecret id="repeatedPassword" value="#{signUpFacade.repeatedPassword}"
+					<h:inputSecret id="repeatedPassword"
+						value="#{signUpFacade.repeatedPassword}"
 						p:placeholder="Lösenord (repetera)" style="display: block;"
 						p:autocomplete="off">
 					</h:inputSecret>
-				
+
 
 					<h:commandButton value="Skapa konto" p:class="button"
 						action="#{signUpFacade.signUp()}" />
-					<h:messages errorStyle="color:red;" />
+					<h:messages id="userCredentials" errorStyle="color:red;" />
 				</h:form>
 			</div>
 		</ui:define>
