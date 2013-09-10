@@ -15,12 +15,14 @@
 						value="#{newSubjectFacade.category}" required="true" />
 				</f:metadata>
 
+				<ui:param name="user" value="#{loggedInUserFacade.getLoggedInUser()}" />
+				
 				<h:form id="form">
 					<h:inputTextarea value="#{newSubjectFacade.description}"
 						id="new_subject_description" p:class="editable"
 						p:id="subject-description-input" />
 					<h:commandButton value="Spara" p:class="button"
-						action="#{newSubjectFacade.save()}" />
+						action="#{newSubjectFacade.save(user)}" />
 					<h:commandButton value="Rensa" p:class="button"
 						action="#{newSubjectFacade.clear()}" />
 					<h:messages errorStyle="color:red;" />

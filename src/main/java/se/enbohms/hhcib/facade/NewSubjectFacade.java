@@ -11,6 +11,7 @@ import javax.validation.constraints.Size;
 
 import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
+import se.enbohms.hhcib.entity.User;
 import se.enbohms.hhcib.entity.validator.NotNullOrEmpty;
 import se.enbohms.hhcib.service.api.CrudService;
 
@@ -52,9 +53,9 @@ public class NewSubjectFacade implements Serializable {
 	/**
 	 * Saves the new subject description in the database
 	 */
-	public void save() {
+	public void save(User user) {
 		service.createSubject("a heading", this.description,
-				Category.valueOf(this.category), null);
+				Category.valueOf(this.category), user);
 		FacesContext.getCurrentInstance().addMessage(
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO,
