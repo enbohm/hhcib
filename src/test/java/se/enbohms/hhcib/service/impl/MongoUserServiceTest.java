@@ -18,6 +18,8 @@ import org.junit.runner.RunWith;
 import se.enbohms.hhcib.entity.Email;
 import se.enbohms.hhcib.entity.IntegrationTest;
 import se.enbohms.hhcib.entity.User;
+import se.enbohms.hhcib.service.api.UserAuthenticationException;
+import se.enbohms.hhcib.service.api.UserNotFoundException;
 import se.enbohms.hhcib.service.api.UserService;
 
 /**
@@ -39,6 +41,12 @@ public class MongoUserServiceTest {
 				.addClass(MongoUserService.class)
 				.addClass(MongoDBInitiator.class)
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+	}
+
+	@Test(expected = UserAuthenticationException.class)
+	public void should_throw_excsption_when_user_does_not_exist()
+			throws Exception {
+		userService.login("userShouldNotAuthenticate", "no");
 	}
 
 	@Test
@@ -94,6 +102,26 @@ public class MongoUserServiceTest {
 
 			// then
 			assertThat(userNames).isNotEmpty();
+
+		} finally {
+			if (user != null) {
+				userService.delete(user);
+			}
+		}
+	}
+	
+	@Test
+	public void should_return_several_emails() throws Exception {
+		User user = null;
+		try {
+			// when
+			user = userService.createUser(TEST_USER, Email.of(EMAIL_STRING),
+					"password");
+
+			List<Email> emails = userService.getEmails();
+
+			// then
+			assertThat(emails).isNotEmpty();
 
 		} finally {
 			if (user != null) {
