@@ -19,7 +19,6 @@ import se.enbohms.hhcib.entity.Email;
 import se.enbohms.hhcib.entity.IntegrationTest;
 import se.enbohms.hhcib.entity.User;
 import se.enbohms.hhcib.service.api.UserAuthenticationException;
-import se.enbohms.hhcib.service.api.UserNotFoundException;
 import se.enbohms.hhcib.service.api.UserService;
 
 /**
@@ -109,7 +108,7 @@ public class MongoUserServiceTest {
 			}
 		}
 	}
-	
+
 	@Test
 	public void should_return_several_emails() throws Exception {
 		User user = null;
