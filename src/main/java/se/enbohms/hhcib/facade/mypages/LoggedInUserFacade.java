@@ -26,4 +26,13 @@ public class LoggedInUserFacade {
 		return (User) session.getAttribute(Constants.USER);
 	}
 
+	/**
+	 * 
+	 * @return {@code true} is there is an logged in user, {@code false}
+	 *         otherwise
+	 */
+	public boolean isUserLoggedIn() {
+		return getLoggedInUser() != null;
+	}
+
 }

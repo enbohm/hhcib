@@ -2,12 +2,25 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:pf="http://jsf.playerfinder.net/components">
+	xmlns:pf="http://jsf.playerfinder.net/components"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-	<a
-		href="
+	<c:choose>
+		<c:when test="#{loggedInUserFacade.isUserLoggedIn()}">
+			<a
+				href="
 	${facesContext.externalContext.requestContextPath}/subject/new_subject_description.xhtml?category=#{category}"
-		class="button">Lägg till ny beskrivning &gt;&gt;&gt;</a>
+				class="button">Lägg till ny beskrivning &gt;&gt;&gt;</a>
+
+		</c:when>
+		<c:otherwise>
+			<a
+				href="
+	${facesContext.externalContext.requestContextPath}/login/login.xhtml"
+				class="link">Logga in</a> för att lägga till beskrivningar
+		</c:otherwise>
+	</c:choose>
+
 
 	<ui:repeat var="subject"
 		value="#{categoryFacade.getSubjectsFor(category)}">
