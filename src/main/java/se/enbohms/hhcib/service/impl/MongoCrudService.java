@@ -13,6 +13,7 @@ import org.bson.types.ObjectId;
 import se.enbohms.hhcib.common.PerformanceMonitored;
 import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
+import se.enbohms.hhcib.entity.User;
 import se.enbohms.hhcib.service.api.CrudService;
 
 import com.mongodb.BasicDBObject;
@@ -45,18 +46,20 @@ public class MongoCrudService implements CrudService {
 	 */
 	@PerformanceMonitored
 	public Subject createSubject(String heading, String description,
-			Category category) {
+			Category category, User user) {
 		DBCollection coll = mongoDBInitiator.getMongoDB().getCollection(
 				SUBJECT_COLLECTION_NAME);
 		BasicDBObject doc = new BasicDBObject(Subject.CATEGORY,
 				category.toString()).append(Subject.HEADING, heading)
 				.append(Subject.DESCRIPTION, description)
-				.append(Subject.CREATED_BY, "enbohm");
+				.append(Subject.CREATED_BY, user.getUserName());
 
 		coll.insert(doc);
 
-		return Subject.of(doc.get(Subject.ID).toString(), heading, description,
-				Double.valueOf(0d), category);
+		return new Subject.Builder(doc.get(Subject.ID).toString())
+				.heading(heading).description(description)
+				.rating(Double.valueOf(0d)).category(category)
+				.createdBy(user.getUserName()).build();
 	}
 
 	/**
@@ -116,10 +119,13 @@ public class MongoCrudService implements CrudService {
 		DBObject dbObj = collection.findOne(query);
 
 		if (dbObj != null) {
-			return Subject.of(dbObj.get(Subject.ID).toString(),
-					dbObj.get(Subject.HEADING).toString(),
-					dbObj.get(Subject.DESCRIPTION).toString(),
-					getRatingFrom(dbObj), getCategoryFrom(dbObj));
+			return new Subject.Builder(dbObj.get(Subject.ID).toString())
+					.heading(dbObj.get(Subject.HEADING).toString())
+					.description(dbObj.get(Subject.DESCRIPTION).toString())
+					.rating(getRatingFrom(dbObj))
+					.category(getCategoryFrom(dbObj))
+					.createdBy(dbObj.get(Subject.CREATED_BY).toString())
+					.build();
 		}
 		throw new EntityNotFoundException("Could not find object with id "
 				+ objectID + " in DB");
@@ -143,10 +149,13 @@ public class MongoCrudService implements CrudService {
 		List<Subject> result = new ArrayList<>();
 		while (cursor.hasNext()) {
 			DBObject dbObj = cursor.next();
-			result.add(Subject.of(dbObj.get(Subject.ID).toString(),
-					dbObj.get(Subject.HEADING).toString(),
-					dbObj.get(Subject.DESCRIPTION).toString(),
-					getRatingFrom(dbObj), getCategoryFrom(dbObj)));
+			result.add(new Subject.Builder(dbObj.get(Subject.ID).toString())
+					.heading(dbObj.get(Subject.HEADING).toString())
+					.description(dbObj.get(Subject.DESCRIPTION).toString())
+					.rating(getRatingFrom(dbObj))
+					.category(getCategoryFrom(dbObj))
+					.createdBy(dbObj.get(Subject.CREATED_BY).toString())
+					.build());
 		}
 		return result;
 	}

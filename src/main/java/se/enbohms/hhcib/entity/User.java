@@ -64,4 +64,10 @@ public class User {
 	public String getId() {
 		return id;
 	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", userName=" + userName + ", email=" + email
+				+ ", group=" + group + "]";
+	}
 }

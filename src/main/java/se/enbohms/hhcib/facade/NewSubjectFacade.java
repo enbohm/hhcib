@@ -54,7 +54,7 @@ public class NewSubjectFacade implements Serializable {
 	 */
 	public void save() {
 		service.createSubject("a heading", this.description,
-				Category.valueOf(this.category));
+				Category.valueOf(this.category), null);
 		FacesContext.getCurrentInstance().addMessage(
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO,

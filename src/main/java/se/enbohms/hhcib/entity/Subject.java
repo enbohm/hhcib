@@ -28,6 +28,8 @@ public class Subject {
 	private Double rating = new Double(0d);
 	private Category category;
 
+	private String createdBy;
+
 	public Category getCategory() {
 		return category;
 	}
@@ -41,9 +43,50 @@ public class Subject {
 		this.category = category;
 	}
 
-	public static Subject of(String id, String heading, String description,
-			Double rating, Category category) {
-		return new Subject(id, heading, description, rating, category);
+	private Subject() {
+	}
+
+	public static class Builder {
+		private Subject subject;
+
+		public Builder(String id) {
+			subject = new Subject();
+			subject.id = id;
+		}
+
+		public Builder heading(String heading) {
+			subject.heading = heading;
+			return this;
+		}
+
+		public Builder description(String description) {
+			subject.description = description;
+			return this;
+		}
+
+		public Builder rating(Double rating) {
+			subject.rating = rating;
+			return this;
+		}
+
+		public Builder category(Category category) {
+			subject.category = category;
+			return this;
+		}
+
+		public Builder createdBy(String userName) {
+			subject.createdBy = userName;
+			return this;
+		}
+
+		/**
+		 * Build the new {@link Subject} object
+		 * 
+		 * @return a new instance of {@link Subject}
+		 */
+		public Subject build() {
+			return subject;
+		}
 	}
 
 	public String getId() {
@@ -70,9 +113,14 @@ public class Subject {
 		this.description = description;
 	}
 
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
 	@Override
 	public String toString() {
 		return "Subject [id=" + id + ", heading=" + heading + ", description="
-				+ description + ", rating=" + rating + "]";
+				+ description + ", rating=" + rating + ", category=" + category
+				+ ", createdBy=" + createdBy + "]";
 	}
 }

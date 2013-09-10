@@ -7,6 +7,7 @@ import javax.persistence.EntityNotFoundException;
 
 import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
+import se.enbohms.hhcib.entity.User;
 
 @Local
 public interface CrudService {
@@ -25,9 +26,12 @@ public interface CrudService {
 	 * @param heading
 	 * @param description
 	 * @param category
+	 * @param user
+	 *            TODO
 	 * @return the newly created subject
 	 */
-	Subject createSubject(String heading, String description, Category category);
+	Subject createSubject(String heading, String description,
+			Category category, User user);
 
 	/**
 	 * Updates a current subject in the DB

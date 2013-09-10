@@ -13,6 +13,7 @@ import org.junit.Test;
 import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.IntegrationTest;
 import se.enbohms.hhcib.entity.Subject;
+import se.enbohms.hhcib.entity.User;
 
 /**
  * Test client for the {@link MongoCrudService}
@@ -20,7 +21,10 @@ import se.enbohms.hhcib.entity.Subject;
 @org.junit.experimental.categories.Category(IntegrationTest.class)
 public class MongoCrudServiceTest {
 
+	private static final String DESCRIPTION = "a description goes here...";
+	private static final String HEADING = "a heading goes here";
 	private static final String UPDATED_DESCRIPTION = "Updated Description";
+	private static final User USER = User.creteUser("id", "chuck", null);
 	private MongoCrudService crudService;
 
 	@Before
@@ -32,12 +36,13 @@ public class MongoCrudServiceTest {
 	}
 
 	@Test
-	public void should_insert_and_return_object_in_db() throws Exception {
+	public void should_insert_and_return_all_subject_for_a_category_in_db()
+			throws Exception {
 		Subject subject = null;
 		try {
 			// given
-			subject = crudService.createSubject("a heading goes here",
-					"a description goes here...", Category.FOOD);
+			subject = crudService.createSubject(HEADING,
+					DESCRIPTION, Category.FOOD, USER);
 
 			// when
 			List<Subject> result = crudService.getSubjectsFor(Category.FOOD);
@@ -46,6 +51,33 @@ public class MongoCrudServiceTest {
 			assertThat(result).isNotEmpty();
 			assertThat(subject.getId()).isNotNull();
 			assertThat(result.get(0).getCategory()).isEqualTo(Category.FOOD);
+			assertThat(subject.getCreatedBy()).isNotEmpty();
+		} finally {
+			if (subject != null) {
+				crudService.delete(subject.getId());
+			}
+		}
+	}
+
+	@Test
+	public void should_insert_and_find_subject_in_db() throws Exception {
+		Subject subject = null;
+		try {
+			// given
+			subject = crudService.createSubject(HEADING,
+					DESCRIPTION, Category.FOOD, USER);
+
+			// when
+			Subject result = crudService.find(subject.getId());
+
+			// then
+			assertThat(result).isNotNull();
+			assertThat(subject.getId()).isNotNull();
+			assertThat(subject.getCategory()).isEqualTo(Category.FOOD);
+			assertThat(subject.getCreatedBy()).isEqualTo(USER.getUserName());
+			assertThat(subject.getDescription()).isEqualTo(DESCRIPTION);
+			assertThat(subject.getHeading()).isEqualTo(HEADING);
+			assertThat(subject.getRating()).isEqualTo(0d);
 		} finally {
 			if (subject != null) {
 				crudService.delete(subject.getId());
@@ -58,8 +90,8 @@ public class MongoCrudServiceTest {
 		Subject existingSubject = null;
 		try {
 			// given
-			existingSubject = crudService.createSubject("a heading goes here",
-					"a description goes here...", Category.FOOD);
+			existingSubject = crudService.createSubject(HEADING,
+					DESCRIPTION, Category.FOOD, USER);
 
 			// when
 			existingSubject.setRating(5d);
@@ -73,6 +105,7 @@ public class MongoCrudServiceTest {
 			assertThat(result.getRating().doubleValue()).isEqualTo(5d);
 			assertThat(result.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
 			assertThat(result.getCategory()).isEqualTo(Category.FOOD);
+			assertThat(result.getCreatedBy()).isEqualTo(USER.getUserName());
 		} finally {
 			if (existingSubject != null) {
 				crudService.delete(existingSubject.getId());
@@ -93,8 +126,8 @@ public class MongoCrudServiceTest {
 	@Test
 	public void should_delete_object_in_db() throws Exception {
 		// given
-		Subject subject = crudService.createSubject("a heading goes here",
-				"a description goes here...", Category.FOOD);
+		Subject subject = crudService.createSubject(HEADING,
+				DESCRIPTION, Category.FOOD, USER);
 
 		int sizeBefore = crudService.getSubjectsFor(Category.FOOD).size();
 
