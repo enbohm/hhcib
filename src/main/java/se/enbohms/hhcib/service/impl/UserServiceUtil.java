@@ -9,8 +9,11 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import se.enbohms.hhcib.entity.Email;
+import se.enbohms.hhcib.entity.Subject;
+import se.enbohms.hhcib.entity.User;
 import se.enbohms.hhcib.service.api.UserCreatedEvent;
 import se.enbohms.hhcib.service.api.UserService;
 
@@ -19,6 +22,7 @@ import se.enbohms.hhcib.service.api.UserService;
  */
 @Singleton
 @Startup
+@Named
 public class UserServiceUtil {
 
 	private final static Logger LOG = Logger.getLogger(UserServiceUtil.class
@@ -53,6 +57,18 @@ public class UserServiceUtil {
 	 */
 	public boolean unique(String userName) {
 		return !userNames.contains(userName);
+	}
+
+	/**
+	 * 
+	 * @param user
+	 * @param subject
+	 * @return {@code true} if the user can modify the subject, {@code false}
+	 *         otherwise
+	 */
+	public boolean canModify(User user, Subject subject) {
+		return user != null && subject != null
+				&& user.getUserName().equals(subject.getCreatedBy());
 	}
 
 	/**
