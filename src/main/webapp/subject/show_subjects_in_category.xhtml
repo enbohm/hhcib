@@ -6,11 +6,11 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 	<ui:param name="user" value="#{loggedInUserFacade.getLoggedInUser()}" />
-	<ui:param name="authenticatedUser"
+	<ui:param name="authenticated"
 		value="#{loggedInUserFacade.isUserLoggedIn()}" />
 
 	<c:choose>
-		<c:when test="#{authenticatedUser}">
+		<c:when test="#{authenticated}">
 			<a
 				href="
 	${facesContext.externalContext.requestContextPath}/subject/new_subject_description.xhtml?category=#{category}"
@@ -21,7 +21,7 @@
 			<a
 				href="
 	${facesContext.externalContext.requestContextPath}/login/login.xhtml"
-				class="link">Logga in</a> för att lägga till beskrivningar
+				class="link">Logga in</a> för att lägga till beskrivningar och rösta!
 		</c:otherwise>
 	</c:choose>
 
@@ -30,11 +30,12 @@
 		value="#{categoryFacade.getSubjectsFor(category)}">
 
 		<div id="subject-description">
-
+			
 			<div id="rating">
 				<pf:rating totalStars="5" step="1" value="#{subject.rating}"
-					disabled="true">
+					disabled="#{not userServiceUtil.canVote(user, subject)}">
 				</pf:rating>
+				<span id="voters">(#{subject.numberOfVoters} omdömen)</span>
 			</div>
 			<h:outputText value="#{subject.description}" escape="false" />
 

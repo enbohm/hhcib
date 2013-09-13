@@ -67,8 +67,32 @@ public class UserServiceUtil {
 	 *         otherwise
 	 */
 	public boolean canModify(User user, Subject subject) {
-		return user != null && subject != null
-				&& user.getUserName().equals(subject.getCreatedBy());
+		return existingUserAndSubject(user, subject)
+				&& createdByUser(user, subject);
+	}
+
+	/**
+	 * 
+	 * @param user
+	 * @param subject
+	 * @return {@code true} if the user is allowed to vote on the supplied
+	 *         subjec, {@code false} otherwise
+	 */
+	public boolean canVote(User user, Subject subject) {
+		return existingUserAndSubject(user, subject)
+				&& createdByAnotherUser(user, subject);
+	}
+
+	private boolean createdByUser(User user, Subject subject) {
+		return user.getUserName().equals(subject.getCreatedBy());
+	}
+
+	private boolean existingUserAndSubject(User user, Subject subject) {
+		return user != null && subject != null;
+	}
+
+	private boolean createdByAnotherUser(User user, Subject subject) {
+		return !createdByUser(user, subject);
 	}
 
 	/**

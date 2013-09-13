@@ -18,24 +18,36 @@
 						name="category" required="true" />
 					<f:viewAction action="#{showSubjectFacade.fetchSubject()}" />
 				</f:metadata>
-				
+
+				<span id="print-page"> <a
+					href="javascript:if(window.print)window.print()">Skriv ut</a>
+				</span>
+
 				<h:form>
 
-					<pf:rating totalStars="5" step="1" disabled="true"
-						value="#{showSubjectFacade.subject.rating}">
-					</pf:rating>
-
-					<span id="print-page"> <a
-						href="javascript:if(window.print)window.print()">Skriv ut</a>
-					</span>
-
+					<ui:param name="user"
+						value="#{loggedInUserFacade.getLoggedInUser()}" />
+					<ui:param name="authenticated"
+						value="#{loggedInUserFacade.isUserLoggedIn()}" />
+					
 					<div id="subject-description">
+						<div id="rating">
+							<pf:rating totalStars="5" step="1"
+								disabled="#{not userServiceUtil.canVote(user, subject)}"
+								value="#{showSubjectFacade.subject.rating}">
+							</pf:rating>
+							<span id="voters">(#{showSubjectFacade.subject.numberOfVoters}
+								omdömen)</span>
+						</div>
+
 						<h:outputText value="#{showSubjectFacade.subject.description}"
 							escape="false" />
 					</div>
+
 					<div id="social-share">
-						<pf:socialShare layout="1" url="http://www.liu.se" text="nike"
-							showGooglePlus="false" showFacebook="true" showTwitter="true" />
+						<pf:socialShare layout="1" url="http://www.liu.se"
+							text="#{subject.heading}" showGooglePlus="false"
+							showFacebook="true" showTwitter="true" />
 					</div>
 				</h:form>
 			</ui:define>

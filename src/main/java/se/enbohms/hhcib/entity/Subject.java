@@ -1,5 +1,8 @@
 package se.enbohms.hhcib.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.validation.constraints.Size;
 
 import se.enbohms.hhcib.entity.validator.NotNullOrEmpty;
@@ -26,6 +29,7 @@ public class Subject {
 	private String description;
 
 	private Double rating = new Double(0d);
+	private Set<User> voters = new HashSet<>();
 	private Category category;
 
 	private String createdBy;
@@ -115,6 +119,10 @@ public class Subject {
 
 	public String getCreatedBy() {
 		return createdBy;
+	}
+
+	public Integer getNumberOfVoters() {
+		return voters.size();
 	}
 
 	@Override
