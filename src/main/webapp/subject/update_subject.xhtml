@@ -20,11 +20,6 @@
 				</f:metadata>
 
 				<h:form id="updateSubject">
-					<pf:rating totalStars="5" step="1"
-						value="#{updateSubjectFacade.rating}">
-						<f:ajax event="change" />
-					</pf:rating>
-
 					<h:inputTextarea value="#{updateSubjectFacade.subject.description}"
 						id="update_subject_description" cols="135" rows="25"
 						p:class="editable" p:id="subject-description-input" escape="false"/>
