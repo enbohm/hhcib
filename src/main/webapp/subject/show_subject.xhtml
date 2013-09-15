@@ -31,10 +31,12 @@
 						value="#{loggedInUserFacade.isUserLoggedIn()}" />
 					
 					<div id="subject-description">
+					
 						<div id="rating">
-							<pf:rating totalStars="5" step="1"
-								disabled="#{not userServiceUtil.canVote(user, subject)}"
-								value="#{showSubjectFacade.subject.rating}">
+							<pf:rating totalStars="7" step="1"
+								disabled="#{not userServiceUtil.canRate(user, showSubjectFacade.subject)}"
+								value="#{showSubjectFacade.currentScore}">
+								<f:ajax event="change" listener="#{showSubjectFacade.rate}" render="@form"/>
 							</pf:rating>
 							<span id="voters">(#{showSubjectFacade.subject.numberOfVoters}
 								omdömen)</span>
@@ -43,13 +45,13 @@
 						<h:outputText value="#{showSubjectFacade.subject.description}"
 							escape="false" />
 					</div>
-
-					<div id="social-share">
-						<pf:socialShare layout="1" url="http://www.liu.se"
-							text="#{subject.heading}" showGooglePlus="false"
-							showFacebook="true" showTwitter="true" />
-					</div>
+					
 				</h:form>
+				<div id="social-share">
+					<pf:socialShare layout="1" url="http://www.liu.se"
+						text="#{subject.heading}" showGooglePlus="false"
+						showFacebook="true" showTwitter="true" />
+				</div>
 			</ui:define>
 		</ui:composition>
 	</f:view>

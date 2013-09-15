@@ -75,10 +75,10 @@ public class UserServiceUtil {
 	 * 
 	 * @param user
 	 * @param subject
-	 * @return {@code true} if the user is allowed to vote on the supplied
-	 *         subjec, {@code false} otherwise
+	 * @return {@code true} if the user is allowed to rate the supplied
+	 *         subject, {@code false} otherwise
 	 */
-	public boolean canVote(User user, Subject subject) {
+	public boolean canRate(User user, Subject subject) {
 		return existingUserAndSubject(user, subject)
 				&& createdByAnotherUser(user, subject);
 	}

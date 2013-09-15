@@ -57,9 +57,6 @@ public class UpdateSubjectFacade implements Serializable {
 		return subject;
 	}
 
-	public void setRating(Double rating) {
-		this.subject.setRating(rating);
-	}
 
 	/**
 	 * Fetches the subject from the database using the supplied subjectId and

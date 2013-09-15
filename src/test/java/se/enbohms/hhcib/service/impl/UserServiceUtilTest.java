@@ -82,7 +82,7 @@ public class UserServiceUtilTest {
 		User user = User.creteUser("id", USERNAME, null);
 
 		// when
-		boolean result = userServiceUtil.canVote(user, subject);
+		boolean result = userServiceUtil.canRate(user, subject);
 
 		// then
 		assertThat(result).isTrue();
@@ -95,7 +95,7 @@ public class UserServiceUtilTest {
 		Subject subject = new Subject.Builder("12").build();
 
 		// when
-		boolean result = userServiceUtil.canVote(NOT_EXISTING_USER, subject);
+		boolean result = userServiceUtil.canRate(NOT_EXISTING_USER, subject);
 
 		// then
 		assertThat(result).isFalse();
@@ -109,7 +109,7 @@ public class UserServiceUtilTest {
 		User user = User.creteUser("id", USERNAME, null);
 
 		// when
-		boolean result = userServiceUtil.canVote(user, subject);
+		boolean result = userServiceUtil.canRate(user, subject);
 
 		// then
 		assertThat(result).isFalse();

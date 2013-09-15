@@ -14,6 +14,7 @@ import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.IntegrationTest;
 import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.entity.User;
+import se.enbohms.hhcib.entity.Vote;
 
 /**
  * Test client for the {@link MongoCrudService}
@@ -25,6 +26,8 @@ public class MongoCrudServiceTest {
 	private static final String HEADING = "a heading goes here";
 	private static final String UPDATED_DESCRIPTION = "Updated Description";
 	private static final User USER = User.creteUser("id", "chuck", null);
+	private static final String USER_NAME_1 = "userName1";
+	private static final String USER_NAME_2 = "userName2";
 	private MongoCrudService crudService;
 
 	@Before
@@ -94,7 +97,12 @@ public class MongoCrudServiceTest {
 					DESCRIPTION, Category.FOOD, USER);
 
 			// when
-			existingSubject.setRating(5d);
+			existingSubject.addVote(Vote.of(USER_NAME_1, 2.0d));
+			existingSubject.addVote(Vote.of(USER_NAME_2, 4.0d));
+			existingSubject.addVote(Vote.of(USER_NAME_1, 5.0d));
+			//result should be 4.5 
+			
+			
 			existingSubject.setDescription(UPDATED_DESCRIPTION);
 
 			crudService.update(existingSubject);
@@ -102,7 +110,7 @@ public class MongoCrudServiceTest {
 			// then
 			Subject result = crudService.find(existingSubject.getId());
 			assertThat(result).isNotNull();
-			assertThat(result.getRating().doubleValue()).isEqualTo(5d);
+			assertThat(result.getRating()).isEqualTo(4.5d);
 			assertThat(result.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
 			assertThat(result.getCategory()).isEqualTo(Category.FOOD);
 			assertThat(result.getCreatedBy()).isEqualTo(USER.getUserName());

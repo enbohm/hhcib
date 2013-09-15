@@ -15,7 +15,6 @@
 				href="
 	${facesContext.externalContext.requestContextPath}/subject/new_subject_description.xhtml?category=#{category}"
 				class="button">Lägg till ny beskrivning &gt;&gt;&gt;</a>
-
 		</c:when>
 		<c:otherwise>
 			<a
@@ -30,10 +29,10 @@
 		value="#{categoryFacade.getSubjectsFor(category)}">
 
 		<div id="subject-description">
-			
+
 			<div id="rating">
-				<pf:rating totalStars="5" step="1" value="#{subject.rating}"
-					disabled="#{not userServiceUtil.canVote(user, subject)}">
+				<pf:rating totalStars="7" step="1" value="#{subject.rating}"
+					disabled="true">
 				</pf:rating>
 				<span id="voters">(#{subject.numberOfVoters} omdömen)</span>
 			</div>

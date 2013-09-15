@@ -1,21 +1,28 @@
 package se.enbohms.hhcib.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.ejb.DependsOn;
 import javax.ejb.Singleton;
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 
+import org.bson.BasicBSONObject;
 import org.bson.types.ObjectId;
 
 import se.enbohms.hhcib.common.PerformanceMonitored;
 import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.entity.User;
+import se.enbohms.hhcib.entity.Vote;
 import se.enbohms.hhcib.service.api.CrudService;
 
+import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
@@ -57,8 +64,7 @@ public class MongoCrudService implements CrudService {
 		coll.insert(doc);
 
 		return new Subject.Builder(doc.get(Subject.ID).toString())
-				.heading(heading).description(description)
-				.rating(Double.valueOf(0d)).category(category)
+				.heading(heading).description(description).category(category)
 				.createdBy(user.getUserName()).build();
 	}
 
@@ -95,9 +101,17 @@ public class MongoCrudService implements CrudService {
 				SUBJECT_COLLECTION_NAME);
 		BasicDBObject newDocument = new BasicDBObject();
 
-		newDocument.append("$set",
-				new BasicDBObject().append(Subject.RATING, subject.getRating())
-						.append(Subject.DESCRIPTION, subject.getDescription()));
+		List<BasicDBObject> voters = new ArrayList<>();
+
+		for (Map.Entry<String, Double> entry : subject.getVoters().entrySet()) {
+			voters.add(new BasicDBObject().append(Vote.USER_NAME,
+					entry.getKey()).append(Vote.SCIRE, entry.getValue()));
+		}
+
+		newDocument.append(
+				"$set",
+				new BasicDBObject().append(Subject.RATING, voters).append(
+						Subject.DESCRIPTION, subject.getDescription()));
 
 		ObjectId objectId = new ObjectId(subject.getId());
 		BasicDBObject searchQuery = new BasicDBObject(Subject.ID, objectId);
@@ -119,16 +133,25 @@ public class MongoCrudService implements CrudService {
 		DBObject dbObj = collection.findOne(query);
 
 		if (dbObj != null) {
-			return new Subject.Builder(dbObj.get(Subject.ID).toString())
-					.heading(dbObj.get(Subject.HEADING).toString())
-					.description(dbObj.get(Subject.DESCRIPTION).toString())
-					.rating(getRatingFrom(dbObj))
-					.category(getCategoryFrom(dbObj))
-					.createdBy(dbObj.get(Subject.CREATED_BY).toString())
-					.build();
+			return buildSubject(dbObj);
 		}
 		throw new EntityNotFoundException("Could not find object with id "
 				+ objectID + " in DB");
+	}
+
+	private Subject buildSubject(DBObject dbObj) {
+		Subject.Builder builder = new Subject.Builder(dbObj.get(Subject.ID)
+				.toString());
+		builder.heading(dbObj.get(Subject.HEADING).toString())
+				.description(dbObj.get(Subject.DESCRIPTION).toString())
+				.category(getCategoryFrom(dbObj))
+				.createdBy(dbObj.get(Subject.CREATED_BY).toString());
+
+		Set<Vote> voters = getVotersFrom(dbObj);
+		for (Vote vote : voters) {
+			builder.voter(vote);
+		}
+		return builder.build();
 	}
 
 	/**
@@ -149,13 +172,7 @@ public class MongoCrudService implements CrudService {
 		List<Subject> result = new ArrayList<>();
 		while (cursor.hasNext()) {
 			DBObject dbObj = cursor.next();
-			result.add(new Subject.Builder(dbObj.get(Subject.ID).toString())
-					.heading(dbObj.get(Subject.HEADING).toString())
-					.description(dbObj.get(Subject.DESCRIPTION).toString())
-					.rating(getRatingFrom(dbObj))
-					.category(getCategoryFrom(dbObj))
-					.createdBy(dbObj.get(Subject.CREATED_BY).toString())
-					.build());
+			result.add(buildSubject(dbObj));
 		}
 		return result;
 	}
@@ -164,11 +181,23 @@ public class MongoCrudService implements CrudService {
 		return Category.valueOf(dbObj.get(Subject.CATEGORY).toString());
 	}
 
-	// TODO: remove hard codes 2.0 string, just for demo
-	private Double getRatingFrom(DBObject dbObj) {
-		Double rating = dbObj.get(Subject.RATING) != null ? Double
-				.valueOf((Double) dbObj.get(Subject.RATING)) : 2.0d;
-		return rating;
+	private Set<Vote> getVotersFrom(DBObject dbObj) {
+		if (dbObj.get(Subject.RATING) == null)
+			return Collections.emptySet();
+
+		BasicDBList ratings = (BasicDBList) dbObj.get(Subject.RATING);
+
+		Set<Vote> result = new HashSet<>();
+		if (ratings != null) {
+			for (int i = 0; i < ratings.size(); i++) {
+				String userName = ((BasicBSONObject) ratings.get(i))
+						.getString(Vote.USER_NAME);
+				Double score = ((BasicBSONObject) ratings.get(i))
+						.getDouble(Vote.SCIRE);
+				result.add(Vote.of(userName, score));
+			}
+		}
+		return result;
 	}
 
 }

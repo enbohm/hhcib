@@ -1,7 +1,8 @@
 package se.enbohms.hhcib.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.validation.constraints.Size;
 
@@ -28,10 +29,9 @@ public class Subject {
 	@Size(min = 10)
 	private String description;
 
-	private Double rating = new Double(0d);
-	private Set<User> voters = new HashSet<>();
-	private Category category;
+	private Map<String, Double> voters = new HashMap<>();
 
+	private Category category;
 	private String createdBy;
 
 	public Category getCategory() {
@@ -43,7 +43,6 @@ public class Subject {
 		this.id = id;
 		this.heading = heading;
 		this.description = description;
-		this.rating = rating;
 		this.category = category;
 	}
 
@@ -68,8 +67,8 @@ public class Subject {
 			return this;
 		}
 
-		public Builder rating(Double rating) {
-			subject.rating = rating;
+		public Builder voter(Vote vote) {
+			subject.voters.put(vote.getUserName(), vote.getScore());
 			return this;
 		}
 
@@ -106,11 +105,25 @@ public class Subject {
 	}
 
 	public Double getRating() {
-		return rating;
+		double totalScore = 0d;
+		if (voters.isEmpty()) {
+			return 0d;
+		}
+
+		totalScore = calculateTotalScore(totalScore);
+
+		return averageScore(totalScore);
 	}
 
-	public void setRating(Double rating) {
-		this.rating = rating;
+	private double averageScore(double totalScore) {
+		return totalScore / voters.size();
+	}
+
+	private double calculateTotalScore(double totalScore) {
+		for (Map.Entry<String, Double> entry : voters.entrySet()) {
+			totalScore += entry.getValue();
+		}
+		return totalScore;
 	}
 
 	public void setDescription(String description) {
@@ -121,6 +134,18 @@ public class Subject {
 		return createdBy;
 	}
 
+	public void addVote(Vote vote) {
+		voters.put(vote.getUserName(), vote.getScore());
+	}
+
+	/**
+	 * 
+	 * @return an unmodifiable set of the voters
+	 */
+	public Map<String, Double> getVoters() {
+		return Collections.unmodifiableMap(voters);
+	}
+
 	public Integer getNumberOfVoters() {
 		return voters.size();
 	}
@@ -128,7 +153,7 @@ public class Subject {
 	@Override
 	public String toString() {
 		return "Subject [id=" + id + ", heading=" + heading + ", description="
-				+ description + ", rating=" + rating + ", category=" + category
+				+ description + ", voters=" + voters + ", category=" + category
 				+ ", createdBy=" + createdBy + "]";
 	}
 }
