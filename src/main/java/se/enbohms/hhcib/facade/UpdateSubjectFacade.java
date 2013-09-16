@@ -1,5 +1,6 @@
 package se.enbohms.hhcib.facade;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
@@ -57,7 +58,6 @@ public class UpdateSubjectFacade implements Serializable {
 		return subject;
 	}
 
-
 	/**
 	 * Fetches the subject from the database using the supplied subjectId and
 	 * category (parameters from the Http Request)
@@ -71,9 +71,46 @@ public class UpdateSubjectFacade implements Serializable {
 	 */
 	public void update() {
 		service.update(subject);
+		addUpdateSuccessMessage();
+	}
+
+	/**
+	 * Deletes the current subject in the database
+	 * 
+	 * @throws IOException
+	 */
+	public void delete() throws IOException {
+		service.delete(subject.getId());
+		addDeleteSuccessMessage();
+		redirectToShowAllSubject();
+	}
+
+	private void addUpdateSuccessMessage() {
 		FacesContext.getCurrentInstance().addMessage(
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO,
 						"Uppdatering lyckades", "Uppdatering lyckades"));
+	}
+
+	private void addDeleteSuccessMessage() {
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Borttagning lyckades", "Borttagning lyckades"));
+		FacesContext.getCurrentInstance().getExternalContext().getFlash()
+				.setKeepMessages(true);
+	}
+
+	private void redirectToShowAllSubject() throws IOException {
+		String contextPath = ((javax.servlet.http.HttpServletRequest) FacesContext
+				.getCurrentInstance().getExternalContext().getRequest())
+				.getContextPath();
+		FacesContext
+				.getCurrentInstance()
+				.getExternalContext()
+				.redirect(
+						contextPath
+								+ "/categories/subjects_in_category.xhtml?category="
+								+ category);
 	}
 }

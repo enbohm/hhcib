@@ -12,21 +12,31 @@
 			<ui:define name="content">
 
 				<f:metadata>
-					<f:viewParam id="subjectId" value="#{updateSubjectFacade.subjectId}"
-						name="subjectId" required="true" />
+					<f:viewParam id="subjectId"
+						value="#{updateSubjectFacade.subjectId}" name="subjectId"
+						required="true" />
 					<f:viewParam id="category" value="#{updateSubjectFacade.category}"
 						name="category" required="true" />
 					<f:viewAction action="#{updateSubjectFacade.fetchSubject}" />
 				</f:metadata>
 
+				<ui:param name="user"
+					value="#{loggedInUserFacade.getLoggedInUser()}" />
+
 				<h:form id="updateSubject">
 					<h:inputTextarea value="#{updateSubjectFacade.subject.description}"
 						id="update_subject_description" cols="135" rows="25"
-						p:class="editable" p:id="subject-description-input" escape="false"/>
-					<h:commandButton value="Ändra" p:class="button"
-						action="#{updateSubjectFacade.update()}"
-						id="update-subject-button" />
-					<h:messages errorStyle="color:red;"/>
+						p:class="editable" p:id="subject-description-input" escape="false" />
+					<ui:fragment
+						rendered="#{userServiceUtil.canModify(user, updateSubjectFacade.subject)}">
+						<h:commandButton value="Ändra" p:class="button"
+							action="#{updateSubjectFacade.update()}"
+							id="update-subject-button" />
+						<h:commandButton value="Ta bort" p:class="button"
+							action="#{updateSubjectFacade.delete()}"
+							id="delete-subject-button" />
+					</ui:fragment>
+					<h:messages errorStyle="color:red;" />
 				</h:form>
 			</ui:define>
 		</ui:composition>

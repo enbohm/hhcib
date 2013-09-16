@@ -24,6 +24,7 @@
 		</c:otherwise>
 	</c:choose>
 
+	<h:messages errorStyle="color:red;" />
 
 	<ui:repeat var="subject"
 		value="#{categoryFacade.getSubjectsFor(category)}">
@@ -44,11 +45,12 @@
 	${facesContext.externalContext.requestContextPath}/subject/update_subject.xhtml?subjectId=#{subject.id}&amp;category=#{subject.category}"
 					class="button">Ändra</a>
 			</ui:fragment>
-
-			<a
-				href="
+			<ui:fragment rendered="#{not userServiceUtil.canModify(user, subject)}">
+				<a
+					href="
 	${facesContext.externalContext.requestContextPath}/subject/show_subject.xhtml?subjectId=#{subject.id}&amp;category=#{subject.category}"
-				class="button">Detaljer</a>
+					class="button">Detaljer</a>
+			</ui:fragment>
 		</div>
 	</ui:repeat>
 </ui:composition>
