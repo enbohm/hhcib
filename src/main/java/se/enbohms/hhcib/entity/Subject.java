@@ -11,7 +11,6 @@ import se.enbohms.hhcib.entity.validator.NotNullOrEmpty;
 /**
  * Represents an actual subject with its corresponding 'How-to'-description
  * 
- * 
  */
 public class Subject {
 
@@ -34,6 +33,10 @@ public class Subject {
 	private Category category;
 	private String createdBy;
 
+	private Subject() {
+		// user builder to create instances of this class
+	}
+
 	public Category getCategory() {
 		return category;
 	}
@@ -44,9 +47,6 @@ public class Subject {
 		this.heading = heading;
 		this.description = description;
 		this.category = category;
-	}
-
-	private Subject() {
 	}
 
 	public static class Builder {
@@ -104,6 +104,15 @@ public class Subject {
 		return description;
 	}
 
+	/**
+	 * Return the rating score of this subject.
+	 * <p>
+	 * The rating score is calculated as the average value of the votes a
+	 * subject has
+	 * 
+	 * @return the rating score of this subject or 0 if no votes exists for this
+	 *         object
+	 */
 	public Double getRating() {
 		double totalScore = 0d;
 		if (voters.isEmpty()) {

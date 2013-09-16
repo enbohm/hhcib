@@ -3,7 +3,7 @@ package se.enbohms.hhcib.entity;
 /**
  * Represents a vote for a specific subject
  */
-public class Vote {
+public final class Vote {
 
 	public static final String USER_NAME = "username";
 	public static final String SCIRE = "score";

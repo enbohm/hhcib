@@ -1,6 +1,6 @@
 package se.enbohms.hhcib.entity;
 
-public class Email {
+public final class Email {
 
 	private String email;
 

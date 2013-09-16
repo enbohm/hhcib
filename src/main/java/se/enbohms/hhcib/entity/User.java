@@ -4,7 +4,7 @@ package se.enbohms.hhcib.entity;
  * Represents a in user in HHCIB domain.
  * 
  */
-public class User {
+public final class User {
 
 	public static final String ID = "_id";
 	public static final String EMAIL = "email";
