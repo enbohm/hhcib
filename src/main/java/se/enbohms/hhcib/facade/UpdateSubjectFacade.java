@@ -93,10 +93,12 @@ public class UpdateSubjectFacade implements Serializable {
 	}
 
 	private void addDeleteSuccessMessage() {
-		FacesContext.getCurrentInstance().addMessage(
-				null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"Borttagning lyckades", "Borttagning lyckades"));
+		FacesContext.getCurrentInstance()
+				.addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO,
+								"Inlägget har tagits bort",
+								"Inlägget har tagits bort"));
 		FacesContext.getCurrentInstance().getExternalContext().getFlash()
 				.setKeepMessages(true);
 	}

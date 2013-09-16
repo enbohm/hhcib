@@ -1,5 +1,6 @@
 package se.enbohms.hhcib.facade;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.faces.application.FacesMessage;
@@ -52,15 +53,36 @@ public class NewSubjectFacade implements Serializable {
 
 	/**
 	 * Saves the new subject description in the database
+	 * @throws IOException 
 	 */
-	public void save(User user) {
+	public void save(User user) throws IOException {
 		service.createSubject("a heading", this.description,
 				Category.valueOf(this.category), user);
+		addCreateSubjectMessage();
+		redirectToShowAllSubject();
+	}
+
+	private void addCreateSubjectMessage() {
 		FacesContext.getCurrentInstance().addMessage(
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO,
-						"Ny beskrivning har skapats",
-						"Ny beskrivning har skapats"));
+						"Ny beskrivning har skapats, tack för din medverkan!",
+						"Ny beskrivning har skapats, tack för din medverkan!"));
+		FacesContext.getCurrentInstance().getExternalContext().getFlash()
+				.setKeepMessages(true);
+	}
+
+	private void redirectToShowAllSubject() throws IOException {
+		String contextPath = ((javax.servlet.http.HttpServletRequest) FacesContext
+				.getCurrentInstance().getExternalContext().getRequest())
+				.getContextPath();
+		FacesContext
+				.getCurrentInstance()
+				.getExternalContext()
+				.redirect(
+						contextPath
+								+ "/categories/subjects_in_category.xhtml?category="
+								+ category);
 	}
 
 	/**
