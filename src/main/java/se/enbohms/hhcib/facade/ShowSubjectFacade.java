@@ -91,7 +91,7 @@ public class ShowSubjectFacade implements Serializable {
 	public void fetchSubject() {
 		this.subject = service.find(subjectId);
 
-		if (userHasVoted()) {
+		if (getLoggedInUser() != null && userHasVoted()) {
 			this.currentScore = subject.getVoters().get(
 					getLoggedInUser().getUserName());
 		}
