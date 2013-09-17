@@ -97,8 +97,8 @@ public class UpdateSubjectFacade implements Serializable {
 				.addMessage(
 						null,
 						new FacesMessage(FacesMessage.SEVERITY_INFO,
-								"Inlägget har tagits bort",
-								"Inlägget har tagits bort"));
+								"Inlägget togs bort",
+								"Inlägget togs bort"));
 		FacesContext.getCurrentInstance().getExternalContext().getFlash()
 				.setKeepMessages(true);
 	}
