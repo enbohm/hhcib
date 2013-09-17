@@ -31,7 +31,7 @@
 						value="#{loggedInUserFacade.isUserLoggedIn()}" />
 					
 					<div id="subject-description">
-					
+						<span id="createdBy" style="font-style: italic;">(Skapad av #{showSubjectFacade.subject.createdBy})</span>
 						<div id="rating">
 							<pf:rating totalStars="7" step="1"
 								disabled="#{not userServiceUtil.canRate(user, showSubjectFacade.subject)}"

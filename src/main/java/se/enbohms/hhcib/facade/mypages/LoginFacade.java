@@ -42,7 +42,7 @@ public class LoginFacade implements Serializable {
 	 */
 	public String logout() {
 		invalidateSession();
-		return "/index?faces-redirect=true";
+		return "/login/login?faces-redirect=true";
 	}
 
 	/**
