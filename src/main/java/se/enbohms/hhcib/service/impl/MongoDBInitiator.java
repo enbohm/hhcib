@@ -9,6 +9,9 @@ import javax.ejb.Singleton;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 
+/**
+ * Class which is responsible for initiating the MongoDB connection.
+ */
 @Singleton
 public class MongoDBInitiator {
 

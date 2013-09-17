@@ -19,6 +19,13 @@
 					<f:viewAction action="#{showSubjectFacade.fetchSubject()}" />
 				</f:metadata>
 
+				<ui:fragment rendered="#{not loggedInUserFacade.isUserLoggedIn()}">
+					<a
+						href="
+	${facesContext.externalContext.requestContextPath}/login/login.xhtml"
+						class="link">Logga in</a> för att rösta!
+				</ui:fragment>
+				
 				<span id="print-page"> <a
 					href="javascript:if(window.print)window.print()">Skriv ut</a>
 				</span>
@@ -29,23 +36,23 @@
 						value="#{loggedInUserFacade.getLoggedInUser()}" />
 					<ui:param name="authenticated"
 						value="#{loggedInUserFacade.isUserLoggedIn()}" />
-					
+
 					<div id="subject-description">
-						<span id="createdBy" style="font-style: italic;">(Skapad av #{showSubjectFacade.subject.createdBy})</span>
+						<span id="createdBy" style="font-style: italic;">(Skapad av
+							#{showSubjectFacade.subject.createdBy})</span>
 						<div id="rating">
 							<pf:rating totalStars="7" step="1"
 								disabled="#{not userServiceUtil.canRate(user, showSubjectFacade.subject)}"
 								value="#{showSubjectFacade.currentScore}">
-								<f:ajax event="change" listener="#{showSubjectFacade.rate}" render="@form"/>
+								<f:ajax event="change" listener="#{showSubjectFacade.rate}"
+									render="@form" />
 							</pf:rating>
-							<span id="voters">(#{showSubjectFacade.subject.numberOfVoters}
-								omdömen)</span>
 						</div>
 
 						<h:outputText value="#{showSubjectFacade.subject.description}"
 							escape="false" />
 					</div>
-					
+
 				</h:form>
 				<div id="social-share">
 					<pf:socialShare layout="1" url="http://www.liu.se"

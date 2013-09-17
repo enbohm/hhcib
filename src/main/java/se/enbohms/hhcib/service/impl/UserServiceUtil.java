@@ -75,8 +75,8 @@ public class UserServiceUtil {
 	 * 
 	 * @param user
 	 * @param subject
-	 * @return {@code true} if the user is allowed to rate the supplied
-	 *         subject, {@code false} otherwise
+	 * @return {@code true} if the user is allowed to rate the supplied subject,
+	 *         {@code false} otherwise
 	 */
 	public boolean canRate(User user, Subject subject) {
 		return existingUserAndSubject(user, subject)

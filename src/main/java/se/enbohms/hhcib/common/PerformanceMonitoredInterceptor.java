@@ -25,7 +25,7 @@ public class PerformanceMonitoredInterceptor {
 			return invocationContext.proceed();
 		} finally {
 			long processingTime = System.nanoTime() - startTime;
-			LOG.info("Method: " + invocationContext.getMethod().getName()
+			LOG.info(invocationContext.getTarget().getClass() + "#" + invocationContext.getMethod().getName()
 					+ " invocation took: " + processingTime / 1000000
 					+ " milli seconds");
 		}

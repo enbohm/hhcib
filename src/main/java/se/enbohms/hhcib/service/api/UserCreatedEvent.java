@@ -6,7 +6,7 @@ import se.enbohms.hhcib.entity.Email;
  * Represents event information which is broadcasted to listening consumers when
  * a new user is created
  */
-public class UserCreatedEvent {
+public final class UserCreatedEvent {
 	
 	private String userName;
 	private Email email;

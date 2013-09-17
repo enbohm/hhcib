@@ -2,14 +2,15 @@ package se.enbohms.hhcib.service.api;
 
 import java.util.List;
 
-import javax.ejb.Local;
 import javax.persistence.EntityNotFoundException;
 
 import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.entity.User;
 
-@Local
+/**
+ * Defines the contract for operations on the database
+ */
 public interface CrudService {
 
 	/**

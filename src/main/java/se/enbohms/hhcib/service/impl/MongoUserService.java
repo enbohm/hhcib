@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.DependsOn;
-import javax.ejb.Singleton;
+import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
@@ -24,9 +24,9 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 /**
- * Handles the various DB operations for a user
+ * Handles the various database operations for a user using MongoDB as database
  */
-@Singleton
+@Stateless
 @DependsOn("MongoDBInitiator")
 public class MongoUserService implements UserService {
 
@@ -63,7 +63,6 @@ public class MongoUserService implements UserService {
 
 		throw new UserAuthenticationException();
 	}
-
 
 	/**
 	 * {@inheritDoc}

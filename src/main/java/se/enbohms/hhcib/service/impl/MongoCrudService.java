@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.ejb.DependsOn;
-import javax.ejb.Singleton;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityNotFoundException;
 
@@ -32,7 +32,7 @@ import com.mongodb.DBObject;
  * The MongoDB implementation of the HHCIB {@link CrudService}
  * 
  */
-@Singleton
+@Stateless
 @DependsOn("MongoDBInitiator")
 public class MongoCrudService implements CrudService {
 
