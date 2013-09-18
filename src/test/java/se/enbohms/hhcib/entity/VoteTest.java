@@ -22,6 +22,11 @@ public class VoteTest {
 		Vote.of(USER_NAME, 0d);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void should_throw_exception_when_score_is_null() throws Exception {
+		Vote.of(USER_NAME, null);
+	}
+	
 	@Test()
 	public void should_create_vote_instance() throws Exception {
 		Vote vote = Vote.of(USER_NAME, SCOREt);

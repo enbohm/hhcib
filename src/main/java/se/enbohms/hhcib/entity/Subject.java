@@ -41,14 +41,9 @@ public class Subject {
 		return category;
 	}
 
-	private Subject(String id, String heading, String description,
-			Double rating, Category category) {
-		this.id = id;
-		this.heading = heading;
-		this.description = description;
-		this.category = category;
-	}
-
+	/**
+	 * Builder which created instances of {@link Subject}
+	 */
 	public static class Builder {
 		private Subject subject;
 

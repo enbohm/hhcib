@@ -17,6 +17,8 @@ import se.enbohms.hhcib.common.Constants;
 @WebFilter("/secured/*")
 public class LoginFilter implements Filter {
 
+	private static final String LOGIN_URL = "/login/login.xhtml";
+
 	/**
 	 * Checks if user is logged in. If not it redirects to the login.xhtml page.
 	 */
@@ -36,8 +38,7 @@ public class LoginFilter implements Filter {
 
 		((HttpServletRequest) request).getSession(true).setAttribute(
 				Constants.TARGET_URL, targetUrl);
-		((HttpServletResponse) response).sendRedirect(contextPath
-				+ "/login/login.xhtml");
+		((HttpServletResponse) response).sendRedirect(contextPath + LOGIN_URL);
 	}
 
 	private boolean noUserInSession(ServletRequest request) {
