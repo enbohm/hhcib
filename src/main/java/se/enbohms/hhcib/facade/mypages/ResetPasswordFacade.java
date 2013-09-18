@@ -14,7 +14,7 @@ import se.enbohms.hhcib.entity.Email;
 import se.enbohms.hhcib.service.impl.UserServiceUtil;
 
 /**
- * Facade which handles the case when uses has forgotten his password
+ * JSF facade which handles the case when uses has forgotten his password
  */
 @Named
 @RequestScoped

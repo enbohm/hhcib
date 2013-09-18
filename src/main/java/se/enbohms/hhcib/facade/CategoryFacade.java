@@ -3,7 +3,7 @@ package se.enbohms.hhcib.facade;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.ejb.Singleton;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -11,7 +11,10 @@ import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.service.api.CrudService;
 
-@Singleton
+/**
+ * JSF facade which handles fetching subject in categories
+ */
+@RequestScoped
 @Named
 public class CategoryFacade implements Serializable {
 

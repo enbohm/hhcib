@@ -17,7 +17,7 @@ import se.enbohms.hhcib.service.api.CrudService;
  * updating them in the DB
  * 
  * <p>
- * Note: All facades (incl this) should only act as a facade and delegate all
+ * Note: All facades (incl. this) should only act as a facade and delegate all
  * business logic to the existing services. Validation and coordination between
  * service is the facade main responsibility
  */

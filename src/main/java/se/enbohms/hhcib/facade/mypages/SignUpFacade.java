@@ -16,7 +16,7 @@ import se.enbohms.hhcib.service.api.UserService;
 import se.enbohms.hhcib.service.impl.UserServiceUtil;
 
 /**
- * JSF Facade handling user sign up
+ * JSF facade handling user sign up
  */
 @Named
 @RequestScoped

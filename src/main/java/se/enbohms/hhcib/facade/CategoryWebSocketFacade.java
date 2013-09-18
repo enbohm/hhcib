@@ -20,6 +20,11 @@ import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.service.api.CrudService;
 
+/**
+ * Web socket facade which is responsible for supplying random subject from the
+ * database to a connection peer.
+ * 
+ */
 @Singleton
 @ServerEndpoint("/webSocketSliderFacade")
 public class CategoryWebSocketFacade {
@@ -50,7 +55,8 @@ public class CategoryWebSocketFacade {
 						subjects.get(random.nextInt(subjects.size()))
 								.getDescription());
 			} catch (IOException ex) {
-				ex.printStackTrace();
+				LOG.warning("Failed to fetch random subject, exception is "
+						+ ex);
 			}
 		}
 	}

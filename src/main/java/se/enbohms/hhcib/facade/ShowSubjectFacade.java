@@ -16,7 +16,7 @@ import se.enbohms.hhcib.entity.Vote;
 import se.enbohms.hhcib.service.api.CrudService;
 
 /**
- * Facade which is responsible for loading/fetching existing subject and
+ * JSF facade which is responsible for loading/fetching existing subject and
  * displaying the subject on a page
  * 
  * <p>

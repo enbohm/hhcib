@@ -11,18 +11,19 @@ import javax.inject.Named;
 import javax.validation.constraints.Size;
 
 import se.enbohms.hhcib.entity.Category;
-import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.entity.User;
 import se.enbohms.hhcib.entity.validator.NotNullOrEmpty;
 import se.enbohms.hhcib.service.api.CrudService;
 
 /**
- * Represent the facade client can use when interaction with {@link Subject}
+ * JSF facade which handles client interaction when new subjects are created
  * 
  */
 @Named
 @ViewScoped
 public class NewSubjectFacade implements Serializable {
+
+	private static final String SUBJECTS_IN_CATEGORY_URL = "/categories/subjects_in_category.xhtml?category=";
 
 	private static final long serialVersionUID = -3633333461394775021L;
 
@@ -53,7 +54,8 @@ public class NewSubjectFacade implements Serializable {
 
 	/**
 	 * Saves the new subject description in the database
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	public void save(User user) throws IOException {
 		service.createSubject("a heading", this.description,
@@ -76,17 +78,12 @@ public class NewSubjectFacade implements Serializable {
 		String contextPath = ((javax.servlet.http.HttpServletRequest) FacesContext
 				.getCurrentInstance().getExternalContext().getRequest())
 				.getContextPath();
-		FacesContext
-				.getCurrentInstance()
-				.getExternalContext()
-				.redirect(
-						contextPath
-								+ "/categories/subjects_in_category.xhtml?category="
-								+ category);
+		FacesContext.getCurrentInstance().getExternalContext()
+				.redirect(contextPath + SUBJECTS_IN_CATEGORY_URL + category);
 	}
 
 	/**
-	 * Clears the new subscription form
+	 * Clears the new subscription
 	 */
 	public void clear() {
 		description = null;

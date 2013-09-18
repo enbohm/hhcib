@@ -18,9 +18,16 @@ import se.enbohms.hhcib.entity.validator.NotNullOrEmpty;
 import se.enbohms.hhcib.service.api.UserAuthenticationException;
 import se.enbohms.hhcib.service.api.UserService;
 
+/**
+ * JSF facade for handling user login/logout functions
+ */
 @Named
 @RequestScoped
 public class LoginFacade implements Serializable {
+
+	private static final String LOGIN_URL = "/login/login?faces-redirect=true";
+
+	private static final String MY_PAGES_URL = "/secured/my_pages?faces-redirect=true";
 
 	private static final long serialVersionUID = -1712331748877385330L;
 
@@ -42,7 +49,7 @@ public class LoginFacade implements Serializable {
 	 */
 	public String logout() {
 		invalidateSession();
-		return "/login/login?faces-redirect=true";
+		return LOGIN_URL;
 	}
 
 	/**
@@ -82,7 +89,7 @@ public class LoginFacade implements Serializable {
 			session.removeAttribute(Constants.TARGET_URL);
 			return targetUrl + "?faces-redirect=true";
 		} else {
-			return "/index?faces-redirect=true";
+			return MY_PAGES_URL;
 		}
 	}
 
