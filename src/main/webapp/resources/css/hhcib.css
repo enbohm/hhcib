@@ -1,11 +1,28 @@
+html { 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover; 
+	background: -moz-linear-gradient(#565656 0%, #323232 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #565656),
+		color-stop(100%, #323232));
+	background: -webkit-linear-gradient(#565656 0%, #323232 100%);
+	background: linear-gradient(#565656 0%, #323232 100%);
+}
+
 #container {
 	width: 80%;
 	margin: 0px auto;
-	background: none repeat scroll 0% 0% rgb(153, 153, 204);
+	position: absolute;
+	background: white;
+	margin-left: 10%; //
+	height: auto;
+	min-height: 90%;
 }
 
 #header {
 	background: black;
+	overflow: auto;
 }
 
 #left {
@@ -18,7 +35,7 @@
 	float: left;
 	width: 75%;
 	margin-left: 2%;
-	margin-top: 1%;
+	margin-top: 3%;
 	overflow: auto;
 }
 
@@ -33,9 +50,9 @@
 }
 
 #subject-slider {
-	width: 70%;
-	margin-left: 10%;
-	height: 250px;
+    width: 90%;
+    margin-top: 10%;
+    height: 250px;
 }
 
 #subject-description-input {
@@ -54,7 +71,7 @@
 }
 
 #login-form {
-	margin-bottom : 1%;
+	margin-bottom: 1%;
 }
 
 .button {
