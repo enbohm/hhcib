@@ -11,10 +11,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import se.enbohms.hhcib.entity.Category;
-import se.enbohms.hhcib.entity.IntegrationTest;
 import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.entity.User;
 import se.enbohms.hhcib.entity.Vote;
+import se.enbohms.hhcib.web.util.IntegrationTest;
 
 /**
  * Test client for the {@link MongoCrudService}

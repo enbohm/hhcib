@@ -25,8 +25,8 @@ import se.enbohms.hhcib.service.api.UserService;
 @RequestScoped
 public class LoginFacade implements Serializable {
 
+	private static final String INCORRECT_USERNAME_OR_PASSWORD = "Inloggning misslyckades, kontrollera användarnamn/lösenord";
 	private static final String LOGIN_URL = "/login/login?faces-redirect=true";
-
 	private static final String MY_PAGES_URL = "/secured/my_pages?faces-redirect=true";
 
 	private static final long serialVersionUID = -1712331748877385330L;
@@ -67,8 +67,8 @@ public class LoginFacade implements Serializable {
 			context.addMessage(
 					null,
 					new FacesMessage(
-							FacesMessage.SEVERITY_WARN,
-							"Inloggning misslyckades, kontrollera användarnamn/lösenord",
+							FacesMessage.SEVERITY_ERROR,
+							INCORRECT_USERNAME_OR_PASSWORD,
 							null));
 			return "login.xhtml";
 		}
@@ -85,7 +85,7 @@ public class LoginFacade implements Serializable {
 	private String redirectUser(HttpSession session) {
 		String targetUrl = (String) session.getAttribute(Constants.TARGET_URL);
 		if (targetUrl != null) {
-			LOG.info("Target url " + targetUrl);
+			LOG.info("Redirecting to target url " + targetUrl);
 			session.removeAttribute(Constants.TARGET_URL);
 			return targetUrl + "?faces-redirect=true";
 		} else {

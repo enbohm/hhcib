@@ -1,8 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://java.sun.com/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core">
 
 <h:body>
 	<ui:composition template="/hhcib_template.xhtml">
@@ -24,7 +24,7 @@
 					id="forgot-password">Glömt lösenord?</a></span> <a href="signup.xhtml"
 					id="create-account">Skapa konto</a>
 
-				<h:messages errorStyle="color:red;" />
+				<h:messages errorStyle="color:red;" id="login-message" />
 			</div>
 		</ui:define>
 	</ui:composition>

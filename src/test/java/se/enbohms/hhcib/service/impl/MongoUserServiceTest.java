@@ -16,10 +16,10 @@ import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 
 import se.enbohms.hhcib.entity.Email;
-import se.enbohms.hhcib.entity.IntegrationTest;
 import se.enbohms.hhcib.entity.User;
 import se.enbohms.hhcib.service.api.UserAuthenticationException;
 import se.enbohms.hhcib.service.api.UserService;
+import se.enbohms.hhcib.web.util.IntegrationTest;
 
 /**
  * Test client for the {@link MongoUserService}

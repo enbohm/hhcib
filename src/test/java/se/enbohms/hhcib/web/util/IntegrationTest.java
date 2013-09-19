@@ -1,4 +1,4 @@
-package se.enbohms.hhcib.entity;
+package se.enbohms.hhcib.web.util;
 
 /**
  * Marker interface for integration tests
