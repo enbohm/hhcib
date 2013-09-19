@@ -21,7 +21,22 @@ public final class Deployments {
 	private static final String WEBAPP_SRC = "src/main/webapp";
 
 	private Deployments() {
+		// Suppresses default constructor, ensuring non-instantiability.
+	}
 
+	public static WebArchive createIndexPageDeployment() {
+		return ShrinkWrap
+				.create(WebArchive.class, "indexn.war")
+				.addAsWebResource(new File(WEBAPP_SRC, "hhcib_template.xhtml"))
+				.addAsWebResource(new File(WEBAPP_SRC, "menu_template.xhtml"))
+				.addAsWebResource(new File(WEBAPP_SRC, "index.xhtml"))
+				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
+				.addAsWebInfResource(new File(WEBAPP_SRC, "WEB-INF/web.xml"))
+				.addAsWebInfResource(
+						new File(WEBAPP_SRC, "WEB-INF/glassfish-web.xml"))
+				.addAsWebInfResource(
+						new StringAsset("<faces-config version=\"2.0\"/>"),
+						"faces-config.xml");
 	}
 
 	public static WebArchive createLoginDeployment() {
