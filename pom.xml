@@ -12,7 +12,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.arquillian_drone>1.0.0.CR2</version.arquillian_drone>
 		<version.org.jboss.arquillian>1.1.1.Final</version.org.jboss.arquillian>
-		<version.org.jboss.arquillian.drone>1.2.0.Beta2</version.org.jboss.arquillian.drone>
+		<version.org.jboss.arquillian.drone.webdriver>1.2.0.Beta2</version.org.jboss.arquillian.drone.webdriver>
 	</properties>
 	<build>
 		<plugins>
@@ -108,7 +108,7 @@
 		<dependency>
 			<groupId>org.jboss.arquillian.extension</groupId>
 			<artifactId>arquillian-drone-webdriver-depchain</artifactId>
-			<version>${version.org.jboss.arquillian.drone}</version>
+			<version>${version.org.jboss.arquillian.drone.webdriver}</version>
 			<type>pom</type>
 			<scope>test</scope>
 		</dependency>
