@@ -7,6 +7,7 @@ import java.net.URL;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
@@ -44,11 +45,23 @@ public class LoginScenarioTest {
 	private URL deploymentUrl;
 
 	@Test
+	@InSequence(1)
 	public void should_login_successfully() {
 		LoginPage loginPage = new LoginPage(driver, deploymentUrl);
 		MyPagesPage myPagesPage = (MyPagesPage) loginPage.login(USER_NAME,
 				PASSWORD);
 		assertThat(myPagesPage.getWelcomeText()).isEqualTo(WELCOME_TEXT);
+	}
+
+	@Test
+	@InSequence(2)
+	public void should_logout_successfully() {
+		LoginPage loginPage = new LoginPage(driver, deploymentUrl);
+		MyPagesPage myPagesPage = (MyPagesPage) loginPage.login(USER_NAME,
+				PASSWORD);
+
+		myPagesPage.logout();
+		assertThat(myPagesPage.isLoggedOut()).isTrue();
 	}
 
 	@Test

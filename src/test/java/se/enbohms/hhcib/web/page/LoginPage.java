@@ -16,9 +16,9 @@ public class LoginPage extends AbstractPage {
 	public AbstractPage login(String userName, String password) {
 		driver.get(contextPath + "login/login.xhtml");
 
-		driver.findElement(id("login-form:username")).sendKeys(userName);
-		driver.findElement(id("login-form:password")).sendKeys(password);
-		driver.findElement(id("login-form:loginButton")).click();
+		driver.findElement(id("hhcib-form:username")).sendKeys(userName);
+		driver.findElement(id("hhcib-form:password")).sendKeys(password);
+		driver.findElement(id("hhcib-form:loginButton")).click();
 
 		if (driver.getCurrentUrl().endsWith("my_pages.xhtml")) {
 			return new MyPagesPage(driver, contextPath);

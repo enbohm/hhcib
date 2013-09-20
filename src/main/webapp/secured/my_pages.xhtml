@@ -1,15 +1,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:body>
 	<f:view encoding="UTF-8">
 		<ui:composition template="/hhcib_template.xhtml">
 			<ui:define name="content">
-				<span id="welcome-user">Välkommen #{loggedInUserFacade.loggedInUser.userName}!</span>
-				<h:form id="logout-form">
-					<h:commandLink value="Logga ut" action="#{loginFacade.logout}" />
+				<span id="welcome-user">Välkommen
+					#{loggedInUserFacade.loggedInUser.userName}!</span>
+				<h:form id="hhcib-form">
+					<h:commandButton id="logout-button" value="Logga ut" p:class="button"
+						action="#{loginFacade.logout}" />
 				</h:form>
 			</ui:define>
 		</ui:composition>

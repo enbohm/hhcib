@@ -16,4 +16,11 @@ public class MyPagesPage extends AbstractPage {
 		return driver.findElement(id("welcome-user")).getText();
 	}
 
+	public void logout() {
+		driver.findElement(id("hhcib-form:logout-button")).click();
+	}
+
+	public boolean isLoggedOut() {
+		return driver.getCurrentUrl().endsWith("login.xhtml");
+	}
 }
