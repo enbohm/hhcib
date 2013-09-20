@@ -64,6 +64,13 @@ public class NewSubjectFacade implements Serializable {
 		redirectToShowAllSubject();
 	}
 
+	/**
+	 * Clears the new subscription
+	 */
+	public void clear() {
+		description = null;
+	}
+
 	private void addCreateSubjectMessage() {
 		FacesContext.getCurrentInstance().addMessage(
 				null,
@@ -80,12 +87,5 @@ public class NewSubjectFacade implements Serializable {
 				.getContextPath();
 		FacesContext.getCurrentInstance().getExternalContext()
 				.redirect(contextPath + SUBJECTS_IN_CATEGORY_URL + category);
-	}
-
-	/**
-	 * Clears the new subscription
-	 */
-	public void clear() {
-		description = null;
 	}
 }

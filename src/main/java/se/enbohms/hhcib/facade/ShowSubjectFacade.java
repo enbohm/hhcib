@@ -66,6 +66,11 @@ public class ShowSubjectFacade implements Serializable {
 		this.currentScore = currentScore;
 	}
 
+	/**
+	 * Ajax (JSF) callback method. Handles voting without full page sumbit
+	 * 
+	 * @param actionEvent
+	 */
 	public void rate(AjaxBehaviorEvent actionEvent) {
 		User voter = getLoggedInUser();
 		if (getCurrentScore() > 0) {
@@ -73,15 +78,6 @@ public class ShowSubjectFacade implements Serializable {
 					Vote.of(voter.getUserName(), getCurrentScore()));
 			service.update(getSubject());
 		}
-	}
-
-	private User getLoggedInUser() {
-		FacesContext context = FacesContext.getCurrentInstance();
-		HttpServletRequest request = (HttpServletRequest) context
-				.getExternalContext().getRequest();
-
-		User voter = (User) request.getSession().getAttribute(Constants.USER);
-		return voter;
 	}
 
 	/**
@@ -95,6 +91,15 @@ public class ShowSubjectFacade implements Serializable {
 			this.currentScore = subject.getVoters().get(
 					getLoggedInUser().getUserName());
 		}
+	}
+
+	private User getLoggedInUser() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpServletRequest request = (HttpServletRequest) context
+				.getExternalContext().getRequest();
+
+		User voter = (User) request.getSession().getAttribute(Constants.USER);
+		return voter;
 	}
 
 	private boolean userHasVoted() {

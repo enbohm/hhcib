@@ -25,6 +25,8 @@ import se.enbohms.hhcib.service.api.CrudService;
 @ViewScoped
 public class UpdateSubjectFacade implements Serializable {
 
+	private static final String SUBJECTS_IN_CATEGORY_URL = "/categories/subjects_in_category.xhtml?category=";
+
 	private static final long serialVersionUID = -1712331748877385330L;
 
 	private String subjectId;
@@ -93,12 +95,10 @@ public class UpdateSubjectFacade implements Serializable {
 	}
 
 	private void addDeleteSuccessMessage() {
-		FacesContext.getCurrentInstance()
-				.addMessage(
-						null,
-						new FacesMessage(FacesMessage.SEVERITY_INFO,
-								"Inlägget togs bort",
-								"Inlägget togs bort"));
+		FacesContext.getCurrentInstance().addMessage(
+				null,
+				new FacesMessage(FacesMessage.SEVERITY_INFO,
+						"Inlägget togs bort", "Inlägget togs bort"));
 		FacesContext.getCurrentInstance().getExternalContext().getFlash()
 				.setKeepMessages(true);
 	}
@@ -107,12 +107,7 @@ public class UpdateSubjectFacade implements Serializable {
 		String contextPath = ((javax.servlet.http.HttpServletRequest) FacesContext
 				.getCurrentInstance().getExternalContext().getRequest())
 				.getContextPath();
-		FacesContext
-				.getCurrentInstance()
-				.getExternalContext()
-				.redirect(
-						contextPath
-								+ "/categories/subjects_in_category.xhtml?category="
-								+ category);
+		FacesContext.getCurrentInstance().getExternalContext()
+				.redirect(contextPath + SUBJECTS_IN_CATEGORY_URL + category);
 	}
 }

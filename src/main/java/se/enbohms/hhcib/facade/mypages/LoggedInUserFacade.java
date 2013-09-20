@@ -35,5 +35,4 @@ public class LoggedInUserFacade {
 	public boolean isUserLoggedIn() {
 		return getLoggedInUser() != null;
 	}
-
 }

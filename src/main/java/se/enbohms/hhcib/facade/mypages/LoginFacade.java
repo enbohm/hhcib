@@ -20,6 +20,7 @@ import se.enbohms.hhcib.service.api.UserService;
 
 /**
  * JSF facade for handling user login/logout functions
+ * 
  */
 @Named
 @RequestScoped
