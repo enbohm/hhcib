@@ -9,28 +9,28 @@
 	<ui:composition template="/hhcib_template.xhtml">
 
 		<ui:define name="content">
+			<span style="display: block;">Skapa nytt konto</span>
 			<div id="signup">
-				<h:form id="signup">
-					<span style="display: block;">Skapa nytt konto</span>
+				<h:form id="hhcib-form">
 
 					<span id="username-input" style="display: block;"> <h:inputText
 							id="username" value="#{signUpFacade.userName}"
-							p:placeholder="Användarnamn">
+							p:placeholder="Användarnamn" p:class="rounded" p:size="30">
 							<f:ajax event="keyup" listener="#{signUpFacade.userNameExist}"
 								render="userCredentials" />
 						</h:inputText>  
 					</span>
 					<h:inputText id="email" value="#{signUpFacade.email}"
-						p:placeholder="E-post" style="display: block;">
+						p:placeholder="E-post" style="display: block;" p:class="rounded" p:size="30">
 					</h:inputText>
 					<h:inputSecret id="password" value="#{signUpFacade.password}"
 						p:placeholder="Lösenord (min 4 tecken)" style="display: block;"
-						p:autocomplete="off">
+						p:autocomplete="off" p:class="rounded" p:size="30">
 					</h:inputSecret>
 					<h:inputSecret id="repeatedPassword"
 						value="#{signUpFacade.repeatedPassword}"
 						p:placeholder="Lösenord (repetera)" style="display: block;"
-						p:autocomplete="off">
+						p:autocomplete="off" p:class="rounded" p:size="30">
 					</h:inputSecret>
 
 

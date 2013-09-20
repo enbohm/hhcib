@@ -40,7 +40,7 @@ html {
 }
 
 #content .button {
-	margin-top: 5%;
+	margin-top: 10px;
 }
 
 #subject-description,#subject-slider {
@@ -70,7 +70,7 @@ html {
 	float: right;
 }
 
-#login-form {
+#hhcib-form {
 	margin-bottom: 1%;
 	margin-top: 1%;
 }
