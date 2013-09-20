@@ -9,7 +9,8 @@ import se.enbohms.hhcib.common.Constants;
 import se.enbohms.hhcib.entity.User;
 
 /**
- * JSF facade which contains methods for dealing with a logged in user
+ * JSF facade which contains methods for handling a logged in user
+ * 
  */
 @Named
 @RequestScoped

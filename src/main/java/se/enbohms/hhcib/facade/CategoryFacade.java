@@ -13,6 +13,7 @@ import se.enbohms.hhcib.service.api.CrudService;
 
 /**
  * JSF facade which handles fetching subject in categories
+ * 
  */
 @RequestScoped
 @Named

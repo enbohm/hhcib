@@ -22,20 +22,19 @@ public interface CrudService {
 	List<Subject> getSubjectsFor(Category category);
 
 	/**
-	 * Inserts (creates) a new object in the data base
+	 * Inserts (creates) a new object in the database
 	 * 
 	 * @param heading
 	 * @param description
 	 * @param category
 	 * @param user
-	 *            TODO
 	 * @return the newly created subject
 	 */
 	Subject createSubject(String heading, String description,
 			Category category, User user);
 
 	/**
-	 * Updates a current subject in the DB
+	 * Updates a current subject in the database
 	 * 
 	 * @param existingSubject
 	 */
@@ -48,7 +47,7 @@ public interface CrudService {
 	 * @param objectId
 	 * @return a new subject
 	 * @throws EntityNotFoundException
-	 *             - if no subject is found with the supplied objectId
+	 *             if no subject is found with the supplied objectId
 	 */
 	Subject find(String objectId) throws EntityNotFoundException;
 

@@ -6,7 +6,7 @@ import se.enbohms.hhcib.entity.Email;
 import se.enbohms.hhcib.entity.User;
 
 /**
- * Describes the various method needed for logging in/out users
+ * Describes the various method needed for logging in and out users
  * 
  */
 public interface UserService {

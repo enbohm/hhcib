@@ -15,6 +15,7 @@ import se.enbohms.hhcib.service.impl.UserServiceUtil;
 
 /**
  * JSF facade which handles the case when uses has forgotten his password
+ * 
  */
 @Named
 @RequestScoped

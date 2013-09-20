@@ -16,7 +16,8 @@ import se.enbohms.hhcib.service.api.UserService;
 import se.enbohms.hhcib.service.impl.UserServiceUtil;
 
 /**
- * JSF facade handling user sign up
+ * JSF facade handling user sign ups
+ * 
  */
 @Named
 @RequestScoped
@@ -55,13 +56,13 @@ public class SignUpFacade implements Serializable {
 		}
 	}
 
-	protected void handleCreateUser() {
+	private void handleCreateUser() {
 		loginService.createUser(userName, Email.of(email), password);
 		addSuccessMesssage();
 		resetForm();
 	}
 
-	protected void resetForm() {
+	private void resetForm() {
 		setUserName(null);
 		setEmail(null);
 	}
@@ -75,13 +76,13 @@ public class SignUpFacade implements Serializable {
 		checkUniqueUserName();
 	}
 
-	protected void checkUniqueUserName() {
+	private void checkUniqueUserName() {
 		if (!userServiceUtil.unique(getUserName())) {
 			addMessageUserNameNotUnique();
 		}
 	}
 
-	protected void addMessageUserNameNotUnique() {
+	private void addMessageUserNameNotUnique() {
 		FacesContext.getCurrentInstance().addMessage(
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_ERROR,
