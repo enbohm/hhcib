@@ -1,8 +1,8 @@
-html { 
+html {
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
-	background-size: cover; 
+	background-size: cover;
 	background: -moz-linear-gradient(#565656 0%, #323232 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #565656),
 		color-stop(100%, #323232));
@@ -40,7 +40,7 @@ html {
 }
 
 #content .button {
-	margin-top: 1%;
+	margin-top: 5%;
 }
 
 #subject-description,#subject-slider {
@@ -50,9 +50,9 @@ html {
 }
 
 #subject-slider {
-    width: 90%;
-    margin-top: 10%;
-    height: 250px;
+	width: 90%;
+	margin-top: 10%;
+	height: 250px;
 }
 
 #subject-description-input {
@@ -72,6 +72,7 @@ html {
 
 #login-form {
 	margin-bottom: 1%;
+	margin-top: 1%;
 }
 
 .button {
@@ -90,6 +91,24 @@ html {
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px
+}
+
+input.rounded {
+	border: 1px solid #ccc;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	-moz-box-shadow: 2px 2px 3px #666;
+	-webkit-box-shadow: 2px 2px 3px #666;
+	box-shadow: 2px 2px 3px #666;
+	font-size: 15px;
+	padding: 4px 7px;
+	outline: 0;
+	-webkit-appearance: none;
+}
+
+input.rounded:focus {
+	border-color: #5B74A8;
 }
 
 #social-share .button {

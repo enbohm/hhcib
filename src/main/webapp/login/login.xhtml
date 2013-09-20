@@ -8,13 +8,14 @@
 
 		<ui:define name="content">
 			<div id="login-form">
-
+				<span id="login-info-text">Ange ditt användarnamn och lösenord för
+					att logga in.</span>
 				<h:form id="login-form">
 					<h:panelGrid columns="1">
 						<h:inputText id="username" value="#{loginFacade.username}"
-							p:placeholder="användarnamn" />
+							p:placeholder="användarnamn" p:class="rounded" p:size="30"/>
 						<h:inputSecret id="password" value="#{loginFacade.password}"
-							p:placeholder="lösenord" />
+							p:placeholder="lösenord" p:class="rounded" p:size="30"/>
 						<h:commandButton id="loginButton" value="Login" p:class="button"
 							action="#{loginFacade.login}" />
 					</h:panelGrid>
