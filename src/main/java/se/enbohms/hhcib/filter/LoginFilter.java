@@ -14,6 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import se.enbohms.hhcib.common.Constants;
 
+/**
+ * This filter is responsible for intercepting all requests to
+ * <strong>/secured/*-resource</strong> and verify that the user is
+ * authenticated otherwise redirect to the login-page
+ */
 @WebFilter("/secured/*")
 public class LoginFilter implements Filter {
 
