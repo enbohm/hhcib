@@ -23,3 +23,6 @@ Getting started:
 - Git
 - A JavaEE 7 compliant application server (tested on Glassfish 4)
 - Internet access (since the database is hosted as MongoHQ.com)
+
+HHCIB uses Sass (http://sass-lang.com/) as an CSS extension. When running in devlopment mode, the following maven command might come in handy, mvn sass:watch which 
+compiles the *.scss files on the fly to the server.
