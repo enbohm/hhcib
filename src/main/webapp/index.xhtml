@@ -1,7 +1,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:pf="http://jsf.playerfinder.net/components">
 
 <h:body>
 	<ui:composition template="hhcib_template.xhtml">
@@ -9,15 +11,60 @@
 		<ui:define name="content">
 Välkommen till HurSvårtKanDeVa.se - sajten där goda råd är gratis! Här kan du enkelt hitta råd och beskrivningar 
 på saker du alltid trott är svårta och krångliga. Du är även möjliget att rösta på de beskrivningar eller själv bidra med information.
-		<div id="subject-slider">
+		<h:form id="search-form">
+
+				<h:inputText id="search-input" value="#{searchFacade.query}"
+					p:placeholder="Sök ämne, kategori, m.m" p:class="rounded"
+					p:size="40">
+					<f:ajax event="keyup" listener="#{searchFacade.search}"
+						render="result" />
+				</h:inputText>
+
+				<div id="search-result">
+
+					<h:dataTable id="result" value="#{searchFacade.searchResult}"
+						var="subject" styleClass="search-result-table"
+						headerClass="search-result-header"
+						rowClasses="search-result-odd-row,search-result-even-row">
+						<h:column rendered="#{searchFacade.searchResult.size() gt 0}">
+							<f:facet name="header">Skapad av</f:facet>
+							<h:outputLink
+								value="#{facesContext.externalContext.requestContextPath}/subject/show_subject.xhtml?subjectId=#{subject.id}&amp;category=#{subject.category}"
+								class="link">#{subject.createdBy}</h:outputLink>
+
+						</h:column>
+						<h:column rendered="#{searchFacade.searchResult.size() gt 0}">
+							<f:facet name="header">Nyckelord</f:facet>
+    						<h:outputLink
+								value="#{facesContext.externalContext.requestContextPath}/subject/show_subject.xhtml?subjectId=#{subject.id}&amp;category=#{subject.category}"
+								class="link">#{subject.heading}</h:outputLink> 
+    					</h:column>
+
+						<h:column rendered="#{searchFacade.searchResult.size() gt 0}">
+							<f:facet name="header">Kategori</f:facet>
+    						#{subject.category}
+    					</h:column>
+						<h:column rendered="#{searchFacade.searchResult.size() gt 0}">
+							<f:facet name="header">Omdöme</f:facet>
+							<pf:rating totalStars="7" step="1" disabled="true"
+								value="#{subject.rating}">
+							</pf:rating>
+						</h:column>
+					</h:dataTable>
+
+				</div>
+			</h:form>
+
+			<div id="subject-slider">
 				<ul>
-					<li class="current" id="current">Ut enim ad minim veniam, quis nostrud
-						exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					<li class="current" id="current">Ut enim ad minim veniam, quis
+						nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 						consequat.Välkommen till HurSvårtKanDeVa.se - sajten för alla
 						hemmafixare och proffs! Här kan du... Lorem ipsum dolor sit amet,
 						consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
 						labore et dolore magna aliqua.</li>
-					<li>Hur svårt kan det vara att bygga en sajt som denna? Inte alls svårt med JavaEE7....</li>
+					<li>Hur svårt kan det vara att bygga en sajt som denna? Inte
+						alls svårt med JavaEE7....</li>
 					<li>Välkommen till HurSvårtKanDeVa.se - sajten för alla
 						hemmafixare och proffs! Här kan du... Lorem ipsum dolor sit amet,
 						consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
@@ -35,7 +82,7 @@ på saker du alltid trott är svårta och krångliga. Du är även möjliget att
 						nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 						consequat.</li>
 				</ul>
-			</div>		
+			</div>
 		</ui:define>
 	</ui:composition>
 </h:body>

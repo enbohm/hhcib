@@ -1,15 +1,9 @@
 html {
-  /* IE10 Consumer Preview */
   background-image: -ms-linear-gradient(bottom, white 0%, #0074a8 100%);
-  /* Mozilla Firefox */
   background-image: -moz-linear-gradient(bottom, white 0%, #0074a8 100%);
-  /* Opera */
   background-image: -o-linear-gradient(bottom, white 0%, #0074a8 100%);
-  /* Webkit (Safari/Chrome 10) */
   background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, white), color-stop(1, #0074a8));
-  /* Webkit (Chrome 11+) */
   background-image: -webkit-linear-gradient(bottom, white 0%, #0074a8 100%);
-  /* W3C Markup, IE10 Release Preview */
   background-image: linear-gradient(to top, white 0%, #0074a8 100%);
   background-repeat: no-repeat;
 }
@@ -55,6 +49,41 @@ html, body {
   padding: 10px;
   margin-top: 5%;
   border: 1px solid #761A1A;
+}
+
+#search-form\:search-input {
+  margin-top: 2%;
+  margin-left: 30%;
+}
+
+#search-form\:result {
+  margin-top: 2%;
+  width: 92%;
+}
+
+.search-result-table {
+  border-collapse: collapse;
+}
+
+.search-result-header {
+  text-align: left;
+  background: none repeat scroll 0 0 #5b74a8;
+  border-bottom: 1px solid #BBBBBB;
+  padding: 6px;
+  width: 10%;
+  color: white;
+}
+
+.search-result-odd-row {
+  text-align: left;
+  background: none repeat scroll 0 0 white;
+  border-top: 1px solid #BBBBB;
+}
+
+.search-result-even-row {
+  text-align: left;
+  background: none repeat scroll 0 0 #f9f9f9;
+  border-top: 1px solid #bbbbbb;
 }
 
 #subject-slider {

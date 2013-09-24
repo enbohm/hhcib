@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import javax.ejb.DependsOn;
 import javax.ejb.Stateless;
@@ -21,9 +22,11 @@ import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.entity.User;
 import se.enbohms.hhcib.entity.Vote;
 import se.enbohms.hhcib.service.api.CrudService;
+import se.enbohms.hhcib.service.api.SearchService;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
+import com.mongodb.CommandResult;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
@@ -34,7 +37,13 @@ import com.mongodb.DBObject;
  */
 @Stateless
 @DependsOn("MongoDBInitiator")
-public class MongoCrudService implements CrudService {
+public class MongoCrudService implements CrudService, SearchService {
+
+	private static final String SEARCH_OBJECT = "obj";
+	private static final String RESULTS = "results";
+	private final static Logger LOG = Logger.getLogger(MongoCrudService.class
+			.getName());
+	private static final int NUMBER_OF_SEARCH_HITS = 2;
 
 	private static final String SUBJECT_COLLECTION_NAME = "subject";
 
@@ -166,6 +175,50 @@ public class MongoCrudService implements CrudService {
 		BasicDBObject dbObj = new BasicDBObject();
 		dbObj.put("_id", new ObjectId(objectID));
 		collection.remove(dbObj);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * <p>
+	 * This implementation uses MongoDB as database
+	 */
+	@PerformanceMonitored
+	public List<Subject> search(String searchQuery) {
+		DBObject textSearchCommand = prepareSearchCommand(searchQuery);
+
+		CommandResult result = mongoDBInitiator.getMongoDB().command(
+				textSearchCommand);
+		validate(result);
+		return result.isEmpty() ? noResult() : createSearchResultFrom(result);
+	}
+
+	private void validate(CommandResult result) {
+		if (!result.ok()) {
+			LOG.severe("Failed to search database, message "
+					+ result.getErrorMessage());
+		}
+	}
+
+	private DBObject prepareSearchCommand(String searchQuery) {
+		DBObject textSearchCommand = new BasicDBObject();
+		textSearchCommand.put("text", SUBJECT_COLLECTION_NAME);
+		textSearchCommand.put("search", searchQuery);
+		textSearchCommand.put("limit", NUMBER_OF_SEARCH_HITS);
+		return textSearchCommand;
+	}
+
+	private List<Subject> noResult() {
+		return Collections.emptyList();
+	}
+
+	private List<Subject> createSearchResultFrom(CommandResult commandResult) {
+		BasicDBList resultList = (BasicDBList) commandResult.get(RESULTS);
+		List<Subject> result = new ArrayList<>();
+		for (Object dbObj : resultList) {
+			result.add(buildSubject((DBObject) ((DBObject) dbObj)
+					.get(SEARCH_OBJECT)));
+		}
+		return result;
 	}
 
 	private List<Subject> fetchResults(DBCursor cursor) {
