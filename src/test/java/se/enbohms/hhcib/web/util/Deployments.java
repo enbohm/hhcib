@@ -26,7 +26,7 @@ public final class Deployments {
 
 	public static WebArchive createIndexPageDeployment() {
 		return ShrinkWrap
-				.create(WebArchive.class, "indexn.war")
+				.create(WebArchive.class, "index.war")
 				.addAsWebResource(new File(WEBAPP_SRC, "hhcib_template.xhtml"))
 				.addAsWebResource(new File(WEBAPP_SRC, "menu_template.xhtml"))
 				.addAsWebResource(new File(WEBAPP_SRC, "index.xhtml"))
