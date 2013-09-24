@@ -43,7 +43,7 @@ public class CategoryWebSocketFacade {
 		peers.add(peer);
 	}
 
-	@Schedule(persistent = false, second = "*/10", minute = "*", hour = "*", info = "WebSocket Timed Event")
+	@Schedule(persistent = false, second = "*/15", minute = "*", hour = "*", info = "WebSocket Timed Event")
 	public void onTimeEvent() {
 		for (Session peer : peers) {
 			try {
@@ -55,7 +55,7 @@ public class CategoryWebSocketFacade {
 						subjects.get(random.nextInt(subjects.size()))
 								.getDescription());
 			} catch (IOException ex) {
-				LOG.warning("Failed to fetch random subject, exception is "
+				LOG.warning("Failed to fetch random subjects, exception is "
 						+ ex);
 			}
 		}

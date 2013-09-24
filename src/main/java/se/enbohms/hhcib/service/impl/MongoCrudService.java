@@ -208,6 +208,7 @@ public class MongoCrudService implements CrudService, SearchService {
 	}
 
 	private List<Subject> noResult() {
+		LOG.info("No search results found");
 		return Collections.emptyList();
 	}
 
