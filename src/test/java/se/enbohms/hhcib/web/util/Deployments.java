@@ -30,6 +30,7 @@ public final class Deployments {
 				.addAsWebResource(new File(WEBAPP_SRC, "hhcib_template.xhtml"))
 				.addAsWebResource(new File(WEBAPP_SRC, "menu_template.xhtml"))
 				.addAsWebResource(new File(WEBAPP_SRC, "index.xhtml"))
+				.addAsWebResource(new File(WEBAPP_SRC, "search/search_result_template.xhtml"), "search/search_result_template.xhtml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
 				.addAsWebInfResource(new File(WEBAPP_SRC, "WEB-INF/web.xml"))
 				.addAsWebInfResource(
