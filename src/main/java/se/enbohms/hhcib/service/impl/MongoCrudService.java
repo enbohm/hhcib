@@ -17,6 +17,7 @@ import org.bson.BasicBSONObject;
 import org.bson.types.ObjectId;
 
 import se.enbohms.hhcib.common.PerformanceMonitored;
+import se.enbohms.hhcib.common.Utils;
 import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.entity.User;
@@ -66,8 +67,11 @@ public class MongoCrudService implements CrudService, SearchService {
 		DBCollection coll = mongoDBInitiator.getMongoDB().getCollection(
 				SUBJECT_COLLECTION_NAME);
 		BasicDBObject doc = new BasicDBObject(Subject.CATEGORY,
-				category.toString()).append(Subject.HEADING, heading)
+				category.toString())
+				.append(Subject.HEADING, heading)
 				.append(Subject.DESCRIPTION, description)
+				.append(Subject.DESCRIPTION_NO_HTML,
+						Utils.removeHtmlFrom(description))
 				.append(Subject.CREATED_BY, user.getUserName());
 
 		coll.insert(doc);
@@ -114,13 +118,18 @@ public class MongoCrudService implements CrudService, SearchService {
 
 		for (Map.Entry<String, Double> entry : subject.getVoters().entrySet()) {
 			voters.add(new BasicDBObject().append(Vote.USER_NAME,
-					entry.getKey()).append(Vote.SCIRE, entry.getValue()));
+					entry.getKey()).append(Vote.SCORE, entry.getValue()));
 		}
 
-		newDocument.append(
-				"$set",
-				new BasicDBObject().append(Subject.RATING, voters).append(
-						Subject.DESCRIPTION, subject.getDescription()));
+		newDocument
+				.append("$set",
+						new BasicDBObject()
+								.append(Subject.RATING, voters)
+								.append(Subject.DESCRIPTION,
+										subject.getDescription())
+								.append(Subject.DESCRIPTION_NO_HTML,
+										Utils.removeHtmlFrom(subject
+												.getDescription())));
 
 		ObjectId objectId = new ObjectId(subject.getId());
 		BasicDBObject searchQuery = new BasicDBObject(Subject.ID, objectId);
@@ -247,7 +256,7 @@ public class MongoCrudService implements CrudService, SearchService {
 				String userName = ((BasicBSONObject) ratings.get(i))
 						.getString(Vote.USER_NAME);
 				Double score = ((BasicBSONObject) ratings.get(i))
-						.getDouble(Vote.SCIRE);
+						.getDouble(Vote.SCORE);
 				result.add(Vote.of(userName, score));
 			}
 		}

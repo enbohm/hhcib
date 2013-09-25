@@ -6,7 +6,7 @@ package se.enbohms.hhcib.entity;
 public final class Vote {
 
 	public static final String USER_NAME = "username";
-	public static final String SCIRE = "score";
+	public static final String SCORE = "score";
 	
 	private String userName;
 	private Double score;

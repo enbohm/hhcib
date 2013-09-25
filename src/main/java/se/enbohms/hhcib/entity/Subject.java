@@ -17,6 +17,7 @@ public class Subject {
 	public static final String ID = "_id";
 	public static final String HEADING = "heading";
 	public static final String DESCRIPTION = "description";
+	public static final String DESCRIPTION_NO_HTML = "descriptionWithoutHtml";
 	public static final String RATING = "rating";
 	public static final String CATEGORY = "category";
 	public static final String CREATED_BY = "created_by";
@@ -98,7 +99,7 @@ public class Subject {
 	public String getDescription() {
 		return description;
 	}
-
+	
 	/**
 	 * Return the rating score of this subject.
 	 * <p>
