@@ -4,3 +4,5 @@ build/
 .settings/
 target/
 src/main/webapp/resources/css/hhcib.css
+src/main/webapp/resources/css/hhcib_menu.css
+src/main/webapp/resources/css/hhcib_print.css
