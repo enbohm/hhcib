@@ -8,6 +8,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.mongodb.BasicDBObject;
+
 import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.entity.User;
@@ -22,7 +24,7 @@ public class SearchServiceTest {
 
 	private static final String CRAZY_SEARCH_STRING = "goasdsadasd asd\\sad:-asd\\es";
 	private static final String DESCRIPTION_ONE = "a description goes here...";
-	private static final String DESCRIPTION_TWO = "another description goe here...";
+	private static final String DESCRIPTION_TWO = "another description goes here includ vetemjöl ...";
 	private static final String HEADING = "a heading goes here";
 	private static final User USER = User.creteUser("id", "chuck", null);
 	private MongoCrudService searchService;
@@ -41,6 +43,7 @@ public class SearchServiceTest {
 		Subject subjectTwo = null;
 
 		try {
+			
 			// given
 			subjectOne = searchService.createSubject(HEADING, DESCRIPTION_ONE,
 					Category.FOOD, USER);
@@ -48,7 +51,7 @@ public class SearchServiceTest {
 					Category.FOOD, USER);
 
 			// when
-			List<Subject> result = searchService.search("goes");
+			List<Subject> result = searchService.search("vetemjöl");
 
 			// then
 			assertThat(result).isNotNull();

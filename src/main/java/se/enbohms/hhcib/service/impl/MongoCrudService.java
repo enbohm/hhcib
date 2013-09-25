@@ -43,7 +43,7 @@ public class MongoCrudService implements CrudService, SearchService {
 	private static final String RESULTS = "results";
 	private final static Logger LOG = Logger.getLogger(MongoCrudService.class
 			.getName());
-	private static final int NUMBER_OF_SEARCH_HITS = 2;
+	private static final int NUMBER_OF_SEARCH_HITS = 10;
 
 	private static final String SUBJECT_COLLECTION_NAME = "subject";
 
