@@ -25,7 +25,7 @@
 	${facesContext.externalContext.requestContextPath}/login/login.xhtml"
 						class="link">Logga in</a> för att rösta!
 				</ui:fragment>
-				
+
 				<span id="print-page"> <a
 					href="javascript:if(window.print)window.print()">Skriv ut</a>
 				</span>
@@ -41,12 +41,14 @@
 						<span id="createdBy" style="font-style: italic;">(Skapad av
 							#{showSubjectFacade.subject.createdBy})</span>
 						<div id="rating">
-							<pf:rating totalStars="7" step="1"
-								disabled="#{not userServiceUtil.canRate(user, showSubjectFacade.subject)}"
-								value="#{showSubjectFacade.currentScore}">
-								<f:ajax event="change" listener="#{showSubjectFacade.rate}"
-									render="@form" />
-							</pf:rating>
+							<ui:fragment rendered="#{authenticated}">
+								<pf:rating totalStars="7" step="1"
+									disabled="#{not userServiceUtil.canRate(user, showSubjectFacade.subject)}"
+									value="#{showSubjectFacade.currentScore}">
+									<f:ajax event="change" listener="#{showSubjectFacade.rate}"
+										render="@form" />
+								</pf:rating>
+							</ui:fragment>
 						</div>
 
 						<h:outputText value="#{showSubjectFacade.subject.description}"
