@@ -8,16 +8,23 @@ $header-blue:  rgb(91, 116, 168);
 $light-grey: #F9F9F9;
 $grey: #BBBBBB;
 $white: #FFFFFF;
-
+$border-red: #761A1A;
+$button-blue: #5B74A8;
+$button-shadow: rgba(0, 0, 0, 0.1);
+$button-border: #29447E;
+$input-border: #FFF;
+$button-color: #FFF;
+$navigation-border-top: #4D0000;
+$navigation-border-bottom: #761A1A;
 
 html {
-	background-image: -ms-linear-gradient(bottom, #FFFFFF 0%, $hhcib-blue 100%);
-	background-image: -moz-linear-gradient(bottom, #FFFFFF 0%, $hhcib-blue 100%);
-	background-image: -o-linear-gradient(bottom, #FFFFFF 0%, $hhcib-blue 100%);
-	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #FFFFFF),
+	background-image: -ms-linear-gradient(bottom, $white 0%, $hhcib-blue 100%);
+	background-image: -moz-linear-gradient(bottom, $white 0%, $hhcib-blue 100%);
+	background-image: -o-linear-gradient(bottom, $white 0%, $hhcib-blue 100%);
+	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, $white),
 		color-stop(1, $hhcib-blue));
-	background-image: -webkit-linear-gradient(bottom, #FFFFFF 0%, $hhcib-blue 100%);
-	background-image: linear-gradient(to top, #FFFFFF 0%, $hhcib-blue 100%);
+	background-image: -webkit-linear-gradient(bottom, $white 0%, $hhcib-blue 100%);
+	background-image: linear-gradient(to top, $white 0%, $hhcib-blue 100%);
 	background-repeat: no-repeat;
 }
 
@@ -29,7 +36,7 @@ html, body {
 	width: 90%;
 	margin: 0px auto;
 	position: absolute;
-	background: white;
+	background: $white;
 	margin-left: 5%;
 	height: auto;
 	min-height: 90%;
@@ -61,13 +68,15 @@ html, body {
 #subject-description,#subject-slider {
 	padding: 10px;
 	margin-top: 5%;
-	border: 1px solid #761A1A;
+	border: 1px solid $border-red;
 }
 
 #search-form\:search-input {
-  margin-top: 2%;
+  margin-top: 5%;
   margin-bottom: 2%;
-  margin-left: 30%;
+  margin-left: 25%;
+  height: 35px;
+  width: 40%;
 }
 
 
@@ -83,21 +92,26 @@ html, body {
 
 .search-result-table {
   border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.search-result-table td {
+  overflow: hidden;
 }
 
 .search-result-header {
   text-align: left;
   background: none repeat scroll 0 0 $header-blue;
-  border-bottom: 1px solid #BBBBBB;
+  border-bottom: 1px solid $grey;
   padding: 6px;
   width: 10%;
-  color:white;
+  color:$white;
 }
 
 .search-result-odd-row {
   text-align: left;
   background: none repeat scroll 0 0 $white;
-  border-top: 1px solid #BBBBB;
+  border-top: 1px solid $grey;
 }
 
 .search-result-even-row {
@@ -135,23 +149,23 @@ html, body {
 .button {
 	margin-left: 1%;
 	text-decoration: none;
-	-webkit-box-shadow: rgba(0, 0, 0, 0.1) 0 1px 0 0;
-	-moz-box-shadow: rgba(0, 0, 0, 0.1) 0 1px 0 0;
-	box-shadow:  rgba(0, 0, 0, 0.1) 0 1px 0 0;
-	background-color: #5B74A8;
-	border: 1px solid #29447E;
+	-webkit-box-shadow: $button-shadow 0 1px 0 0;
+	-moz-box-shadow: $button-shadow 0 1px 0 0;
+	box-shadow:  $button-shadow 0 1px 0 0;
+	background-color: $button-blue;
+	border: 1px solid $button-border;
 	font-family: 'Lucida Grande', Tahoma, Verdana, Arial, sans-serif;
 	font-size: 14px;
 	font-weight: 700;
 	padding: 2px 6px;
-	color: #fff;
+	color: $button-color;
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px
 }
 
 input.rounded {
-	border: 1px solid #ccc;
+	border: 1px solid $input-border;
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 	border-radius: 10px;
@@ -165,18 +179,18 @@ input.rounded {
 }
 
 input.rounded:focus {
-	border-color: #5B74A8;
+	border-color: $button-blue;
 }
 
 #social-share .button {
-	background-color: white;
+	background-color: $white;
 	border: none;
 }
 
 h3 {
 	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
 	font-size: 18pt;
-	color: white;
+	color: $white;
 }
 
 h3.splash {
@@ -199,8 +213,8 @@ ul#navigation {
 ul#navigation li {
 	margin: 0;
 	padding: 0;
-	border-top: 10px solid #4D0000;
-	border-bottom: 10px solid #761A1A;
+	border-top: 10px solid $navigation-border-top;
+	border-bottom: 10px solid $navigation-border-top;
 }
 
 ul#navigation li#home {

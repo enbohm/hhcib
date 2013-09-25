@@ -15,7 +15,7 @@ på saker du alltid trott är svårta och krångliga. Du är även möjliget att
 
 				<h:inputText id="search-input" value="#{searchFacade.query}"
 					p:placeholder="Sök ämne, kategori, m.m" p:class="rounded"
-					p:size="40">
+					p:size="40" p:autocomplete="off">
 					<f:ajax event="keyup" listener="#{searchFacade.search}"
 						render="result info" />
 				</h:inputText>

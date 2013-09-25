@@ -5,38 +5,37 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:pf="http://jsf.playerfinder.net/components">
-
 	
-		<h:outputText id="info"
-			value="#{searchFacade.info}" />
+	<h:outputText id="info"	value="#{searchFacade.info}" />
+	
+	<ui:param name="display" value="#{searchFacade.searchResult.size() gt 0}" />
 	
 	<h:dataTable id="result" value="#{searchFacade.searchResult}"
 		var="subject" styleClass="search-result-table"
 		headerClass="search-result-header"
 		rowClasses="search-result-odd-row,search-result-even-row">
-		<h:column rendered="#{searchFacade.searchResult.size() gt 0}">
+		
+		<h:column rendered="#{display}">
 			<f:facet name="header">Skapad av</f:facet>
 			<h:outputLink
 				value="#{facesContext.externalContext.requestContextPath}/subject/show_subject.xhtml?subjectId=#{subject.id}&amp;category=#{subject.category}"
 				class="link">#{subject.createdBy}</h:outputLink>
 
 		</h:column>
-		<h:column rendered="#{searchFacade.searchResult.size() gt 0}">
-			<f:facet name="header">Nyckelord</f:facet>
+		<h:column rendered="#{display}">
+			<f:facet name="header">Rubrik</f:facet>
 			<h:outputLink
 				value="#{facesContext.externalContext.requestContextPath}/subject/show_subject.xhtml?subjectId=#{subject.id}&amp;category=#{subject.category}"
 				class="link">#{subject.heading}</h:outputLink>
 		</h:column>
 
-		<h:column rendered="#{searchFacade.searchResult.size() gt 0}">
+		<h:column rendered="#{display}">
 			<f:facet name="header">Kategori</f:facet>
-    						#{subject.category}
-    					</h:column>
+    		#{subject.category}
+    	</h:column>
 		<h:column rendered="#{searchFacade.searchResult.size() gt 0}">
 			<f:facet name="header">Omdöme</f:facet>
-			<pf:rating totalStars="7" step="1" disabled="true"
-				value="#{subject.rating}">
-			</pf:rating>
+			<pf:rating totalStars="7" step="1" disabled="true" value="#{subject.rating}"/>
 		</h:column>
 	</h:dataTable>
 </ui:composition>

@@ -18,7 +18,7 @@ import se.enbohms.hhcib.service.api.SearchService;
 @Named
 @RequestScoped
 public class SearchFacade {
-	
+
 	private final static String INFO_TEXT = "Sökningen är klar. Du kan fortsätta skriva om du vill begränsa sökningen.";
 	private String query;
 	private List<Subject> searchResult = new ArrayList<>();
@@ -48,7 +48,7 @@ public class SearchFacade {
 	}
 
 	/**
-	 * Ajax (JSF) callback method. Handles voting without full page sumbit
+	 * Ajax (JSF) callback method. Handles searching without full page submit
 	 * 
 	 * @param actionEvent
 	 */
@@ -56,8 +56,7 @@ public class SearchFacade {
 		setInfo(null);
 		if (query.length() < 3)
 			return;
-		List<Subject> subjects = searchService.search(query);
-		searchResult.addAll(subjects);
+		searchResult.addAll(searchService.search(query));
 		setInfo(INFO_TEXT);
 	}
 }

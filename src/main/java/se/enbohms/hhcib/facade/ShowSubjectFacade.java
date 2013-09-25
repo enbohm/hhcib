@@ -67,7 +67,7 @@ public class ShowSubjectFacade implements Serializable {
 	}
 
 	/**
-	 * Ajax (JSF) callback method. Handles voting without full page sumbit
+	 * Ajax (JSF) callback method. Handles voting without full page submit
 	 * 
 	 * @param actionEvent
 	 */
