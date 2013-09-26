@@ -8,17 +8,19 @@
 
 		<ui:define name="content">
 			<div id="login-form">
-				<span id="login-info-text">Ange ditt användarnamn och lösenord för
-					att logga in.</span>
+				<span id="login-info-text">Ange ditt användarnamn och
+					lösenord för att logga in.</span>
 				<h:form id="hhcib-form">
-					<h:panelGrid columns="1">
-						<h:inputText id="username" value="#{loginFacade.username}"
-							p:placeholder="användarnamn" p:class="rounded" p:size="30"/>
-						<h:inputSecret id="password" value="#{loginFacade.password}"
-							p:placeholder="lösenord" p:class="rounded" p:size="30"/>
-						<h:commandButton id="loginButton" value="Login" p:class="button"
-							action="#{loginFacade.login}" />
-					</h:panelGrid>
+					<span id="username-input" style="display: block;"> <h:inputText
+							id="username" value="#{loginFacade.username}"
+							p:placeholder="användarnamn" p:class="rounded" p:size="30" />
+					</span>
+					<span id="password-input" style="display: block;"> <h:inputSecret
+							id="password" value="#{loginFacade.password}"
+							p:placeholder="lösenord" p:class="rounded" p:size="30" />
+					</span>
+					<h:commandButton id="loginButton" value="Login" p:class="button"
+						action="#{loginFacade.login}" />
 				</h:form>
 				<span style="display: block"><a href="reset_password.xhtml"
 					id="forgot-password">Glömt lösenord?</a></span> <a href="signup.xhtml"

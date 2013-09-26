@@ -10,6 +10,6 @@ public final class Utils {
 	}
 
 	public static final String removeHtmlFrom(String htmlString) {
-		return htmlString.replaceAll("\\<.*?\\>", "").replace("\r\n", " ");
+		return htmlString.replaceAll("<br/>|<br />", " ").replaceAll("\\<.*?\\>", "").replace("\r\n", " ");
 	}
 }

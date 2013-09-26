@@ -73,10 +73,9 @@ html, body {
 	border: 1px solid $border-red;
 }
 
-#subject-heading {
+.heading {
 	margin-bottom: 1%;
-	font-weight: bold;
-	
+	font-weight: bold;	
 }
 
 #search-form\:search-input {
@@ -155,7 +154,7 @@ html, body {
 }
 
 .button {
-	margin-left: 1%;
+	margin-right: 1%;
 	text-decoration: none;
 	-webkit-box-shadow: $button-shadow 0 1px 0 0;
 	-moz-box-shadow: $button-shadow 0 1px 0 0;
@@ -184,7 +183,7 @@ input.rounded {
 	padding: 4px 7px;
 	outline: 0;
 	-webkit-appearance: none;
-	margin-bottom: 2%;
+	margin-bottom: 1%;
 }
 
 input.rounded:focus {
