@@ -22,7 +22,7 @@ import se.enbohms.hhcib.web.util.IntegrationTest;
 @org.junit.experimental.categories.Category(IntegrationTest.class)
 public class SearchServiceTest {
 
-	private static final String CRAZY_SEARCH_STRING = "goasdsadasd asd\\sad:-asd\\es";
+	private static final String CRAZY_SEARCH_STRING = "ddööääöö321340kkk";
 	private static final String DESCRIPTION_ONE = "a description goes here...";
 	private static final String DESCRIPTION_TWO = "another description goes here includ vetemjöl ...";
 	private static final String DESCRIPTION_THREE = "another description <p>börjar</b>\r\n here includ vetemjöl\r\n ...";
