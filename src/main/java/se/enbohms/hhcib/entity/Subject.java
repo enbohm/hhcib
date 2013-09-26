@@ -23,10 +23,13 @@ public class Subject {
 	public static final String CREATED_BY = "created_by";
 
 	private String id;
+	
+	@NotNullOrEmpty(message = "Rubriken kan inte vara tom")
+	@Size(min = 3, message = "Rubriken måste var minst 5 tecken")
 	private String heading;
 
-	@NotNullOrEmpty(message = "Beskrivning kan inte vara tom")
-	@Size(min = 10)
+	@NotNullOrEmpty(message = "Beskrivingen kan inte vara tom")
+	@Size(min = 10, message = "Beskrivningen måste vara minst 10 tecken")
 	private String description;
 
 	private Map<String, Double> voters = new HashMap<>();
@@ -133,6 +136,10 @@ public class Subject {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+	public void setHeading(String heading) {
+		this.heading = heading;
 	}
 
 	public String getCreatedBy() {

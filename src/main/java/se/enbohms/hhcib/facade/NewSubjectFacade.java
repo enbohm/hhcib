@@ -29,12 +29,24 @@ public class NewSubjectFacade implements Serializable {
 
 	private String category;
 
+	@NotNullOrEmpty(message = "Rubriken kan inte vara tom")
+	@Size(min = 3, message = "Rubriken måste var minst 5 tecken")
+	private String heading;
+
 	@NotNullOrEmpty(message = "Beskrivingen kan inte vara tom")
-	@Size(min = 10)
+	@Size(min = 10, message = "Beskrivningen måste vara minst 10 tecken")
 	private String description;
 
 	@Inject
 	private CrudService service;
+
+	public String getHeading() {
+		return heading;
+	}
+
+	public void setHeading(String heading) {
+		this.heading = heading;
+	}
 
 	public String getDescription() {
 		return description;
@@ -58,9 +70,9 @@ public class NewSubjectFacade implements Serializable {
 	 * @throws IOException
 	 */
 	public void save(User user) throws IOException {
-		service.createSubject("a heading", this.description,
+		service.createSubject(this.heading, this.description,
 				Category.valueOf(this.category), user);
-		addCreateSubjectMessage();
+		showMessage();
 		redirectToShowAllSubject();
 	}
 
@@ -71,7 +83,7 @@ public class NewSubjectFacade implements Serializable {
 		description = null;
 	}
 
-	private void addCreateSubjectMessage() {
+	private void showMessage() {
 		FacesContext.getCurrentInstance().addMessage(
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO,

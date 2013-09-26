@@ -10,6 +10,7 @@
 		<ui:composition template="/hhcib_template.xhtml">
 			<ui:define name="content">
 				<h2>Lägg till ny beskrivning</h2>
+				<p>Vänligen ange en rubrik samt en beskrivning</p>
 				<f:metadata>
 					<f:viewParam id="category" name="category"
 						value="#{newSubjectFacade.category}" required="true" />
@@ -17,10 +18,11 @@
 
 				<ui:param name="user" value="#{loggedInUserFacade.getLoggedInUser()}" />
 				
-				<h:form id="form">
+				<h:form id="new-subject">
+					<h:inputText id="new_subject_heading" value="#{newSubjectFacade.heading}" p:size="50" p:class="rounded" p:placeholder="Fyll i en rubrik"/>
 					<h:inputTextarea value="#{newSubjectFacade.description}"
 						id="new_subject_description" p:class="editable"
-						p:id="subject-description-input" />
+						p:id="subject-description-input"/>
 					<h:commandButton value="Spara" p:class="button"
 						action="#{newSubjectFacade.save(user)}" />
 					<h:commandButton value="Rensa" p:class="button"

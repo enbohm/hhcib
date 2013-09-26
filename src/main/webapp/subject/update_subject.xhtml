@@ -24,6 +24,7 @@
 					value="#{loggedInUserFacade.getLoggedInUser()}" />
 
 				<h:form id="updateSubject">
+				<h:inputText id="subject_heading" value="#{updateSubjectFacade.subject.heading}" p:size="50" p:class="rounded"/>
 					<h:inputTextarea value="#{updateSubjectFacade.subject.description}"
 						id="update_subject_description" cols="135" rows="25"
 						p:class="editable" p:id="subject-description-input" escape="false" />

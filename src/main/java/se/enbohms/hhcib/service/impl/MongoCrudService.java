@@ -127,6 +127,7 @@ public class MongoCrudService implements CrudService, SearchService {
 								.append(Subject.RATING, voters)
 								.append(Subject.DESCRIPTION,
 										subject.getDescription())
+								.append(Subject.HEADING, subject.getHeading())
 								.append(Subject.DESCRIPTION_NO_HTML,
 										Utils.removeHtmlFrom(subject
 												.getDescription())));

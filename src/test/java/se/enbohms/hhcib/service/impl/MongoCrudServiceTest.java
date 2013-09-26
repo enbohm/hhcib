@@ -28,6 +28,7 @@ public class MongoCrudServiceTest {
 	private static final User USER = User.creteUser("id", "chuck", null);
 	private static final String USER_NAME_1 = "userName1";
 	private static final String USER_NAME_2 = "userName2";
+	private static final String UPDATED_HEADING = "Updated heading";
 	private MongoCrudService crudService;
 
 	@Before
@@ -104,6 +105,7 @@ public class MongoCrudServiceTest {
 			
 			
 			existingSubject.setDescription(UPDATED_DESCRIPTION);
+			existingSubject.setHeading(UPDATED_HEADING);
 
 			crudService.update(existingSubject);
 
@@ -112,6 +114,7 @@ public class MongoCrudServiceTest {
 			assertThat(result).isNotNull();
 			assertThat(result.getRating()).isEqualTo(4.5d);
 			assertThat(result.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+			assertThat(result.getHeading()).isEqualTo(UPDATED_HEADING);
 			assertThat(result.getCategory()).isEqualTo(Category.FOOD);
 			assertThat(result.getCreatedBy()).isEqualTo(USER.getUserName());
 		} finally {

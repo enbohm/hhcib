@@ -31,6 +31,7 @@ public class UpdateSubjectFacade implements Serializable {
 
 	private String subjectId;
 	private Subject subject;
+
 	private String category;
 
 	@Inject
