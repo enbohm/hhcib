@@ -9,7 +9,7 @@ import javax.inject.Named;
 
 import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
-import se.enbohms.hhcib.service.api.CrudService;
+import se.enbohms.hhcib.service.api.SubjectCrudService;
 
 /**
  * JSF facade which handles fetching subject in categories
@@ -22,7 +22,7 @@ public class CategoryFacade implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Inject
-	private CrudService service;
+	private SubjectCrudService service;
 
 	private String categoryValue;
 

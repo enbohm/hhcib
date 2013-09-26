@@ -26,11 +26,11 @@ public class SearchServiceTest {
 	private static final String DESCRIPTION_THREE = "another description <p>börjar</b>\r\n here includ vetemjöl\r\n ...";
 	private static final String HEADING = "a heading goes here";
 	private static final User USER = User.creteUser("id", "chuck", null);
-	private MongoCrudService searchService;
+	private MongoSubjectCrudService searchService;
 
 	@Before
 	public void setUp() throws UnknownHostException {
-		searchService = new MongoCrudService();
+		searchService = new MongoSubjectCrudService();
 		MongoDBInitiator dbInitiator = new MongoDBInitiator();
 		dbInitiator.initDB();
 		searchService.setDBInitiator(dbInitiator);

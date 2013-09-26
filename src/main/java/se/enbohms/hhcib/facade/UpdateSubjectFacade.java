@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import se.enbohms.hhcib.entity.Subject;
-import se.enbohms.hhcib.service.api.CrudService;
+import se.enbohms.hhcib.service.api.SubjectCrudService;
 
 /**
  * Facade which is responsible for loading/fetching existing subject and
@@ -35,7 +35,7 @@ public class UpdateSubjectFacade implements Serializable {
 	private String category;
 
 	@Inject
-	private CrudService service;
+	private SubjectCrudService service;
 
 	public String getCategory() {
 		return category;

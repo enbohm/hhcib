@@ -10,16 +10,25 @@ import se.enbohms.hhcib.entity.User;
 
 /**
  * Defines the contract for operations on the database
+ * 
  */
-public interface CrudService {
+public interface SubjectCrudService {
 
 	/**
 	 * 
 	 * @param category
-	 * @return a list of subject for the supplied category from the database or
+	 * @return a list of subjects for the supplied category from the database or
 	 *         empty list of no subjects are found
 	 */
 	List<Subject> getSubjectsFor(Category category);
+
+	/**
+	 * 
+	 * @param user
+	 * @return a list of subjects which the user has created or empty list of no
+	 *         subjects are found
+	 */
+	List<Subject> getSubjectsCreatedBy(User user);
 
 	/**
 	 * Inserts (creates) a new object in the database

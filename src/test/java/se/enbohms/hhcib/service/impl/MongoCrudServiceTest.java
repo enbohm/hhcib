@@ -17,7 +17,7 @@ import se.enbohms.hhcib.entity.Vote;
 import se.enbohms.hhcib.web.util.IntegrationTest;
 
 /**
- * Test client for the {@link MongoCrudService}
+ * Test client for the {@link MongoSubjectCrudService}
  */
 @org.junit.experimental.categories.Category(IntegrationTest.class)
 public class MongoCrudServiceTest {
@@ -29,11 +29,11 @@ public class MongoCrudServiceTest {
 	private static final String USER_NAME_1 = "userName1";
 	private static final String USER_NAME_2 = "userName2";
 	private static final String UPDATED_HEADING = "Updated heading";
-	private MongoCrudService crudService;
+	private MongoSubjectCrudService crudService;
 
 	@Before
 	public void setUp() throws UnknownHostException {
-		crudService = new MongoCrudService();
+		crudService = new MongoSubjectCrudService();
 		MongoDBInitiator dbInitiator = new MongoDBInitiator();
 		dbInitiator.initDB();
 		crudService.setDBInitiator(dbInitiator);

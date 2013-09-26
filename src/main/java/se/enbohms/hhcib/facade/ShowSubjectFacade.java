@@ -13,7 +13,7 @@ import se.enbohms.hhcib.common.Constants;
 import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.entity.User;
 import se.enbohms.hhcib.entity.Vote;
-import se.enbohms.hhcib.service.api.CrudService;
+import se.enbohms.hhcib.service.api.SubjectCrudService;
 
 /**
  * JSF facade which is responsible for loading/fetching existing subject and
@@ -36,7 +36,7 @@ public class ShowSubjectFacade implements Serializable {
 	private Double currentScore;
 
 	@Inject
-	private CrudService service;
+	private SubjectCrudService service;
 
 	public String getCategory() {
 		return category;

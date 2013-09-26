@@ -18,7 +18,7 @@ import javax.websocket.server.ServerEndpoint;
 
 import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
-import se.enbohms.hhcib.service.api.CrudService;
+import se.enbohms.hhcib.service.api.SubjectCrudService;
 
 /**
  * Web socket facade which is responsible for supplying random subject from the
@@ -36,7 +36,7 @@ public class CategoryWebSocketFacade {
 			.synchronizedSet(new HashSet<Session>());
 
 	@Inject
-	private CrudService crudService;
+	private SubjectCrudService crudService;
 
 	@OnOpen
 	public void onOpen(Session peer) {

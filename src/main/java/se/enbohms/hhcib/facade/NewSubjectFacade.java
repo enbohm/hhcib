@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.User;
 import se.enbohms.hhcib.entity.validator.NotNullOrEmpty;
-import se.enbohms.hhcib.service.api.CrudService;
+import se.enbohms.hhcib.service.api.SubjectCrudService;
 
 /**
  * JSF facade which handles client interaction when new subjects are created
@@ -38,7 +38,7 @@ public class NewSubjectFacade implements Serializable {
 	private String description;
 
 	@Inject
-	private CrudService service;
+	private SubjectCrudService service;
 
 	public String getHeading() {
 		return heading;

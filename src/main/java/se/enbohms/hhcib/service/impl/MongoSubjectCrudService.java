@@ -22,7 +22,7 @@ import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.entity.User;
 import se.enbohms.hhcib.entity.Vote;
-import se.enbohms.hhcib.service.api.CrudService;
+import se.enbohms.hhcib.service.api.SubjectCrudService;
 import se.enbohms.hhcib.service.api.SearchService;
 
 import com.mongodb.BasicDBList;
@@ -33,16 +33,16 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 /**
- * The MongoDB implementation of the HHCIB {@link CrudService}
+ * The MongoDB implementation of the HHCIB {@link SubjectCrudService}
  * 
  */
 @Stateless
 @DependsOn("MongoDBInitiator")
-public class MongoCrudService implements CrudService, SearchService {
+public class MongoSubjectCrudService implements SubjectCrudService, SearchService {
 
 	private static final String SEARCH_OBJECT = "obj";
 	private static final String RESULTS = "results";
-	private final static Logger LOG = Logger.getLogger(MongoCrudService.class
+	private final static Logger LOG = Logger.getLogger(MongoSubjectCrudService.class
 			.getName());
 	private static final int NUMBER_OF_SEARCH_HITS = 10;
 
@@ -186,6 +186,18 @@ public class MongoCrudService implements CrudService, SearchService {
 		dbObj.put("_id", new ObjectId(objectID));
 		collection.remove(dbObj);
 	}
+	
+
+	/**
+	 * {@inheritDoc}
+	 * <p>
+	 * This implementation uses MongoDB as database
+	 */
+	@PerformanceMonitored
+	public List<Subject> getSubjectsCreatedBy(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -263,5 +275,4 @@ public class MongoCrudService implements CrudService, SearchService {
 		}
 		return result;
 	}
-
 }
