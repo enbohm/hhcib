@@ -8,8 +8,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.mongodb.BasicDBObject;
-
 import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.entity.User;
@@ -36,12 +34,6 @@ public class SearchServiceTest {
 		MongoDBInitiator dbInitiator = new MongoDBInitiator();
 		dbInitiator.initDB();
 		searchService.setDBInitiator(dbInitiator);
-		BasicDBObject o = new BasicDBObject();
-		o.append("descriptionWithoutHtml", "text").append("heading", "text");
-		BasicDBObject o2 = new BasicDBObject();
-		o2.append("default_language", "swedish");
-		
-		dbInitiator.getMongoDB().getCollection("subject").ensureIndex(o, o2);
 	}
 
 	@Test
@@ -50,7 +42,7 @@ public class SearchServiceTest {
 		Subject subjectTwo = null;
 
 		try {
-			
+
 			// given
 			subjectOne = searchService.createSubject(HEADING, DESCRIPTION_ONE,
 					Category.FOOD, USER);
@@ -72,19 +64,20 @@ public class SearchServiceTest {
 			}
 		}
 	}
-	
+
 	@Test
-	public void should_return_search_results_incl_swedish_chars_from_db() throws Exception {
+	public void should_return_search_results_incl_swedish_chars_from_db()
+			throws Exception {
 		Subject subjectOne = null;
 		Subject subjectTwo = null;
 
 		try {
-			
+
 			// given
 			subjectOne = searchService.createSubject(HEADING, DESCRIPTION_TWO,
 					Category.FOOD, USER);
-			subjectTwo = searchService.createSubject(HEADING, DESCRIPTION_THREE,
-					Category.FOOD, USER);
+			subjectTwo = searchService.createSubject(HEADING,
+					DESCRIPTION_THREE, Category.FOOD, USER);
 
 			// when
 			List<Subject> result = searchService.search("börjar");
