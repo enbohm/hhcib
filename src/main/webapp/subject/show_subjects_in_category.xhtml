@@ -30,12 +30,12 @@
 		value="#{categoryFacade.getSubjectsFor(category)}">
 
 		<div id="subject-description">
-
+			<span id="subject-heading">#{subject.heading}</span>
 			<div id="rating">
 				<pf:rating totalStars="7" step="1" value="#{subject.rating}"
 					disabled="true">
 				</pf:rating>
-				<span id="voters">(#{subject.numberOfVoters} röster)</span>
+				<span id="voters">(#{subject.numberOfVoters} omdöme)</span>
 			</div>
 			<h:outputText value="#{subject.description}" escape="false" />
 
@@ -45,7 +45,8 @@
 	${facesContext.externalContext.requestContextPath}/subject/update_subject.xhtml?subjectId=#{subject.id}&amp;category=#{subject.category}"
 					class="button">Ändra</a>
 			</ui:fragment>
-			<ui:fragment rendered="#{not userServiceUtil.canModify(user, subject)}">
+			<ui:fragment
+				rendered="#{not userServiceUtil.canModify(user, subject)}">
 				<a
 					href="
 	${facesContext.externalContext.requestContextPath}/subject/show_subject.xhtml?subjectId=#{subject.id}&amp;category=#{subject.category}"

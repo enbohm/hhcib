@@ -23,7 +23,7 @@
 					<a
 						href="
 	${facesContext.externalContext.requestContextPath}/login/login.xhtml"
-						class="link">Logga in</a> för att rösta!
+						class="link">Logga in</a> för att lägga till beskrivningar och rösta!
 				</ui:fragment>
 
 				<span id="print-page"> <a
@@ -38,6 +38,7 @@
 						value="#{loggedInUserFacade.isUserLoggedIn()}" />
 
 					<div id="subject-description">
+						<span id="subject-heading">#{showSubjectFacade.subject.heading} </span>
 						<span id="createdBy" style="font-style: italic;">(Skapad av
 							#{showSubjectFacade.subject.createdBy})</span>
 						<div id="rating">
