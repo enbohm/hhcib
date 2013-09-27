@@ -2,20 +2,53 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:pf="http://jsf.playerfinder.net/components">
 
 <h:body>
-	<f:view encoding="UTF-8">
-		<ui:composition template="/hhcib_template.xhtml">
-			<ui:define name="content">
-				<span id="welcome-user">Välkommen
+	<ui:composition template="/hhcib_template.xhtml">
+		<ui:define name="content">
+			<h:form id="hhcib-form">
+				<span id="welcome-user" class="heading">Välkommen
 					#{loggedInUserFacade.loggedInUser.userName}!</span>
-				<h:form id="hhcib-form">
-					<h:commandButton id="logout-button" value="Logga ut" p:class="button"
-						action="#{loginFacade.logout}" />
-				</h:form>
-			</ui:define>
-		</ui:composition>
-	</f:view>
+				<h:commandButton p:id="logout-button" value="Logga ut"
+					p:class="button" action="#{loginFacade.logout}" />
+
+				<p>Här kan du byta lösenord, hantera dina inlägg samt uppdatera
+					din E-postadress.</p>
+				<ui:fragment rendered="#{not empty loggedInUserFacade.loggedInUser}">
+					<ui:param name="subjects"
+						value="#{loggedInUserFacade.subjectsCreatedByUser}" />
+
+					<ui:fragment rendered="#{not empty subjects}">
+
+						<h:dataTable id="result" value="#{subjects}" var="subject"
+							styleClass="search-result-table"
+							headerClass="search-result-header"
+							rowClasses="search-result-odd-row,search-result-even-row">
+
+							<h:column>
+								<f:facet name="header">Rubrik</f:facet>
+								<h:outputLink
+									value="#{facesContext.externalContext.requestContextPath}/subject/update_subject.xhtml?subjectId=#{subject.id}&amp;category=#{subject.category}"
+									class="link">#{subject.heading}</h:outputLink>
+							</h:column>
+
+							<h:column>
+								<f:facet name="header">Kategori</f:facet>
+								#{subject.category}
+    						</h:column>
+
+							<h:column>
+								<f:facet name="header">Rank</f:facet>
+								<pf:rating totalStars="7" step="1" disabled="true"
+									value="#{subject.rating}" />
+							</h:column>
+						</h:dataTable>
+					</ui:fragment>
+				</ui:fragment>
+			</h:form>
+		</ui:define>
+	</ui:composition>
 </h:body>
 </html>

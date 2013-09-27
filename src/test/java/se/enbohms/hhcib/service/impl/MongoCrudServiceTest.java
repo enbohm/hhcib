@@ -45,8 +45,8 @@ public class MongoCrudServiceTest {
 		Subject subject = null;
 		try {
 			// given
-			subject = crudService.createSubject(HEADING,
-					DESCRIPTION, Category.FOOD, USER);
+			subject = crudService.createSubject(HEADING, DESCRIPTION,
+					Category.FOOD, USER);
 
 			// when
 			List<Subject> result = crudService.getSubjectsFor(Category.FOOD);
@@ -68,8 +68,8 @@ public class MongoCrudServiceTest {
 		Subject subject = null;
 		try {
 			// given
-			subject = crudService.createSubject(HEADING,
-					DESCRIPTION, Category.FOOD, USER);
+			subject = crudService.createSubject(HEADING, DESCRIPTION,
+					Category.FOOD, USER);
 
 			// when
 			Subject result = crudService.find(subject.getId());
@@ -94,16 +94,15 @@ public class MongoCrudServiceTest {
 		Subject existingSubject = null;
 		try {
 			// given
-			existingSubject = crudService.createSubject(HEADING,
-					DESCRIPTION, Category.FOOD, USER);
+			existingSubject = crudService.createSubject(HEADING, DESCRIPTION,
+					Category.FOOD, USER);
 
 			// when
 			existingSubject.addVote(Vote.of(USER_NAME_1, 2.0d));
 			existingSubject.addVote(Vote.of(USER_NAME_2, 4.0d));
 			existingSubject.addVote(Vote.of(USER_NAME_1, 5.0d));
-			//result should be 4.5 
-			
-			
+			// result should be 4.5
+
 			existingSubject.setDescription(UPDATED_DESCRIPTION);
 			existingSubject.setHeading(UPDATED_HEADING);
 
@@ -137,8 +136,8 @@ public class MongoCrudServiceTest {
 	@Test
 	public void should_delete_object_in_db() throws Exception {
 		// given
-		Subject subject = crudService.createSubject(HEADING,
-				DESCRIPTION, Category.FOOD, USER);
+		Subject subject = crudService.createSubject(HEADING, DESCRIPTION,
+				Category.FOOD, USER);
 
 		int sizeBefore = crudService.getSubjectsFor(Category.FOOD).size();
 
@@ -148,5 +147,25 @@ public class MongoCrudServiceTest {
 
 		// then
 		assertThat(sizeAfter).isLessThan(sizeBefore);
+	}
+
+	@Test
+	public void should_find_subject_created_by_user() throws Exception {
+		Subject subject = null;
+		try {
+			// given
+			subject = crudService.createSubject(HEADING, DESCRIPTION,
+					Category.FOOD, USER);
+
+			// when
+			List<Subject> result = crudService.getSubjectsCreatedBy(USER);
+
+			// then
+			assertThat(result).isNotEmpty();
+		} finally {
+			if (subject != null) {
+				crudService.delete(subject.getId());
+			}
+		}
 	}
 }

@@ -22,8 +22,8 @@ import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.entity.User;
 import se.enbohms.hhcib.entity.Vote;
-import se.enbohms.hhcib.service.api.SubjectCrudService;
 import se.enbohms.hhcib.service.api.SearchService;
+import se.enbohms.hhcib.service.api.SubjectCrudService;
 
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
@@ -38,12 +38,13 @@ import com.mongodb.DBObject;
  */
 @Stateless
 @DependsOn("MongoDBInitiator")
-public class MongoSubjectCrudService implements SubjectCrudService, SearchService {
+public class MongoSubjectCrudService implements SubjectCrudService,
+		SearchService {
 
 	private static final String SEARCH_OBJECT = "obj";
 	private static final String RESULTS = "results";
-	private final static Logger LOG = Logger.getLogger(MongoSubjectCrudService.class
-			.getName());
+	private final static Logger LOG = Logger
+			.getLogger(MongoSubjectCrudService.class.getName());
 	private static final int NUMBER_OF_SEARCH_HITS = 10;
 
 	private static final String SUBJECT_COLLECTION_NAME = "subject";
@@ -152,25 +153,10 @@ public class MongoSubjectCrudService implements SubjectCrudService, SearchServic
 		DBObject dbObj = collection.findOne(query);
 
 		if (dbObj != null) {
-			return buildSubject(dbObj);
+			return createSubjectFrom(dbObj);
 		}
 		throw new EntityNotFoundException("Could not find object with id "
 				+ objectID + " in DB");
-	}
-
-	private Subject buildSubject(DBObject dbObj) {
-		Subject.Builder builder = new Subject.Builder(dbObj.get(Subject.ID)
-				.toString());
-		builder.heading(dbObj.get(Subject.HEADING).toString())
-				.description(dbObj.get(Subject.DESCRIPTION).toString())
-				.category(getCategoryFrom(dbObj))
-				.createdBy(dbObj.get(Subject.CREATED_BY).toString());
-
-		Set<Vote> voters = getVotersFrom(dbObj);
-		for (Vote vote : voters) {
-			builder.voter(vote);
-		}
-		return builder.build();
 	}
 
 	/**
@@ -186,7 +172,6 @@ public class MongoSubjectCrudService implements SubjectCrudService, SearchServic
 		dbObj.put("_id", new ObjectId(objectID));
 		collection.remove(dbObj);
 	}
-	
 
 	/**
 	 * {@inheritDoc}
@@ -195,8 +180,18 @@ public class MongoSubjectCrudService implements SubjectCrudService, SearchServic
 	 */
 	@PerformanceMonitored
 	public List<Subject> getSubjectsCreatedBy(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		DBCollection coll = mongoDBInitiator.getMongoDB().getCollection(
+				SUBJECT_COLLECTION_NAME);
+
+		BasicDBObject searchQuery = new BasicDBObject(Subject.CREATED_BY,
+				user.getUserName());
+
+		DBCursor cursor = coll.find(searchQuery);
+		try {
+			return fetchResults(cursor);
+		} finally {
+			cursor.close();
+		}
 	}
 
 	/**
@@ -238,17 +233,32 @@ public class MongoSubjectCrudService implements SubjectCrudService, SearchServic
 		BasicDBList resultList = (BasicDBList) commandResult.get(RESULTS);
 		List<Subject> result = new ArrayList<>();
 		for (Object dbObj : resultList) {
-			result.add(buildSubject((DBObject) ((DBObject) dbObj)
+			result.add(createSubjectFrom((DBObject) ((DBObject) dbObj)
 					.get(SEARCH_OBJECT)));
 		}
 		return result;
+	}
+
+	private Subject createSubjectFrom(DBObject dbObj) {
+		Subject.Builder builder = new Subject.Builder(dbObj.get(Subject.ID)
+				.toString());
+		builder.heading(dbObj.get(Subject.HEADING).toString())
+				.description(dbObj.get(Subject.DESCRIPTION).toString())
+				.category(getCategoryFrom(dbObj))
+				.createdBy(dbObj.get(Subject.CREATED_BY).toString());
+
+		Set<Vote> voters = getVotersFrom(dbObj);
+		for (Vote vote : voters) {
+			builder.voter(vote);
+		}
+		return builder.build();
 	}
 
 	private List<Subject> fetchResults(DBCursor cursor) {
 		List<Subject> result = new ArrayList<>();
 		while (cursor.hasNext()) {
 			DBObject dbObj = cursor.next();
-			result.add(buildSubject(dbObj));
+			result.add(createSubjectFrom(dbObj));
 		}
 		return result;
 	}

@@ -33,8 +33,8 @@
 			<f:facet name="header">Kategori</f:facet>
     		#{subject.category}
     	</h:column>
-		<h:column rendered="#{searchFacade.searchResult.size() gt 0}">
-			<f:facet name="header">Omdöme</f:facet>
+		<h:column rendered="#{display}">
+			<f:facet name="header">Rank</f:facet>
 			<pf:rating totalStars="7" step="1" disabled="true" value="#{subject.rating}"/>
 		</h:column>
 	</h:dataTable>

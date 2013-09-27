@@ -171,6 +171,11 @@ html, body {
 	-webkit-border-radius: 5px
 }
 
+#logout-button {
+	float: right;
+}
+
+
 input.rounded {
 	border: 1px solid $input-border;
 	-moz-border-radius: 10px;
