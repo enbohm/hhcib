@@ -45,14 +45,6 @@ public class ShowSubjectInCategoryScenarioTest {
 
 	@Test
 	@InSequence(1)
-	public void should_display_login_to_add_subject_link() {
-		ShowSubjectsInCategoryPage showSubjectInCategoryPage = new ShowSubjectsInCategoryPage(
-				driver, deploymentUrl, se.enbohms.hhcib.entity.Category.FOOD);
-		assertThat(showSubjectInCategoryPage.isLoginLinkVisible()).isTrue();
-	}
-
-	@Test
-	@InSequence(2)
 	public void should_login_successfully() {
 		LoginPage loginPage = new LoginPage(driver, deploymentUrl);
 		MyPagesPage myPagesPage = (MyPagesPage) loginPage.login(USER_NAME,
@@ -61,7 +53,7 @@ public class ShowSubjectInCategoryScenarioTest {
 	}
 
 	@Test
-	@InSequence(3)
+	@InSequence(2)
 	public void should_display_add_subject_link() {
 		ShowSubjectsInCategoryPage showSubjectInCategoryPage = new ShowSubjectsInCategoryPage(
 				driver, deploymentUrl, se.enbohms.hhcib.entity.Category.FOOD);
@@ -70,12 +62,21 @@ public class ShowSubjectInCategoryScenarioTest {
 	}
 
 	@Test
-	@InSequence(4)
+	@InSequence(3)
 	public void should_logout_successfully() {
 		LoginPage loginPage = new LoginPage(driver, deploymentUrl);
 		MyPagesPage myPagesPage = (MyPagesPage) loginPage.login(USER_NAME,
 				PASSWORD);
 		myPagesPage.logout();
 		assertThat(myPagesPage.isLoggedOut()).isTrue();
+	}
+
+	@Test
+	@InSequence(4)
+	public void should_display_login_to_add_subject_link()
+			throws InterruptedException {
+		ShowSubjectsInCategoryPage showSubjectInCategoryPage = new ShowSubjectsInCategoryPage(
+				driver, deploymentUrl, se.enbohms.hhcib.entity.Category.FOOD);
+		assertThat(showSubjectInCategoryPage.isLoginLinkVisible()).isTrue();
 	}
 }

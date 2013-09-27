@@ -15,7 +15,7 @@ public class ShowSubjectsInCategoryPage extends AbstractPage {
 	public ShowSubjectsInCategoryPage(WebDriver driver, URL contextPath,
 			Category category) {
 		super(driver, contextPath);
-		driver.get(contextPath + SHOW_SUBJECTS_IN_CATEGORY_BASE_URL + category);
+		driver.navigate().to(contextPath +SHOW_SUBJECTS_IN_CATEGORY_BASE_URL + category);
 	}
 
 	public boolean isAddSubjectLinkVisible() {
