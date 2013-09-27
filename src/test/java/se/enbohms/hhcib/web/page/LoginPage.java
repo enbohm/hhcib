@@ -11,11 +11,10 @@ public class LoginPage extends AbstractPage {
 
 	public LoginPage(WebDriver driver, URL contextPath) {
 		super(driver, contextPath);
+		driver.get(contextPath + "login/login.xhtml");
 	}
 
 	public AbstractPage login(String userName, String password) {
-		driver.get(contextPath + "login/login.xhtml");
-
 		driver.findElement(id("hhcib-form:username")).sendKeys(userName);
 		driver.findElement(id("hhcib-form:password")).sendKeys(password);
 		driver.findElement(id("hhcib-form:loginButton")).click();

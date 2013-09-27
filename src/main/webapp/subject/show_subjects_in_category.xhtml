@@ -14,13 +14,13 @@
 			<a
 				href="
 	${facesContext.externalContext.requestContextPath}/subject/new_subject_description.xhtml?category=#{category}"
-				class="button">Lägg till ny beskrivning &gt;&gt;&gt;</a>
+				class="button" data-add-subject="add-subject-link">Lägg till ny beskrivning &gt;&gt;&gt;</a>
 		</c:when>
 		<c:otherwise>
 			<a
 				href="
 	${facesContext.externalContext.requestContextPath}/login/login.xhtml"
-				class="link">Logga in</a> för att lägga till beskrivningar och rösta!
+				class="link" data-add-subject="login-link">Logga in</a> för att lägga till beskrivningar och rösta!
 		</c:otherwise>
 	</c:choose>
 
