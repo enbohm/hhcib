@@ -46,6 +46,14 @@ public class LoginScenarioTest {
 
 	@Test
 	@InSequence(1)
+	public void should_show_error_message_with_invalid_credentials() {
+		LoginPage myPagesPage = (LoginPage) new LoginPage(driver, deploymentUrl)
+		.login(USER_NAME, BAD_PASSWORD);
+		assertThat(myPagesPage.getErrorMessage()).isEqualTo(ERROR_MESSAGE);
+	}
+	
+	@Test
+	@InSequence(2)
 	public void should_login_successfully() {
 		LoginPage loginPage = new LoginPage(driver, deploymentUrl);
 		MyPagesPage myPagesPage = (MyPagesPage) loginPage.login(USER_NAME,
@@ -54,7 +62,7 @@ public class LoginScenarioTest {
 	}
 
 	@Test
-	@InSequence(2)
+	@InSequence(3)
 	public void should_logout_successfully() {
 		LoginPage loginPage = new LoginPage(driver, deploymentUrl);
 		MyPagesPage myPagesPage = (MyPagesPage) loginPage.login(USER_NAME,
@@ -64,10 +72,4 @@ public class LoginScenarioTest {
 		assertThat(myPagesPage.isLoggedOut()).isTrue();
 	}
 
-	@Test
-	public void should_show_error_message_with_invalid_credentials() {
-		LoginPage myPagesPage = (LoginPage) new LoginPage(driver, deploymentUrl)
-				.login(USER_NAME, BAD_PASSWORD);
-		assertThat(myPagesPage.getErrorMessage()).isEqualTo(ERROR_MESSAGE);
-	}
 }

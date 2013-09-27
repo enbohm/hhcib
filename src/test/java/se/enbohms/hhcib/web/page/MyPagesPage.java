@@ -1,6 +1,7 @@
 package se.enbohms.hhcib.web.page;
 
 import static org.openqa.selenium.By.id;
+import static org.openqa.selenium.By.cssSelector;
 
 import java.net.URL;
 
@@ -17,7 +18,7 @@ public class MyPagesPage extends AbstractPage {
 	}
 
 	public void logout() {
-		driver.findElement(id("hhcib-form:logout-button")).click();
+		driver.findElement(cssSelector("#hhcib-form input[type=submit][class=button]")).click();
 	}
 
 	public boolean isLoggedOut() {

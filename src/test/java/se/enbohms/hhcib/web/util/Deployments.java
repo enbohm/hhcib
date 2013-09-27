@@ -10,6 +10,7 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import se.enbohms.hhcib.facade.mypages.LoggedInUserFacade;
 import se.enbohms.hhcib.facade.mypages.LoginFacade;
 import se.enbohms.hhcib.service.impl.MongoDBInitiator;
+import se.enbohms.hhcib.service.impl.MongoSubjectCrudService;
 import se.enbohms.hhcib.service.impl.MongoUserService;
 
 /**
@@ -44,7 +45,7 @@ public final class Deployments {
 		return ShrinkWrap
 				.create(WebArchive.class, "login.war")
 				.addClasses(LoginFacade.class, MongoUserService.class,
-						MongoDBInitiator.class, LoggedInUserFacade.class)
+						MongoDBInitiator.class, LoggedInUserFacade.class, MongoSubjectCrudService.class)
 				.addAsWebResource(new File(WEBAPP_SRC, "hhcib_template.xhtml"))
 				.addAsWebResource(new File(WEBAPP_SRC, "menu_template.xhtml"))
 				.addAsWebResource(new File(WEBAPP_SRC, "login/login.xhtml"),
