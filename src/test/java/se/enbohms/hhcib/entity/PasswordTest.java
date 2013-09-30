@@ -28,7 +28,7 @@ public class PasswordTest {
 				+ "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test()
 	public void should_create_valid_password() throws Exception {
 		Password pwd = Password.of("abcd");
 		assertThat(pwd.getPassword()).isEqualTo("abcd");
