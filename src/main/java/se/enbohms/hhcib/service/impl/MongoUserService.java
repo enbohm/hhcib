@@ -12,6 +12,7 @@ import org.bson.types.ObjectId;
 
 import se.enbohms.hhcib.common.PerformanceMonitored;
 import se.enbohms.hhcib.entity.Email;
+import se.enbohms.hhcib.entity.Password;
 import se.enbohms.hhcib.entity.User;
 import se.enbohms.hhcib.service.api.UserAuthenticationException;
 import se.enbohms.hhcib.service.api.UserCreatedEvent;
@@ -129,6 +130,26 @@ public class MongoUserService implements UserService {
 		} finally {
 			cursor.close();
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * <p>
+	 * This implementation fetches all user names from MongoDB
+	 */
+	public void updateUserPassword(Password newPassword, User user) {
+		DBCollection collection = dbInitiator.getMongoDB().getCollection(
+				USER_COLLECTION_NAME);
+		BasicDBObject newDocument = new BasicDBObject();
+
+		newDocument.append(
+				"$set",
+				new BasicDBObject().append(User.PASSWORD,
+						newPassword.getPassword()));
+
+		ObjectId objectId = new ObjectId(user.getId());
+		BasicDBObject searchQuery = new BasicDBObject(User.ID, objectId);
+		collection.update(searchQuery, newDocument);
 	}
 
 	private List<String> fetchUserNames(DBCursor cursor) {

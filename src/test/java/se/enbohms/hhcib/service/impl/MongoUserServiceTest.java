@@ -16,6 +16,7 @@ import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 
 import se.enbohms.hhcib.entity.Email;
+import se.enbohms.hhcib.entity.Password;
 import se.enbohms.hhcib.entity.User;
 import se.enbohms.hhcib.service.api.UserAuthenticationException;
 import se.enbohms.hhcib.service.api.UserService;
@@ -121,6 +122,29 @@ public class MongoUserServiceTest {
 
 			// then
 			assertThat(emails).isNotEmpty();
+
+		} finally {
+			if (user != null) {
+				userService.delete(user);
+			}
+		}
+	}
+
+	@Test
+	public void should_update_users_password() throws Exception {
+		User user = null;
+		try {
+
+			// given
+			user = userService.createUser(TEST_USER, Email.of(EMAIL_STRING),
+					"password");
+
+			// when
+			userService.updateUserPassword(Password.of("password2"), user);
+
+			// then
+			User result = userService.login(TEST_USER, "password2");
+			assertThat(result).isNotNull();
 
 		} finally {
 			if (user != null) {

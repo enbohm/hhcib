@@ -14,7 +14,7 @@
 				<h:commandButton p:id="logout-button" value="Logga ut"
 					p:class="button" action="#{loginFacade.logout}" p:data-test="aTestValue"/>
 
-				<p>Här kan du byta lösenord, hantera dina inlägg samt uppdatera
+				<p>Här kan du <a href="update_password.xhtml">byta lösenord</a>, se dina inlägg samt uppdatera
 					din E-postadress.</p>
 				<ui:fragment rendered="#{not empty loggedInUserFacade.loggedInUser}">
 					<ui:param name="subjects"

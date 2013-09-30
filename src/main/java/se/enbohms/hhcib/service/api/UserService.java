@@ -3,6 +3,7 @@ package se.enbohms.hhcib.service.api;
 import java.util.List;
 
 import se.enbohms.hhcib.entity.Email;
+import se.enbohms.hhcib.entity.Password;
 import se.enbohms.hhcib.entity.User;
 
 /**
@@ -52,4 +53,12 @@ public interface UserService {
 	 * @return all email that are found in the repository
 	 */
 	List<Email> getEmails();
+
+	/**
+	 * Updated the users password
+	 * 
+	 * @param newPassword
+	 * @param user
+	 */
+	void updateUserPassword(Password newPassword, User user);
 }
