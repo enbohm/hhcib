@@ -54,4 +54,11 @@ public class IndexScenarioTest {
 		IndexPage indexPage = new IndexPage(driver, deploymentUrl);
 		assertThat(indexPage.hasContentArea()).isTrue();
 	}
+	
+	@Test
+	public void should_contain_search_result_after_successful_search() throws InterruptedException {
+		IndexPage indexPage = new IndexPage(driver, deploymentUrl);
+		indexPage.searchFor("Hummer");
+		assertThat(indexPage.searchDoneInfoTextPresent()).isTrue();
+	}
 }

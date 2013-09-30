@@ -2,6 +2,8 @@ package se.enbohms.hhcib.web.util;
 
 import java.io.File;
 
+import javax.faces.event.AjaxBehaviorEvent;
+
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -9,8 +11,10 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 
 import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.facade.CategoryFacade;
+import se.enbohms.hhcib.facade.SearchFacade;
 import se.enbohms.hhcib.facade.mypages.LoggedInUserFacade;
 import se.enbohms.hhcib.facade.mypages.LoginFacade;
+import se.enbohms.hhcib.service.api.SearchService;
 import se.enbohms.hhcib.service.impl.MongoDBInitiator;
 import se.enbohms.hhcib.service.impl.MongoSubjectCrudService;
 import se.enbohms.hhcib.service.impl.MongoUserService;
@@ -31,6 +35,9 @@ public final class Deployments {
 	public static WebArchive createIndexPageDeployment() {
 		return ShrinkWrap
 				.create(WebArchive.class, "index.war")
+				.addClasses(SearchFacade.class, Subject.class,
+						MongoSubjectCrudService.class, AjaxBehaviorEvent.class,
+						SearchService.class, MongoDBInitiator.class)
 				.addAsWebResource(new File(WEBAPP_SRC, "hhcib_template.xhtml"))
 				.addAsWebResource(new File(WEBAPP_SRC, "menu_template.xhtml"))
 				.addAsWebResource(new File(WEBAPP_SRC, "index.xhtml"))
@@ -72,7 +79,8 @@ public final class Deployments {
 		return ShrinkWrap
 				.create(WebArchive.class, "createSubject.war")
 				.addClasses(addLoginRequiredClasses())
-				.addClasses(CategoryFacade.class, UserServiceUtil.class, Subject.class)
+				.addClasses(CategoryFacade.class, UserServiceUtil.class,
+						Subject.class)
 				.addAsWebResource(new File(WEBAPP_SRC, "hhcib_template.xhtml"))
 				.addAsWebResource(new File(WEBAPP_SRC, "menu_template.xhtml"))
 				.addAsWebResource(new File(WEBAPP_SRC, "login/login.xhtml"),
