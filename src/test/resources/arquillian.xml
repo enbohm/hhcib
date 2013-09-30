@@ -5,6 +5,7 @@
 
 	<extension qualifier="webdriver">
 		<property name="javascriptEnabled">true</property>
+		<property name="browser">${browser}</property>
 	</extension>
 	
 </arquillian>
