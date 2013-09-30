@@ -10,7 +10,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<version.arquillian_drone>1.0.0.CR2</version.arquillian_drone>
+		<version.arquillian_drone>1.2.0.CR1</version.arquillian_drone>
 		<version.org.jboss.arquillian>1.1.1.Final</version.org.jboss.arquillian>
 		<version.org.jboss.arquillian.drone.webdriver>1.2.0.Beta2</version.org.jboss.arquillian.drone.webdriver>
 		<browser>htmlUnit</browser>
@@ -61,13 +61,15 @@
 							<destination>${project.basedir}/src/main/webapp/resources/css</destination>
 						</resource>
 					</resources>
-					<testresources>
-						<directory>src/test/resources</directory>
-						<filtering>true</filtering>
-					</testresources>
 				</configuration>
 			</plugin>
 		</plugins>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
 	</build>
 
 	<repositories>

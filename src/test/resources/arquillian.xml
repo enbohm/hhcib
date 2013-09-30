@@ -4,7 +4,7 @@
 	xsi:schemaLocation="http://jboss.org/arquillian-1.0 http://jboss.org/schema/arquillian/arquillian-1.0.xsd">
 
 	<extension qualifier="webdriver">
-		<property name="javascriptEnabled">true</property>
+		<property name="javascriptEnabled">false</property>
 		<property name="browser">${browser}</property>
 	</extension>
 	
