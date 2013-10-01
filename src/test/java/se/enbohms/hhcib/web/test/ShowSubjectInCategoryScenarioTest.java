@@ -54,7 +54,7 @@ public class ShowSubjectInCategoryScenarioTest {
 
 	@Test
 	@InSequence(2)
-	public void should_display_add_subject_link() {
+	public void should_display_add_subject_link_when_user_is_logged_in() {
 		ShowSubjectsInCategoryPage showSubjectInCategoryPage = new ShowSubjectsInCategoryPage(
 				driver, deploymentUrl, se.enbohms.hhcib.entity.Category.FOOD);
 		assertThat(showSubjectInCategoryPage.isAddSubjectLinkVisible())
@@ -73,7 +73,7 @@ public class ShowSubjectInCategoryScenarioTest {
 
 	@Test
 	@InSequence(4)
-	public void should_display_login_to_add_subject_link()
+	public void should_display_login_link_when_user_is_not_logged_in()
 			throws InterruptedException {
 		ShowSubjectsInCategoryPage showSubjectInCategoryPage = new ShowSubjectsInCategoryPage(
 				driver, deploymentUrl, se.enbohms.hhcib.entity.Category.FOOD);

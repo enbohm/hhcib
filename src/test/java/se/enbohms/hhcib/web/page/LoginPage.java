@@ -14,6 +14,13 @@ public class LoginPage extends AbstractPage {
 		driver.get(contextPath + "login/login.xhtml");
 	}
 
+	/**
+	 * 
+	 * @param userName
+	 * @param password
+	 * @return {@link MyPagesPage} if user login is successful, otherwise
+	 *         {@link LoginPage}
+	 */
 	public AbstractPage login(String userName, String password) {
 		driver.findElement(id("hhcib-form:username")).sendKeys(userName);
 		driver.findElement(id("hhcib-form:password")).sendKeys(password);

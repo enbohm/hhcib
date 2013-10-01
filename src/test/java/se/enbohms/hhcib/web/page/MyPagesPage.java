@@ -11,6 +11,7 @@ public class MyPagesPage extends AbstractPage {
 
 	public MyPagesPage(WebDriver driver, URL contextPath) {
 		super(driver, contextPath);
+		driver.get(contextPath + "secured/my_pages.xhtml");
 	}
 
 	public String getWelcomeText() {
@@ -18,10 +19,16 @@ public class MyPagesPage extends AbstractPage {
 	}
 
 	public void logout() {
-		driver.findElement(cssSelector("#hhcib-form input[type=submit][class=button]")).click();
+		driver.findElement(id("hhcib-form:logout-button")).click();
 	}
 
 	public boolean isLoggedOut() {
 		return driver.getCurrentUrl().endsWith("login.xhtml");
+	}
+
+	public UpdatePasswordPage clickUpdatePasswordLink() {
+		driver.findElement(cssSelector("a[data-change-password-link]")).click();
+		UpdatePasswordPage page = new UpdatePasswordPage(driver, contextPath);
+		return page;
 	}
 }

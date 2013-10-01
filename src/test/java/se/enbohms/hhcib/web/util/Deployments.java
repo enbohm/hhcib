@@ -14,6 +14,7 @@ import se.enbohms.hhcib.facade.CategoryFacade;
 import se.enbohms.hhcib.facade.SearchFacade;
 import se.enbohms.hhcib.facade.mypages.LoggedInUserFacade;
 import se.enbohms.hhcib.facade.mypages.LoginFacade;
+import se.enbohms.hhcib.facade.mypages.UpdatePasswordFacade;
 import se.enbohms.hhcib.service.api.SearchService;
 import se.enbohms.hhcib.service.impl.MongoDBInitiator;
 import se.enbohms.hhcib.service.impl.MongoSubjectCrudService;
@@ -65,6 +66,9 @@ public final class Deployments {
 				.addAsWebResource(
 						new File(WEBAPP_SRC, "secured/my_pages.xhtml"),
 						"secured/my_pages.xhtml")
+				.addAsWebResource(
+						new File(WEBAPP_SRC, "secured/update_password.xhtml"),
+						"secured/update_password.xhtml")
 				.addAsWebResource(new File(WEBAPP_SRC, "index.xhtml"))
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
 				.addAsWebInfResource(new File(WEBAPP_SRC, "WEB-INF/web.xml"))
@@ -109,6 +113,6 @@ public final class Deployments {
 	private static Class<?>[] addLoginRequiredClasses() {
 		return new Class[] { LoginFacade.class, MongoUserService.class,
 				MongoDBInitiator.class, LoggedInUserFacade.class,
-				MongoSubjectCrudService.class };
+				MongoSubjectCrudService.class, UpdatePasswordFacade.class };
 	}
 }
