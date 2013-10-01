@@ -8,10 +8,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.validation.constraints.Size;
 
 import se.enbohms.hhcib.entity.Email;
 import se.enbohms.hhcib.entity.validator.NotNullOrEmpty;
+import se.enbohms.hhcib.entity.validator.Password;
 import se.enbohms.hhcib.service.api.UserService;
 import se.enbohms.hhcib.service.impl.UserServiceUtil;
 
@@ -31,8 +31,7 @@ public class SignUpFacade implements Serializable {
 	@se.enbohms.hhcib.entity.validator.Email(message = "Ange en giltig E-post adress")
 	private String email;
 
-	@NotNullOrEmpty(message = "Lösenord kan inte vara tomt (minst 4 tecken)")
-	@Size(min = 4, max = 50, message = "Lösenord måste var minst 4 tecken långt")
+	@Password(message = "Lösenord måste var minst 4 tecken långt")
 	private String password;
 
 	private String repeatedPassword;
