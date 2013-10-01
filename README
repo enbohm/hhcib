@@ -1,4 +1,4 @@
-This is the HowHardCoultItBe (HHCIB) project. It's web application where people can submit their way of craftmanship things such as 'How to build a swimming pool', 'Preparing a Lobster' 
+This is the HowHardCoultItBe (HHCIB) project. HHCIB is a  web application where people can submit their way of craftmanship things such as 'How to build a swimming pool', 'Preparing a Lobster' 
 or 'How making a certain tax reduction'. HHCIB also includes a voting mechanism, social sharing and user management. 
 
 License
@@ -12,7 +12,7 @@ What needs to be done?
 - Using messages resources (no hard coded messages)
 - Application.properties file (maybe CDI to inject properties)
 - Improve social sharing
-- My Pages needs functionality like changing passwords and updating E-mail
+- My Pages needs functionality to allow users to update their E-mail
 - Support for supplying a custom connection string to MongoDB (MongoHQ URL hardcoded today)
 - A admin page to delete subjecs and users. Page exist, but contains nothing today (admin_page.xhtml)
 - A search UI (users should not need to browse categories)
