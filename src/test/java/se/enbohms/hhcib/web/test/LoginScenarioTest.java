@@ -35,6 +35,7 @@ public class LoginScenarioTest {
 	private static final String ERROR_MESSAGE = "Inloggning misslyckades, kontrollera användarnamn/lösenord";
 	private static final String PASSWORD_HAS_BEEN_UPDATED = "Ditt lösenord har uppdaterats";
 	private static final String PASSWORD_MUST_BE_FOUR_CHARACTERS = "Lösenord måste var minst 4 tecken långt";
+	private static final String PASSWORDS_NOT_EQUAL = "Lösenorden skiljer sig åt";
 
 	@Deployment(testable = false)
 	public static WebArchive createDeployment() {
@@ -66,26 +67,36 @@ public class LoginScenarioTest {
 
 	@Test
 	@InSequence(3)
-	public void should_not_update_to_short_password() throws Exception {
+	public void should_not_update_passwords_due_to_short_password() throws Exception {
 		UpdatePasswordPage updatePwdPage = new MyPagesPage(driver,
 				deploymentUrl).clickUpdatePasswordLink();
-		updatePwdPage.updatePassword("e");
+		updatePwdPage.updatePassword("e", "e");
 		assertThat(updatePwdPage.getInfoMessage().trim()).isEqualTo(
 				PASSWORD_MUST_BE_FOUR_CHARACTERS);
 	}
 
 	@Test
 	@InSequence(4)
+	public void should_not_update_password_due_to_unequal_passwords() throws Exception {
+		UpdatePasswordPage updatePwdPage = new MyPagesPage(driver,
+				deploymentUrl).clickUpdatePasswordLink();
+		updatePwdPage.updatePassword("enbohm1", "enbohm2");
+		assertThat(updatePwdPage.getInfoMessage().trim()).isEqualTo(
+				PASSWORDS_NOT_EQUAL);
+	}
+	
+	@Test
+	@InSequence(5)
 	public void should_update_password() throws Exception {
 		UpdatePasswordPage updatePwdPage = new MyPagesPage(driver,
 				deploymentUrl).clickUpdatePasswordLink();
-		updatePwdPage.updatePassword("enbohm");
+		updatePwdPage.updatePassword("enbohm", "enbohm");
 		assertThat(updatePwdPage.getInfoMessage()).isEqualTo(
 				PASSWORD_HAS_BEEN_UPDATED);
 	}
 
 	@Test
-	@InSequence(5)
+	@InSequence(6)
 	public void should_logout_successfully() {
 		MyPagesPage myPagesPage = new MyPagesPage(driver, deploymentUrl);
 

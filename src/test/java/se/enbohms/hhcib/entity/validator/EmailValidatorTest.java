@@ -10,6 +10,13 @@ import org.junit.Test;
 public class EmailValidatorTest {
 
 	@Test
+	public void should_inform_that_null_email_is_invalid() throws Exception {
+		String emailString = null;
+		EmailValidator emailValidator = new EmailValidator();
+		assertThat(emailValidator.isValid(emailString, null)).isFalse();
+	}
+	
+	@Test
 	public void should_inform_that_email_is_invalid() throws Exception {
 		String emailString = "test.com";
 		EmailValidator emailValidator = new EmailValidator();

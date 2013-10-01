@@ -13,9 +13,9 @@ public class UpdatePasswordPage extends AbstractPage {
 		super(driver, contextPath);
 	}
 
-	public void updatePassword(String string) {
-		driver.findElement(id("hhcib-form:password")).sendKeys(string);
-		driver.findElement(id("hhcib-form:repeated-password")).sendKeys(string);
+	public void updatePassword(String password, String repeatedPassword) {
+		driver.findElement(id("hhcib-form:password")).sendKeys(password);
+		driver.findElement(id("hhcib-form:repeated-password")).sendKeys(repeatedPassword);
 		driver.findElement(id("hhcib-form:update-password")).click();
 	}
 
