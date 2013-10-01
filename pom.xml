@@ -13,13 +13,13 @@
 		<version.arquillian_drone>1.2.0.CR1</version.arquillian_drone>
 		<version.org.jboss.arquillian>1.1.1.Final</version.org.jboss.arquillian>
 		<version.org.jboss.arquillian.drone.webdriver>1.2.0.Beta2</version.org.jboss.arquillian.drone.webdriver>
-		<browser>htmlUnit</browser>
+		<browser>phantomjs</browser>
 	</properties>
 	<profiles>
 		<profile>
-			<id>phantomjs</id>
+			<id>htmlUnit</id>
 			<properties>
-				<browser>phantomjs</browser>
+				<browser>htmlUnit</browser>
 			</properties>
 		</profile>
 	</profiles>

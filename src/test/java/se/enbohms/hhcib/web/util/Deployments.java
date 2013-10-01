@@ -22,7 +22,8 @@ import se.enbohms.hhcib.service.impl.MongoUserService;
 import se.enbohms.hhcib.service.impl.UserServiceUtil;
 
 /**
- * Contains static util method for creating various arquillian deployments
+ * Contains static util method for creating various arquillian/selenium
+ * deployments
  * 
  */
 public final class Deployments {
@@ -34,7 +35,7 @@ public final class Deployments {
 	}
 
 	public static WebArchive createIndexPageDeployment() {
-		return ShrinkWrap
+		WebArchive war = ShrinkWrap
 				.create(WebArchive.class, "index.war")
 				.addClasses(SearchFacade.class, Subject.class,
 						MongoSubjectCrudService.class, AjaxBehaviorEvent.class,
@@ -45,18 +46,15 @@ public final class Deployments {
 				.addAsWebResource(
 						new File(WEBAPP_SRC,
 								"search/search_result_template.xhtml"),
-						"search/search_result_template.xhtml")
-				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-				.addAsWebInfResource(new File(WEBAPP_SRC, "WEB-INF/web.xml"))
-				.addAsWebInfResource(
-						new File(WEBAPP_SRC, "WEB-INF/glassfish-web.xml"))
-				.addAsWebInfResource(
-						new StringAsset("<faces-config version=\"2.0\"/>"),
-						"faces-config.xml");
+						"search/search_result_template.xhtml");
+		
+		addDefaultWebInfResources(war);
+		addJavascriptResources(war);
+		return war;
 	}
 
 	public static WebArchive createLoginDeployment() {
-		return ShrinkWrap
+		WebArchive war = ShrinkWrap
 				.create(WebArchive.class, "login.war")
 				.addClasses(addLoginRequiredClasses())
 				.addAsWebResource(new File(WEBAPP_SRC, "hhcib_template.xhtml"))
@@ -69,18 +67,14 @@ public final class Deployments {
 				.addAsWebResource(
 						new File(WEBAPP_SRC, "secured/update_password.xhtml"),
 						"secured/update_password.xhtml")
-				.addAsWebResource(new File(WEBAPP_SRC, "index.xhtml"))
-				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
-				.addAsWebInfResource(new File(WEBAPP_SRC, "WEB-INF/web.xml"))
-				.addAsWebInfResource(
-						new File(WEBAPP_SRC, "WEB-INF/glassfish-web.xml"))
-				.addAsWebInfResource(
-						new StringAsset("<faces-config version=\"2.0\"/>"),
-						"faces-config.xml");
+				.addAsWebResource(new File(WEBAPP_SRC, "index.xhtml"));
+		addDefaultWebInfResources(war);
+		addJavascriptResources(war);
+		return war;
 	}
 
 	public static WebArchive createShowSubjectsInCategoryDeployment() {
-		return ShrinkWrap
+		WebArchive war = ShrinkWrap
 				.create(WebArchive.class, "createSubject.war")
 				.addClasses(addLoginRequiredClasses())
 				.addClasses(CategoryFacade.class, UserServiceUtil.class,
@@ -100,7 +94,20 @@ public final class Deployments {
 				.addAsWebResource(
 						new File(WEBAPP_SRC, "secured/my_pages.xhtml"),
 						"secured/my_pages.xhtml")
-				.addAsWebResource(new File(WEBAPP_SRC, "index.xhtml"))
+				.addAsWebResource(new File(WEBAPP_SRC, "index.xhtml"));
+		addDefaultWebInfResources(war);
+		addJavascriptResources(war);
+		return war;
+	}
+
+	private static Class<?>[] addLoginRequiredClasses() {
+		return new Class[] { LoginFacade.class, MongoUserService.class,
+				MongoDBInitiator.class, LoggedInUserFacade.class,
+				MongoSubjectCrudService.class, UpdatePasswordFacade.class };
+	}
+
+	private static WebArchive addDefaultWebInfResources(WebArchive war) {
+		return war
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
 				.addAsWebInfResource(new File(WEBAPP_SRC, "WEB-INF/web.xml"))
 				.addAsWebInfResource(
@@ -110,9 +117,32 @@ public final class Deployments {
 						"faces-config.xml");
 	}
 
-	private static Class<?>[] addLoginRequiredClasses() {
-		return new Class[] { LoginFacade.class, MongoUserService.class,
-				MongoDBInitiator.class, LoggedInUserFacade.class,
-				MongoSubjectCrudService.class, UpdatePasswordFacade.class };
+	private static WebArchive addJavascriptResources(WebArchive war) {
+		return war
+				.addAsWebResource(
+						new File(WEBAPP_SRC,
+								"resources/javascript/jquery-v1.10.2.min.js"),
+						"resources/javascript/jquery-v1.10.2.min.js")
+				.addAsWebResource(
+						new File(WEBAPP_SRC,
+								"resources/javascript/tinymce.4.0.6.min.js"),
+						"resources/javascript/tinymce.4.0.6.min.js")
+				.addAsWebResource(
+						new File(WEBAPP_SRC, "resources/javascript/tinymce.js"),
+						"resources/javascript/tinymce.js")
+				.addAsWebResource(
+						new File(WEBAPP_SRC, "resources/javascript/slider.js"),
+						"resources/javascript/slider.js")
+				.addAsWebResource(
+						new File(WEBAPP_SRC,
+								"resources/javascript/websocket.js"),
+						"resources/javascript/websocket.js")
+				.addAsWebResource(
+						new File(WEBAPP_SRC, "resources/javascript/menu.js"),
+						"resources/javascript/menu.js")
+				.addAsWebResource(
+						new File(WEBAPP_SRC,
+								"resources/javascript/unoSlider.min.js"),
+						"resources/javascript/unoSlider.min.js");
 	}
 }
