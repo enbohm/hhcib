@@ -8,14 +8,18 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.enterprise.event.Observes;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
+import se.enbohms.hhcib.common.Constants;
 import se.enbohms.hhcib.entity.Email;
 import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.entity.User;
 import se.enbohms.hhcib.service.api.UserCreatedEvent;
 import se.enbohms.hhcib.service.api.UserService;
+import se.enbohms.hhcib.service.api.UserUpdatedEvent;
 
 /**
  * Contains various util methods for handling users
@@ -106,5 +110,28 @@ public class UserServiceUtil {
 				+ userCreatedEvent.getUserName());
 		this.userNames.add(userCreatedEvent.getUserName());
 		this.userEmails.add(userCreatedEvent.getEmail());
+	}
+
+	/**
+	 * Updates user emails when a {@link UserUpdatedEvent} occurs
+	 * 
+	 * @param userUpdatedEvent
+	 */
+	public void updateUserInformation(
+			@Observes UserUpdatedEvent userUpdatedEvent) {
+		LOG.info("User " + userUpdatedEvent.getUser() + " has updated email");
+		this.userEmails.remove(userUpdatedEvent.getUser().getEmail());
+		this.userEmails.add(userUpdatedEvent.getEmail());
+		
+		updateUserInSession(userUpdatedEvent);
+	}
+
+	private void updateUserInSession(UserUpdatedEvent userUpdatedEvent) {
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) context.getExternalContext()
+				.getSession(false);
+		session.removeAttribute(Constants.USER);
+		session.setAttribute(Constants.USER, User.creteUser(userUpdatedEvent.getUser().getId(),
+				userUpdatedEvent.getUser().getUserName(), userUpdatedEvent.getEmail()));
 	}
 }

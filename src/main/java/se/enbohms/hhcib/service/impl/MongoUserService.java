@@ -18,6 +18,7 @@ import se.enbohms.hhcib.service.api.UserAuthenticationException;
 import se.enbohms.hhcib.service.api.UserCreatedEvent;
 import se.enbohms.hhcib.service.api.UserNotFoundException;
 import se.enbohms.hhcib.service.api.UserService;
+import se.enbohms.hhcib.service.api.UserUpdatedEvent;
 
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
@@ -36,7 +37,10 @@ public class MongoUserService implements UserService {
 	private MongoDBInitiator dbInitiator;
 
 	@Inject
-	private Event<UserCreatedEvent> events;
+	private Event<UserCreatedEvent> userCreatedEvent;
+
+	@Inject
+	private Event<UserUpdatedEvent> userUpdatedEvent;
 
 	@Inject
 	public void setDBInitiator(MongoDBInitiator initiator) {
@@ -79,7 +83,7 @@ public class MongoUserService implements UserService {
 				User.EMAIL, email.getEmail()).append(User.PASSWORD, password);
 
 		collection.insert(doc);
-		events.fire(UserCreatedEvent.of(userName, email));
+		userCreatedEvent.fire(UserCreatedEvent.of(userName, email));
 		return User.creteUser(doc.get(User.ID).toString(), userName, email);
 	}
 
@@ -137,6 +141,7 @@ public class MongoUserService implements UserService {
 	 * <p>
 	 * This implementation fetches all user names from MongoDB
 	 */
+	@PerformanceMonitored
 	public void updateUserPassword(Password newPassword, User user) {
 		DBCollection collection = dbInitiator.getMongoDB().getCollection(
 				USER_COLLECTION_NAME);
@@ -150,6 +155,26 @@ public class MongoUserService implements UserService {
 		ObjectId objectId = new ObjectId(user.getId());
 		BasicDBObject searchQuery = new BasicDBObject(User.ID, objectId);
 		collection.update(searchQuery, newDocument);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * <p>
+	 * This implementation fetches all user names from MongoDB
+	 */
+	@PerformanceMonitored
+	public void updateUserEmail(Email newEmail, User user) {
+		DBCollection collection = dbInitiator.getMongoDB().getCollection(
+				USER_COLLECTION_NAME);
+		BasicDBObject newDocument = new BasicDBObject();
+
+		newDocument.append("$set",
+				new BasicDBObject().append(User.EMAIL, newEmail.getEmail()));
+
+		ObjectId objectId = new ObjectId(user.getId());
+		BasicDBObject searchQuery = new BasicDBObject(User.ID, objectId);
+		collection.update(searchQuery, newDocument);
+		this.userUpdatedEvent.fire(UserUpdatedEvent.of(user, newEmail));
 	}
 
 	private List<String> fetchUserNames(DBCursor cursor) {

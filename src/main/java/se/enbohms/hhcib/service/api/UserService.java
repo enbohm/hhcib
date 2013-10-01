@@ -61,4 +61,12 @@ public interface UserService {
 	 * @param user
 	 */
 	void updateUserPassword(Password newPassword, User user);
+
+	/**
+	 * Updated the users E-mail
+	 * 
+	 * @param newPassword
+	 * @param user
+	 */
+	void updateUserEmail(Email newEmail, User user);
 }

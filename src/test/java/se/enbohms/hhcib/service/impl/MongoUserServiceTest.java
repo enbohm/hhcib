@@ -31,6 +31,7 @@ public class MongoUserServiceTest {
 
 	private static final String EMAIL_STRING = "test@test.com";
 	private static final String TEST_USER = "junit_test_user";
+	private static final String UPDATED_EMAIL = "updated@email.com";
 
 	@Inject
 	private UserService userService;
@@ -145,6 +146,29 @@ public class MongoUserServiceTest {
 			// then
 			User result = userService.login(TEST_USER, "password2");
 			assertThat(result).isNotNull();
+
+		} finally {
+			if (user != null) {
+				userService.delete(user);
+			}
+		}
+	}
+
+	@Test
+	public void should_update_users_email() throws Exception {
+		User user = null;
+		try {
+
+			// given
+			user = userService.createUser(TEST_USER, Email.of(EMAIL_STRING),
+					"password");
+
+			// when
+			userService.updateUserEmail(Email.of(UPDATED_EMAIL), user);
+
+			// then
+			User result = userService.login(TEST_USER, "password");
+			assertThat(result.getEmail().getEmail()).isEqualTo(UPDATED_EMAIL);
 
 		} finally {
 			if (user != null) {

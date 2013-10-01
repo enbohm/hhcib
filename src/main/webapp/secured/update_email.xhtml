@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://java.sun.com/jsf/passthrough"
+	xmlns:pf="http://jsf.playerfinder.net/components">
+
+<h:body>
+	<ui:composition template="/hhcib_template.xhtml">
+		<ui:param name="user" value="#{loggedInUserFacade.getLoggedInUser()}" />
+		<ui:define name="content">
+		
+			<p>Här kan du uppdatera din E-postadress.</p>
+			<h:form id="hhcib-form">
+				<h:inputText id="email-input" value="#{updateEmailFacade.email}"
+					p:class="rounded" p:size="30" style="display: block;"/>
+				<h:commandButton value="Uppdatera E-postadress" p:class="button"
+					action="#{updateEmailFacade.updateEmail(user)}" id="update-email" />
+			</h:form>
+			<h:messages errorStyle="color:red;" id="update-password-message" />
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
