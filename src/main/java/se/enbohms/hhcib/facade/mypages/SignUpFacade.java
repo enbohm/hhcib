@@ -46,10 +46,10 @@ public class SignUpFacade implements Serializable {
 	 * Creates a new user with the supplied username, email and password
 	 */
 	public void signUp() {
-		checkUniqueUserName();
-
 		if (!password.equals(repeatedPassword)) {
 			addPasswordDiffersMessage();
+		} else if (!userServiceUtil.unique(getUserName())) {
+			addMessageUserNameNotUnique();
 		} else {
 			handleCreateUser();
 		}
