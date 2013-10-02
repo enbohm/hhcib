@@ -2,6 +2,7 @@ package se.enbohms.hhcib.web.test;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -22,7 +23,8 @@ import se.enbohms.hhcib.web.util.Deployments;
 import se.enbohms.hhcib.web.util.IntegrationTest;
 
 /**
- * Contains test cases for the login scenarios
+ * Contains integration test cases for the login scenarios such as login, update
+ * password, change email address, etc.
  */
 @Category(IntegrationTest.class)
 @RunWith(Arquillian.class)
@@ -38,7 +40,7 @@ public class LoginScenarioTest {
 	private static final String PASSWORDS_NOT_EQUAL = "Lösenorden skiljer sig åt";
 
 	@Deployment(testable = false)
-	public static WebArchive createDeployment() {
+	public static WebArchive createDeployment() throws MalformedURLException {
 		return Deployments.createLoginDeployment();
 	}
 
@@ -67,7 +69,8 @@ public class LoginScenarioTest {
 
 	@Test
 	@InSequence(3)
-	public void should_not_update_passwords_due_to_short_password() throws Exception {
+	public void should_not_update_passwords_due_to_short_password()
+			throws Exception {
 		UpdatePasswordPage updatePwdPage = new MyPagesPage(driver,
 				deploymentUrl).clickUpdatePasswordLink();
 		updatePwdPage.updatePassword("e", "e");
@@ -77,14 +80,15 @@ public class LoginScenarioTest {
 
 	@Test
 	@InSequence(4)
-	public void should_not_update_password_due_to_unequal_passwords() throws Exception {
+	public void should_not_update_password_due_to_unequal_passwords()
+			throws Exception {
 		UpdatePasswordPage updatePwdPage = new MyPagesPage(driver,
 				deploymentUrl).clickUpdatePasswordLink();
 		updatePwdPage.updatePassword("enbohm1", "enbohm2");
 		assertThat(updatePwdPage.getInfoMessage().trim()).isEqualTo(
 				PASSWORDS_NOT_EQUAL);
 	}
-	
+
 	@Test
 	@InSequence(5)
 	public void should_update_password() throws Exception {

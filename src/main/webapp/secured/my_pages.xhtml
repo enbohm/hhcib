@@ -15,7 +15,7 @@
 					p:class="button" action="#{loginFacade.logout}" p:data-test="aTestValue"/>
 
 				<p>Här kan du <a href="update_password.xhtml" data-change-password-link="change-password">byta lösenord</a>, se dina inlägg samt 
-				<a href="update_email.xhtml" data-change-email-link="change-email">uppdatera din E-postadress.</a></p>
+				<a href="update_email.xhtml" data-change-email-link="change-email">uppdatera din e-postadress.</a></p>
 				<ui:fragment rendered="#{not empty loggedInUserFacade.loggedInUser}">
 					<ui:param name="subjects"
 						value="#{loggedInUserFacade.subjectsCreatedByUser}" />

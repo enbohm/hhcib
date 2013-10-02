@@ -1,6 +1,8 @@
 package se.enbohms.hhcib.web.util;
 
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.faces.event.AjaxBehaviorEvent;
 
@@ -34,7 +36,8 @@ public final class Deployments {
 		// Suppresses default constructor, ensuring non-instantiability.
 	}
 
-	public static WebArchive createIndexPageDeployment() {
+	public static WebArchive createIndexPageDeployment()
+			throws MalformedURLException {
 		WebArchive war = ShrinkWrap
 				.create(WebArchive.class, "index.war")
 				.addClasses(SearchFacade.class, Subject.class,
@@ -47,13 +50,14 @@ public final class Deployments {
 						new File(WEBAPP_SRC,
 								"search/search_result_template.xhtml"),
 						"search/search_result_template.xhtml");
-		
+
 		addDefaultWebInfResources(war);
 		addJavascriptResources(war);
 		return war;
 	}
 
-	public static WebArchive createLoginDeployment() {
+	public static WebArchive createLoginDeployment()
+			throws MalformedURLException {
 		WebArchive war = ShrinkWrap
 				.create(WebArchive.class, "login.war")
 				.addClasses(addLoginRequiredClasses())
@@ -68,12 +72,14 @@ public final class Deployments {
 						new File(WEBAPP_SRC, "secured/update_password.xhtml"),
 						"secured/update_password.xhtml")
 				.addAsWebResource(new File(WEBAPP_SRC, "index.xhtml"));
+
 		addDefaultWebInfResources(war);
 		addJavascriptResources(war);
 		return war;
 	}
 
-	public static WebArchive createShowSubjectsInCategoryDeployment() {
+	public static WebArchive createShowSubjectsInCategoryDeployment()
+			throws MalformedURLException {
 		WebArchive war = ShrinkWrap
 				.create(WebArchive.class, "createSubject.war")
 				.addClasses(addLoginRequiredClasses())
@@ -95,6 +101,7 @@ public final class Deployments {
 						new File(WEBAPP_SRC, "secured/my_pages.xhtml"),
 						"secured/my_pages.xhtml")
 				.addAsWebResource(new File(WEBAPP_SRC, "index.xhtml"));
+
 		addDefaultWebInfResources(war);
 		addJavascriptResources(war);
 		return war;
@@ -117,18 +124,18 @@ public final class Deployments {
 						"faces-config.xml");
 	}
 
-	private static WebArchive addJavascriptResources(WebArchive war) {
+	private static WebArchive addJavascriptResources(WebArchive war)
+			throws MalformedURLException {
 		return war
 				.addAsWebResource(
-						new File(WEBAPP_SRC,
-								"resources/javascript/jquery-v1.10.2.min.js"),
+						new URL("http://code.jquery.com/jquery-1.10.2.min.js"),
 						"resources/javascript/jquery-v1.10.2.min.js")
 				.addAsWebResource(
-						new File(WEBAPP_SRC,
-								"resources/javascript/tinymce.4.0.6.min.js"),
-						"resources/javascript/tinymce.4.0.6.min.js")
+						new URL(
+								"http://tinymce.cachefly.net/4.0/tinymce.min.js"),
+						"resources/javascript/tinymce.min.js")
 				.addAsWebResource(
-						new File(WEBAPP_SRC, "resources/javascript/tinymce.js"),
+						new File(WEBAPP_SRC, "resources/javascript/tinymce-config.js"),
 						"resources/javascript/tinymce.js")
 				.addAsWebResource(
 						new File(WEBAPP_SRC, "resources/javascript/slider.js"),

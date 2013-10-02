@@ -2,6 +2,7 @@ package se.enbohms.hhcib.web.test;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -19,7 +20,7 @@ import se.enbohms.hhcib.web.util.Deployments;
 import se.enbohms.hhcib.web.util.IntegrationTest;
 
 /**
- * Contains test cases for the index page scenarios
+ * Contains integration test cases for the index page scenarios.
  */
 @Category(IntegrationTest.class)
 @RunWith(Arquillian.class)
@@ -27,7 +28,7 @@ public class IndexScenarioTest {
 	private static final String HEADING_TEXT = "Välkommen till HurSvårtKanDetVara.se";
 
 	@Deployment(testable = false)
-	public static WebArchive createDeployment() {
+	public static WebArchive createDeployment() throws MalformedURLException {
 		return Deployments.createIndexPageDeployment();
 	}
 
@@ -54,9 +55,10 @@ public class IndexScenarioTest {
 		IndexPage indexPage = new IndexPage(driver, deploymentUrl);
 		assertThat(indexPage.hasContentArea()).isTrue();
 	}
-	
+
 	@Test
-	public void should_contain_search_result_after_successful_search() throws InterruptedException {
+	public void should_contain_search_result_after_successful_search()
+			throws InterruptedException {
 		IndexPage indexPage = new IndexPage(driver, deploymentUrl);
 		indexPage.searchFor("Hummer");
 		assertThat(indexPage.searchDoneInfoTextPresent()).isTrue();

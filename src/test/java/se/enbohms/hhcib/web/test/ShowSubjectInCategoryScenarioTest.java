@@ -2,6 +2,7 @@ package se.enbohms.hhcib.web.test;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -22,7 +23,8 @@ import se.enbohms.hhcib.web.util.Deployments;
 import se.enbohms.hhcib.web.util.IntegrationTest;
 
 /**
- * Contains test cases for the show subjects in category scenario
+ * Contains integration test cases for the 'Show Subjects' scenario
+ * 
  */
 @Category(IntegrationTest.class)
 @RunWith(Arquillian.class)
@@ -33,7 +35,7 @@ public class ShowSubjectInCategoryScenarioTest {
 	private static final String WELCOME_TEXT = "Välkommen enbohm!";
 
 	@Deployment(testable = false)
-	public static WebArchive createDeployment() {
+	public static WebArchive createDeployment() throws MalformedURLException {
 		return Deployments.createShowSubjectsInCategoryDeployment();
 	}
 
