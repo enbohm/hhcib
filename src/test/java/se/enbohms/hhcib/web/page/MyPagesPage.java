@@ -31,4 +31,10 @@ public class MyPagesPage extends AbstractPage {
 		UpdatePasswordPage page = new UpdatePasswordPage(driver, contextPath);
 		return page;
 	}
+	
+	public UpdateEmailPage clickChangeEmailLink() {
+		driver.findElement(cssSelector("a[data-change-email-link]")).click();
+		UpdateEmailPage page = new UpdateEmailPage(driver, contextPath);
+		return page;
+	}
 }

@@ -16,6 +16,7 @@ import se.enbohms.hhcib.facade.CategoryFacade;
 import se.enbohms.hhcib.facade.SearchFacade;
 import se.enbohms.hhcib.facade.mypages.LoggedInUserFacade;
 import se.enbohms.hhcib.facade.mypages.LoginFacade;
+import se.enbohms.hhcib.facade.mypages.UpdateEmailFacade;
 import se.enbohms.hhcib.facade.mypages.UpdatePasswordFacade;
 import se.enbohms.hhcib.service.api.SearchService;
 import se.enbohms.hhcib.service.impl.MongoDBInitiator;
@@ -56,11 +57,11 @@ public final class Deployments {
 		return war;
 	}
 
-	public static WebArchive createLoginDeployment()
+	public static WebArchive createMyPagesDeployment()
 			throws MalformedURLException {
 		WebArchive war = ShrinkWrap
 				.create(WebArchive.class, "login.war")
-				.addClasses(addLoginRequiredClasses())
+				.addClasses(addMyPagesRequiredClasses())
 				.addAsWebResource(new File(WEBAPP_SRC, "hhcib_template.xhtml"))
 				.addAsWebResource(new File(WEBAPP_SRC, "menu_template.xhtml"))
 				.addAsWebResource(new File(WEBAPP_SRC, "login/login.xhtml"),
@@ -71,6 +72,9 @@ public final class Deployments {
 				.addAsWebResource(
 						new File(WEBAPP_SRC, "secured/update_password.xhtml"),
 						"secured/update_password.xhtml")
+				.addAsWebResource(
+						new File(WEBAPP_SRC, "secured/update_email.xhtml"),
+						"secured/update_email.xhtml")
 				.addAsWebResource(new File(WEBAPP_SRC, "index.xhtml"));
 
 		addDefaultWebInfResources(war);
@@ -82,7 +86,7 @@ public final class Deployments {
 			throws MalformedURLException {
 		WebArchive war = ShrinkWrap
 				.create(WebArchive.class, "createSubject.war")
-				.addClasses(addLoginRequiredClasses())
+				.addClasses(addMyPagesRequiredClasses())
 				.addClasses(CategoryFacade.class, UserServiceUtil.class,
 						Subject.class)
 				.addAsWebResource(new File(WEBAPP_SRC, "hhcib_template.xhtml"))
@@ -107,10 +111,11 @@ public final class Deployments {
 		return war;
 	}
 
-	private static Class<?>[] addLoginRequiredClasses() {
+	private static Class<?>[] addMyPagesRequiredClasses() {
 		return new Class[] { LoginFacade.class, MongoUserService.class,
 				MongoDBInitiator.class, LoggedInUserFacade.class,
-				MongoSubjectCrudService.class, UpdatePasswordFacade.class };
+				MongoSubjectCrudService.class, UpdatePasswordFacade.class,
+				UpdateEmailFacade.class };
 	}
 
 	private static WebArchive addDefaultWebInfResources(WebArchive war) {
@@ -135,7 +140,8 @@ public final class Deployments {
 								"http://tinymce.cachefly.net/4.0/tinymce.min.js"),
 						"resources/javascript/tinymce.min.js")
 				.addAsWebResource(
-						new File(WEBAPP_SRC, "resources/javascript/tinymce-config.js"),
+						new File(WEBAPP_SRC,
+								"resources/javascript/tinymce-config.js"),
 						"resources/javascript/tinymce.js")
 				.addAsWebResource(
 						new File(WEBAPP_SRC, "resources/javascript/slider.js"),

@@ -18,30 +18,38 @@ import org.openqa.selenium.WebDriver;
 
 import se.enbohms.hhcib.web.page.LoginPage;
 import se.enbohms.hhcib.web.page.MyPagesPage;
+import se.enbohms.hhcib.web.page.UpdateEmailPage;
 import se.enbohms.hhcib.web.page.UpdatePasswordPage;
 import se.enbohms.hhcib.web.util.Deployments;
 import se.enbohms.hhcib.web.util.IntegrationTest;
 
 /**
- * Contains integration test cases for the login scenarios such as login, update
- * password, change email address, etc.
+ * Contains integration test cases for the MyPages scenarios such as login,
+ * update password, change email address, etc.
  */
 @Category(IntegrationTest.class)
 @RunWith(Arquillian.class)
-public class LoginScenarioTest {
+public class MyPagesScenarioTest {
 
 	private static final String USER_NAME = "enbohm";
 	private static final String PASSWORD = "enbohm";
 	private static final String BAD_PASSWORD = "_1";
 	private static final String WELCOME_TEXT = "Välkommen enbohm!";
 	private static final String ERROR_MESSAGE = "Inloggning misslyckades, kontrollera användarnamn/lösenord";
+
 	private static final String PASSWORD_HAS_BEEN_UPDATED = "Ditt lösenord har uppdaterats";
 	private static final String PASSWORD_MUST_BE_FOUR_CHARACTERS = "Lösenord måste var minst 4 tecken långt";
 	private static final String PASSWORDS_NOT_EQUAL = "Lösenorden skiljer sig åt";
 
+	private static final String VALID_EMAIL = "test@test.com";
+	private static final String INVALID_EMAIL = "test";
+
+	private static final String UPDATE_EMAIL_ERROR = "Ange en giltig E-post adress";
+	private static final String EMAIL_UPDATED = "Din e-postadress har uppdaterats";
+
 	@Deployment(testable = false)
 	public static WebArchive createDeployment() throws MalformedURLException {
-		return Deployments.createLoginDeployment();
+		return Deployments.createMyPagesDeployment();
 	}
 
 	@Drone
@@ -101,6 +109,29 @@ public class LoginScenarioTest {
 
 	@Test
 	@InSequence(6)
+	public void should_not_update_email_due_to_incorrect_email()
+			throws Exception {
+		MyPagesPage myPagesPage = new MyPagesPage(driver, deploymentUrl);
+		UpdateEmailPage updateEmailPage = myPagesPage.clickChangeEmailLink();
+		updateEmailPage.updateEmail(INVALID_EMAIL);
+
+		assertThat(updateEmailPage.getInfoMessage()).isEqualTo(
+				UPDATE_EMAIL_ERROR);
+	}
+
+	@Test
+	@InSequence(7)
+	public void should_update_email() throws Exception {
+		MyPagesPage myPagesPage = new MyPagesPage(driver, deploymentUrl);
+		UpdateEmailPage updateEmailPage = myPagesPage.clickChangeEmailLink();
+		updateEmailPage.updateEmail(VALID_EMAIL);
+
+		assertThat(updateEmailPage.getInfoMessage().trim()).isEqualTo(
+				EMAIL_UPDATED);
+	}
+
+	@Test
+	@InSequence(8)
 	public void should_logout_successfully() {
 		MyPagesPage myPagesPage = new MyPagesPage(driver, deploymentUrl);
 
