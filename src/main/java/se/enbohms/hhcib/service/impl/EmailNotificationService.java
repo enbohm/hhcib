@@ -58,7 +58,7 @@ public class EmailNotificationService implements NotificationService {
 			message.setSubject(EMAIL_SUBJECT);
 
 			message.setText("Hej!" + NEW_LINE
-					+ " Här kommer ditt nya lösenord " + NEW_LINE
+					+ " Här kommer ditt nya lösenord: " + NEW_LINE
 					+ password.getPassword() + NEW_LINE
 					+ " Du kan byta lösenord på Mina Sidor");
 
