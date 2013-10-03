@@ -7,7 +7,6 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -23,19 +22,18 @@ import se.enbohms.hhcib.web.util.IntegrationTest;
 @RunWith(Arquillian.class)
 public class EmailNotificationServiceTest {
 
-	@Inject
-	private NotificationService notificationService;
-
 	@Deployment
 	public static JavaArchive createDeployment() {
 		return ShrinkWrap.create(JavaArchive.class)
 				.addClass(NotificationService.class)
-				.addClass(EmailNotificationService.class)
+				.addClass(TestableEmailNotificationService.class)
 				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
 
+	@Inject
+	private NotificationService notificationService;
+
 	@Test
-	@Ignore("run when needed, will send real emails")
 	public void should_send_email() throws Exception {
 		notificationService.sendMessageTo(Email.of("andreas@enbohms.se"),
 				Password.of("123456"));

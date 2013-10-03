@@ -9,6 +9,7 @@ import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -50,32 +51,50 @@ public class EmailNotificationService implements NotificationService {
 		try {
 			Transport transport = mailSession.getTransport();
 
-			Message message = new MimeMessage(mailSession);
-			message.setFrom(new InternetAddress(FROM_ADDRESS));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(
-					email.getEmail()));
+			Message message = createMessage(email, password);
 
-			message.setSubject(EMAIL_SUBJECT);
-
-			message.setText("Hej!" + NEW_LINE
-					+ " Här kommer ditt nya lösenord: " + NEW_LINE
-					+ password.getPassword() + NEW_LINE
-					+ " Du kan byta lösenord på Mina Sidor");
-
+			connect(transport);
 			sendMessage(transport, message);
-
+			closeConnection(transport);
 		} catch (MessagingException e) {
 			throw new NotificationException(e);
 		}
 	}
 
-	private void sendMessage(Transport transport, Message message)
+	/**
+	 * Performs the actual sending of the message
+	 * 
+	 * @param transport
+	 * @param message
+	 * @throws MessagingException
+	 */
+	protected void sendMessage(Transport transport, Message message)
 			throws MessagingException {
-		transport.connect();
 		transport.sendMessage(message,
 				message.getRecipients(Message.RecipientType.TO));
+	}
 
+	private Message createMessage(Email email, Password password)
+			throws MessagingException, AddressException {
+		Message message = new MimeMessage(mailSession);
+		message.setFrom(new InternetAddress(FROM_ADDRESS));
+		message.addRecipient(Message.RecipientType.TO, new InternetAddress(
+				email.getEmail()));
+
+		message.setSubject(EMAIL_SUBJECT);
+
+		message.setText("Hej!" + NEW_LINE + " Här kommer ditt nya lösenord: "
+				+ NEW_LINE + password.getPassword() + NEW_LINE
+				+ " Du kan byta lösenord på Mina Sidor");
+		return message;
+	}
+
+	private void closeConnection(Transport transport) throws MessagingException {
 		transport.close();
+	}
+
+	private void connect(Transport transport) throws MessagingException {
+		transport.connect();
 	}
 
 	private Properties createProperties() {

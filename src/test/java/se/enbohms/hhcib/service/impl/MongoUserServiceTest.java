@@ -46,7 +46,7 @@ public class MongoUserServiceTest {
 	}
 
 	@Test(expected = UserAuthenticationException.class)
-	public void should_throw_excsption_when_user_does_not_exist()
+	public void should_throw_exception_when_user_does_not_exist()
 			throws Exception {
 		userService.login("userShouldNotAuthenticate", "no");
 	}
