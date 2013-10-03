@@ -30,7 +30,7 @@ import se.enbohms.hhcib.web.util.IntegrationTest;
 public class MongoUserServiceTest {
 
 	private static final String PASSWORD = "password";
-	private static final String EMAIL_STRING = "test@test.com";
+	private static final String EMAIL_STRING = "junit@test.com";
 	private static final String TEST_USER = "junit_test_user";
 	private static final String UPDATED_EMAIL = "updated@email.com";
 
