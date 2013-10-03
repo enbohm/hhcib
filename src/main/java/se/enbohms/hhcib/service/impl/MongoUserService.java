@@ -152,8 +152,8 @@ public class MongoUserService implements UserService {
 				new BasicDBObject().append(User.PASSWORD,
 						newPassword.getPassword()));
 
-		ObjectId objectId = new ObjectId(user.getId());
-		BasicDBObject searchQuery = new BasicDBObject(User.ID, objectId);
+		BasicDBObject searchQuery = new BasicDBObject(User.ID, new ObjectId(
+				user.getId()));
 		collection.update(searchQuery, newDocument);
 	}
 
@@ -171,10 +171,26 @@ public class MongoUserService implements UserService {
 		newDocument.append("$set",
 				new BasicDBObject().append(User.EMAIL, newEmail.getEmail()));
 
-		ObjectId objectId = new ObjectId(user.getId());
-		BasicDBObject searchQuery = new BasicDBObject(User.ID, objectId);
+		BasicDBObject searchQuery = new BasicDBObject(User.ID, new ObjectId(
+				user.getId()));
 		collection.update(searchQuery, newDocument);
 		this.userUpdatedEvent.fire(UserUpdatedEvent.of(user, newEmail));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * <p>
+	 * This implementation fetches all user names from MongoDB
+	 */
+	public void updateNewPasswordFor(Email email, Password newPassword) {
+		DBCollection collection = dbInitiator.getMongoDB().getCollection(
+				USER_COLLECTION_NAME);
+		BasicDBObject newDocument = new BasicDBObject().append("$set",
+				new BasicDBObject(User.PASSWORD, newPassword.getPassword()));
+
+		BasicDBObject searchQuery = new BasicDBObject(User.EMAIL,
+				email.getEmail());
+		collection.update(searchQuery, newDocument);
 	}
 
 	private List<String> fetchUserNames(DBCursor cursor) {

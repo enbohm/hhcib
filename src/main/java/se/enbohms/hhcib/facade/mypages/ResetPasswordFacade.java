@@ -10,7 +10,12 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.NotNull;
 
+import se.enbohms.hhcib.common.Utils;
 import se.enbohms.hhcib.entity.Email;
+import se.enbohms.hhcib.entity.Password;
+import se.enbohms.hhcib.service.api.NotificationException;
+import se.enbohms.hhcib.service.api.NotificationService;
+import se.enbohms.hhcib.service.api.UserService;
 import se.enbohms.hhcib.service.impl.UserServiceUtil;
 
 /**
@@ -30,7 +35,13 @@ public class ResetPasswordFacade implements Serializable {
 	private boolean valid = true;
 
 	@Inject
-	private UserServiceUtil userService;
+	private UserServiceUtil userServiceUtil;
+
+	@Inject
+	private NotificationService notificationService;
+
+	@Inject
+	private UserService userService;
 
 	public String getEmail() {
 		return email;
@@ -47,7 +58,7 @@ public class ResetPasswordFacade implements Serializable {
 	 */
 	public void emailChanged(AjaxBehaviorEvent event) {
 		if (correctEmail()) {
-			setValid(userService.existing(Email.of(getEmail())));
+			setValid(userServiceUtil.existing(Email.of(getEmail())));
 		} else {
 			setValid(false);
 		}
@@ -68,9 +79,11 @@ public class ResetPasswordFacade implements Serializable {
 	/**
 	 * Resets the password for a user (i.e. send a new one to the supplied email
 	 * address)
+	 * 
+	 * @throws NotificationException
 	 */
-	public void resetPassword() {
-		if (userService.existing(Email.of(getEmail()))) {
+	public void resetPassword() throws NotificationException {
+		if (userServiceUtil.existing(Email.of(getEmail()))) {
 			resetEmail();
 		} else {
 			handleEmailNotFound();
@@ -88,7 +101,14 @@ public class ResetPasswordFacade implements Serializable {
 								"Angivet lösenord kan inte hittas, vänligen kontrollera."));
 	}
 
-	private void resetEmail() {
+	private void resetEmail() throws NotificationException {
+		Password generatedPwd = Utils.generatePassword();
+		userService.updateNewPasswordFor(Email.of(getEmail()), generatedPwd);
+		notificationService.sendMessageTo(Email.of(getEmail()), generatedPwd);	
+		addNewPasswordSendMessage();
+	}
+
+	private void addNewPasswordSendMessage() {
 		FacesContext.getCurrentInstance().addMessage(
 				null,
 				new FacesMessage(FacesMessage.SEVERITY_INFO,

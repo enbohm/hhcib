@@ -29,6 +29,7 @@ import se.enbohms.hhcib.web.util.IntegrationTest;
 @RunWith(Arquillian.class)
 public class MongoUserServiceTest {
 
+	private static final String PASSWORD = "password";
 	private static final String EMAIL_STRING = "test@test.com";
 	private static final String TEST_USER = "junit_test_user";
 	private static final String UPDATED_EMAIL = "updated@email.com";
@@ -56,7 +57,7 @@ public class MongoUserServiceTest {
 		try {
 			// when
 			user = userService.createUser(TEST_USER, Email.of(EMAIL_STRING),
-					"password");
+					PASSWORD);
 			// then
 			assertThat(user.getId()).isNotEmpty();
 			assertThat(user.getId().length()).isGreaterThan(10);
@@ -74,9 +75,9 @@ public class MongoUserServiceTest {
 		try {
 			// when
 			user = userService.createUser(TEST_USER, Email.of(EMAIL_STRING),
-					"password");
+					PASSWORD);
 
-			User loggedInUser = userService.login(TEST_USER, "password");
+			User loggedInUser = userService.login(TEST_USER, PASSWORD);
 
 			// then
 			assertThat(loggedInUser).isNotNull();
@@ -97,7 +98,7 @@ public class MongoUserServiceTest {
 		try {
 			// when
 			user = userService.createUser(TEST_USER, Email.of(EMAIL_STRING),
-					"password");
+					PASSWORD);
 
 			List<String> userNames = userService.getUserNames();
 
@@ -117,7 +118,7 @@ public class MongoUserServiceTest {
 		try {
 			// when
 			user = userService.createUser(TEST_USER, Email.of(EMAIL_STRING),
-					"password");
+					PASSWORD);
 
 			List<Email> emails = userService.getEmails();
 
@@ -138,7 +139,7 @@ public class MongoUserServiceTest {
 
 			// given
 			user = userService.createUser(TEST_USER, Email.of(EMAIL_STRING),
-					"password");
+					PASSWORD);
 
 			// when
 			userService.updateUserPassword(Password.of("password2"), user);
@@ -161,14 +162,38 @@ public class MongoUserServiceTest {
 
 			// given
 			user = userService.createUser(TEST_USER, Email.of(EMAIL_STRING),
-					"password");
+					PASSWORD);
 
 			// when
 			userService.updateUserEmail(Email.of(UPDATED_EMAIL), user);
 
 			// then
-			User result = userService.login(TEST_USER, "password");
+			User result = userService.login(TEST_USER, PASSWORD);
 			assertThat(result.getEmail().getEmail()).isEqualTo(UPDATED_EMAIL);
+
+		} finally {
+			if (user != null) {
+				userService.delete(user);
+			}
+		}
+	}
+
+	@Test
+	public void should_update_new_password_for_users_email() throws Exception {
+		User user = null;
+		try {
+
+			// given
+			user = userService.createUser(TEST_USER, Email.of(EMAIL_STRING),
+					PASSWORD);
+
+			// when
+			userService.updateNewPasswordFor(Email.of(EMAIL_STRING),
+					Password.of("newPassword"));
+
+			// then
+			User result = userService.login(TEST_USER, "newPassword");
+			assertThat(result).isNotNull();
 
 		} finally {
 			if (user != null) {

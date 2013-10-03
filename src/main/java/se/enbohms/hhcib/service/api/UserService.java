@@ -69,4 +69,14 @@ public interface UserService {
 	 * @param user
 	 */
 	void updateUserEmail(Email newEmail, User user);
+
+	/**
+	 * Updated the password for the suppled email address This method uses the
+	 * supplied email to identify the 'user'. The use case for this method is
+	 * when a user has forgotten his password and need to reset it
+	 * 
+	 * @param email
+	 * @return a new generated password
+	 */
+	void updateNewPasswordFor(Email email, Password newPassword);
 }
