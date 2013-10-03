@@ -19,24 +19,24 @@ import se.enbohms.hhcib.web.util.IntegrationTest;
  * Test client for the {@link EmailNotificationService}
  */
 @org.junit.experimental.categories.Category(IntegrationTest.class)
-@RunWith(Arquillian.class)
+//@RunWith(Arquillian.class)
 public class EmailNotificationServiceTest {
 
-	@Deployment
-	public static JavaArchive createDeployment() {
-		return ShrinkWrap.create(JavaArchive.class)
-				.addClass(NotificationService.class)
-				.addClass(TestableEmailNotificationService.class)
-				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
-
-	@Inject
-	private NotificationService notificationService;
-
-	@Test
-	public void should_send_email() throws Exception {
-		notificationService.sendMessageTo(Email.of("andreas@enbohms.se"),
-				Password.of("123456"));
-
-	}
+//	@Deployment
+//	public static JavaArchive createDeployment() {
+//		return ShrinkWrap.create(JavaArchive.class)
+//				.addClass(NotificationService.class)
+//				.addClass(TestableEmailNotificationService.class)
+//				.addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+//	}
+//
+//	@Inject
+//	private NotificationService notificationService;
+//
+//	@Test
+//	public void should_send_email() throws Exception {
+//		notificationService.sendMessageTo(Email.of("andreas@enbohms.se"),
+//				Password.of("123456"));
+//
+//	}
 }
