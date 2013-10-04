@@ -5,14 +5,17 @@ import javax.mail.MessagingException;
 import javax.mail.Transport;
 
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 import se.enbohms.hhcib.entity.Email;
 import se.enbohms.hhcib.entity.Password;
 import se.enbohms.hhcib.service.api.NotificationService;
+import se.enbohms.hhcib.web.util.IntegrationTest;
 
 /**
  * Test client for the {@link EmailNotificationService}
  */
+@Category(IntegrationTest.class)
 public class EmailNotificationServiceTest {
 
 	@Test
