@@ -2,7 +2,6 @@ package se.enbohms.hhcib.service.impl;
 
 import java.util.Properties;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -34,11 +33,11 @@ public class EmailNotificationService implements NotificationService {
 	private static final String NEW_LINE = "\n\r";
 	private Session mailSession;
 
-	@PostConstruct
-	private void setUp() {
+	public EmailNotificationService() {
 		Properties sessionPropterties = createProperties();
 		mailSession = Session.getDefaultInstance(sessionPropterties,
 				new SMTPAuthenticator());
+
 	}
 
 	/**
