@@ -57,15 +57,14 @@ public class MongoUserService implements UserService {
 			throws UserAuthenticationException {
 		DBCollection collection = dbInitiator.getMongoDB().getCollection(
 				USER_COLLECTION_NAME);
-		BasicDBObject query = new BasicDBObject();
-		query.put(User.USERNAME, userName);
-		DBObject dbObj = collection.findOne(query);
+
+		DBObject dbObj = collection.findOne(new BasicDBObject(User.USERNAME,
+				userName));
 
 		if (dbObj != null && (password.equals(passwordFromDB(dbObj)))) {
 			return User.creteUser(dbObj.get(User.ID).toString(), userName,
 					Email.of((String) dbObj.get("email")));
 		}
-
 		throw new UserAuthenticationException();
 	}
 
@@ -96,10 +95,8 @@ public class MongoUserService implements UserService {
 	public void delete(User user) throws UserNotFoundException {
 		DBCollection collection = dbInitiator.getMongoDB().getCollection(
 				USER_COLLECTION_NAME);
-
-		BasicDBObject dbObj = new BasicDBObject();
-		dbObj.put(User.ID, new ObjectId(user.getId()));
-		collection.remove(dbObj);
+		collection
+				.remove(new BasicDBObject(User.ID, new ObjectId(user.getId())));
 	}
 
 	/**
@@ -152,9 +149,9 @@ public class MongoUserService implements UserService {
 				new BasicDBObject().append(User.PASSWORD,
 						newPassword.getPassword()));
 
-		BasicDBObject searchQuery = new BasicDBObject(User.ID, new ObjectId(
-				user.getId()));
-		collection.update(searchQuery, newDocument);
+		collection.update(
+				new BasicDBObject(User.ID, new ObjectId(user.getId())),
+				newDocument);
 	}
 
 	/**
@@ -171,26 +168,43 @@ public class MongoUserService implements UserService {
 		newDocument.append("$set",
 				new BasicDBObject().append(User.EMAIL, newEmail.getEmail()));
 
-		BasicDBObject searchQuery = new BasicDBObject(User.ID, new ObjectId(
-				user.getId()));
-		collection.update(searchQuery, newDocument);
+		collection.update(
+				new BasicDBObject(User.ID, new ObjectId(user.getId())),
+				newDocument);
 		this.userUpdatedEvent.fire(UserUpdatedEvent.of(user, newEmail));
 	}
 
 	/**
 	 * {@inheritDoc}
-	 * <p>
-	 * This implementation fetches all user names from MongoDB
+	 * 
 	 */
+	@PerformanceMonitored
 	public void updateNewPasswordFor(Email email, Password newPassword) {
 		DBCollection collection = dbInitiator.getMongoDB().getCollection(
 				USER_COLLECTION_NAME);
 		BasicDBObject newDocument = new BasicDBObject().append("$set",
 				new BasicDBObject(User.PASSWORD, newPassword.getPassword()));
 
-		BasicDBObject searchQuery = new BasicDBObject(User.EMAIL,
-				email.getEmail());
-		collection.update(searchQuery, newDocument);
+		collection.update(new BasicDBObject(User.EMAIL, email.getEmail()),
+				newDocument);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 */
+	public String getUsernameFrom(Email email) throws UserNotFoundException {
+		DBCollection collection = dbInitiator.getMongoDB().getCollection(
+				USER_COLLECTION_NAME);
+
+		BasicDBObject dbObj = (BasicDBObject) collection
+				.findOne(new BasicDBObject(User.EMAIL, email.getEmail()));
+
+		if (dbObj != null) {
+			return dbObj.getString(User.USERNAME);
+		}
+
+		throw new UserNotFoundException();
 	}
 
 	private List<String> fetchUserNames(DBCursor cursor) {

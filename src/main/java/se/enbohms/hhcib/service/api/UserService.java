@@ -71,7 +71,7 @@ public interface UserService {
 	void updateUserEmail(Email newEmail, User user);
 
 	/**
-	 * Updated the password for the suppled email address This method uses the
+	 * Updated the password for the suppled email address. This method uses the
 	 * supplied email to identify the 'user'. The use case for this method is
 	 * when a user has forgotten his password and need to reset it
 	 * 
@@ -79,4 +79,14 @@ public interface UserService {
 	 * @return a new generated password
 	 */
 	void updateNewPasswordFor(Email email, Password newPassword);
+
+	/**
+	 * 
+	 * @param email
+	 * @return the user name corresponding the the {@link Email}
+	 * @throws UserNotFoundException
+	 *             if the supplied email can't be found in the database
+	 */
+	String getUsernameFrom(Email email) throws UserNotFoundException;
+
 }

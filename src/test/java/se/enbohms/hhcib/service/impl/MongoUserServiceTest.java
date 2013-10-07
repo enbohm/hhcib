@@ -19,6 +19,7 @@ import se.enbohms.hhcib.entity.Email;
 import se.enbohms.hhcib.entity.Password;
 import se.enbohms.hhcib.entity.User;
 import se.enbohms.hhcib.service.api.UserAuthenticationException;
+import se.enbohms.hhcib.service.api.UserNotFoundException;
 import se.enbohms.hhcib.service.api.UserService;
 import se.enbohms.hhcib.web.util.IntegrationTest;
 
@@ -200,5 +201,33 @@ public class MongoUserServiceTest {
 				userService.delete(user);
 			}
 		}
+	}
+
+	@Test
+	public void should_return_user_name_from_users_email() throws Exception {
+		User user = null;
+		try {
+
+			// given
+			user = userService.createUser(TEST_USER, Email.of(EMAIL_STRING),
+					PASSWORD);
+
+			// when
+			String result = userService.getUsernameFrom(Email.of(EMAIL_STRING));
+
+			assertThat(result).isEqualTo(TEST_USER);
+
+		} finally {
+			if (user != null) {
+				userService.delete(user);
+			}
+		}
+	}
+
+	@Test(expected = UserNotFoundException.class)
+	public void should_throw_execption_when_users_email_is_not_found()
+			throws Exception {
+		userService.getUsernameFrom(Email
+				.of("this_email_should_not_exist@dummy.com"));
 	}
 }
