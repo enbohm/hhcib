@@ -7,6 +7,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import se.enbohms.hhcib.common.Utils;
 import se.enbohms.hhcib.entity.Category;
 import se.enbohms.hhcib.entity.Subject;
 import se.enbohms.hhcib.service.api.SubjectCrudService;
@@ -45,6 +46,6 @@ public class CategoryFacade implements Serializable {
 	 *         list if no subjects exist for the supplied category
 	 */
 	public List<Subject> getSubjectsFor(Category category) {
-		return service.getSubjectsFor(category);
+		return Utils.sortDesceding(service.getSubjectsFor(category));
 	}
 }

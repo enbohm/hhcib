@@ -95,12 +95,10 @@ public class MongoSubjectCrudService implements SubjectCrudService,
 		BasicDBObject searchQuery = new BasicDBObject(Subject.CATEGORY,
 				category.toString());
 
-		DBObject descendingOrder = new BasicDBObject("rating", -1d);
-		DBCursor cursor = coll.find(searchQuery).sort(descendingOrder);
 		try {
-			return fetchResults(cursor);
+			return fetchResults(coll.find(searchQuery));
 		} finally {
-			cursor.close();
+			coll.find(searchQuery).close();
 		}
 	}
 

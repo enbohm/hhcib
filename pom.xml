@@ -8,6 +8,7 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>hhcib</name>
 
+	<!-- Project properties -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<version.arquillian_drone>1.2.0.CR1</version.arquillian_drone>
@@ -15,13 +16,19 @@
 		<version.org.jboss.arquillian.drone.webdriver>1.2.0.Beta2</version.org.jboss.arquillian.drone.webdriver>
 		<browser>phantomjs</browser>
 	</properties>
+
+	<!-- Project profiles -->
 	<profiles>
+
+		<!-- Uses html unit driver instead of PhantomJS -->
 		<profile>
 			<id>htmlUnit</id>
 			<properties>
 				<browser>htmlUnit</browser>
 			</properties>
 		</profile>
+
+		<!-- Will skip all test classes marked with IntegrationTest.class -->
 		<profile>
 			<id>onlyUnitTest</id>
 			<build>
@@ -48,6 +55,8 @@
 			</build>
 		</profile>
 	</profiles>
+
+	<!-- HHCIB build configuration -->
 	<build>
 		<plugins>
 			<plugin>
@@ -65,6 +74,8 @@
 				<artifactId>maven-resource-plugin</artifactId>
 				<version>2.6</version>
 			</plugin>
+
+			<!-- Sass compiler -->
 			<plugin>
 				<groupId>org.jasig.maven</groupId>
 				<artifactId>sass-maven-plugin</artifactId>
@@ -90,7 +101,9 @@
 				</configuration>
 			</plugin>
 		</plugins>
+
 		<testResources>
+			<!-- For filtering files such as arquillian.xml -->
 			<testResource>
 				<directory>src/test/resources</directory>
 				<filtering>true</filtering>
@@ -99,6 +112,7 @@
 	</build>
 
 	<repositories>
+		<!--(JSF) external libs -->
 		<repository>
 			<id>in-project</id>
 			<name>In Project Repo</name>
@@ -107,6 +121,8 @@
 	</repositories>
 
 	<dependencies>
+
+		<!-- Project dependencies -->
 		<dependency>
 			<groupId>javax</groupId>
 			<artifactId>javaee-api</artifactId>
@@ -119,12 +135,12 @@
 			<version>2.11.2</version>
 		</dependency>
 
-		<!-- Some JSF external libs -->
 		<dependency>
 			<groupId>playerfinder</groupId>
 			<artifactId>playerfinder-jsf</artifactId>
 			<version>0.5</version>
 		</dependency>
+		<!-- END Project dependencis -->
 
 		<!-- Test dependencies -->
 		<dependency>
@@ -196,7 +212,7 @@
 			<artifactId>selenium-java</artifactId>
 			<scope>test</scope>
 		</dependency>
-
+		<!-- END Test dependencies -->
 	</dependencies>
 
 	<dependencyManagement>
