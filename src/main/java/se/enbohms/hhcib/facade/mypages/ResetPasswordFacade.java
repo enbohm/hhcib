@@ -15,6 +15,7 @@ import se.enbohms.hhcib.entity.Email;
 import se.enbohms.hhcib.entity.Password;
 import se.enbohms.hhcib.service.api.NotificationException;
 import se.enbohms.hhcib.service.api.NotificationService;
+import se.enbohms.hhcib.service.api.UserNotFoundException;
 import se.enbohms.hhcib.service.api.UserService;
 import se.enbohms.hhcib.service.impl.UserServiceUtil;
 
@@ -81,8 +82,10 @@ public class ResetPasswordFacade implements Serializable {
 	 * address)
 	 * 
 	 * @throws NotificationException
+	 * @throws UserNotFoundException
 	 */
-	public void resetPassword() throws NotificationException {
+	public void resetPassword() throws NotificationException,
+			UserNotFoundException {
 		if (userServiceUtil.existing(Email.of(getEmail()))) {
 			resetEmail();
 		} else {
@@ -101,10 +104,14 @@ public class ResetPasswordFacade implements Serializable {
 								"Angivet lösenord kan inte hittas, vänligen kontrollera."));
 	}
 
-	private void resetEmail() throws NotificationException {
+	private void resetEmail() throws NotificationException,
+			UserNotFoundException {
 		Password generatedPwd = Utils.generatePassword();
 		userService.updateNewPasswordFor(Email.of(getEmail()), generatedPwd);
-		notificationService.sendMessageTo(Email.of(getEmail()), generatedPwd);	
+		notificationService
+				.sendMessageTo(Email.of(getEmail()),
+						userService.getUsernameFrom(Email.of(getEmail())),
+						generatedPwd);
 		addNewPasswordSendMessage();
 	}
 

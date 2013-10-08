@@ -13,10 +13,11 @@ public interface NotificationService {
 	 * password
 	 * 
 	 * @param email
+	 * @param userName 
 	 * @param password
 	 * @throws NotificationException
 	 *             if sending the notification fails
 	 */
-	void sendMessageTo(Email email, Password password)
+	void sendMessageTo(Email email, String userName, Password password)
 			throws NotificationException;
 }

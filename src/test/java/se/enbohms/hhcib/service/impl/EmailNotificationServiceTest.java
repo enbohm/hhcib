@@ -22,7 +22,7 @@ public class EmailNotificationServiceTest {
 	public void should_send_email() throws Exception {
 		NotificationService notificationService = new TestableEmailNotoficationService();
 		notificationService.sendMessageTo(Email.of("andreas@enbohms.se"),
-				Password.of("123456"));
+				"enbohm", Password.of("123456"));
 
 	}
 

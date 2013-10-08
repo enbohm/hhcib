@@ -24,7 +24,7 @@ import se.enbohms.hhcib.service.api.NotificationService;
 @Singleton
 public class EmailNotificationService implements NotificationService {
 
-	private static final String EMAIL_SUBJECT = "HHCIB - lösenordinfo";
+	private static final String EMAIL_SUBJECT = "HHCIB - inloggningsuppgifter";
 	private static final String FROM_ADDRESS = "noreply@hhcib.se";
 
 	private static final String SMTP_HOST_NAME = "smtp.sendgrid.net";
@@ -44,13 +44,13 @@ public class EmailNotificationService implements NotificationService {
 	 * {@inheritDoc}
 	 * 
 	 */
-	public void sendMessageTo(Email email, Password password)
+	public void sendMessageTo(Email email, String userName, Password password)
 			throws NotificationException {
 
 		try {
 			Transport transport = mailSession.getTransport();
 
-			Message message = createMessage(email, password);
+			Message message = createMessage(email, userName, password);
 
 			connect(transport);
 			sendMessage(transport, message);
@@ -73,8 +73,8 @@ public class EmailNotificationService implements NotificationService {
 				message.getRecipients(Message.RecipientType.TO));
 	}
 
-	private Message createMessage(Email email, Password password)
-			throws MessagingException, AddressException {
+	private Message createMessage(Email email, String userName,
+			Password password) throws MessagingException, AddressException {
 		Message message = new MimeMessage(mailSession);
 		message.setFrom(new InternetAddress(FROM_ADDRESS));
 		message.addRecipient(Message.RecipientType.TO, new InternetAddress(
@@ -82,8 +82,9 @@ public class EmailNotificationService implements NotificationService {
 
 		message.setSubject(EMAIL_SUBJECT);
 
-		message.setText("Hej!" + NEW_LINE + " Här kommer ditt nya lösenord: "
-				+ NEW_LINE + password.getPassword() + NEW_LINE
+		message.setText("Hej " + userName + NEW_LINE
+				+ " Här kommer ditt nya lösenord: " + NEW_LINE
+				+ password.getPassword() + NEW_LINE
 				+ " Du kan byta lösenord på Mina Sidor");
 		return message;
 	}
