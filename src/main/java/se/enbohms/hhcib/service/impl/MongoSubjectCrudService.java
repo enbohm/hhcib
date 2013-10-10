@@ -111,7 +111,6 @@ public class MongoSubjectCrudService implements SubjectCrudService,
 	public void update(Subject subject) {
 		DBCollection collection = mongoDBInitiator.getMongoDB().getCollection(
 				SUBJECT_COLLECTION_NAME);
-		BasicDBObject newDocument = new BasicDBObject();
 
 		List<BasicDBObject> voters = new ArrayList<>();
 
@@ -120,6 +119,7 @@ public class MongoSubjectCrudService implements SubjectCrudService,
 					entry.getKey()).append(Vote.SCORE, entry.getValue()));
 		}
 
+		BasicDBObject newDocument = new BasicDBObject();
 		newDocument
 				.append("$set",
 						new BasicDBObject()
@@ -131,9 +131,7 @@ public class MongoSubjectCrudService implements SubjectCrudService,
 										Utils.removeHtmlFrom(subject
 												.getDescription())));
 
-		ObjectId objectId = new ObjectId(subject.getId());
-		BasicDBObject searchQuery = new BasicDBObject(Subject.ID, objectId);
-
+		BasicDBObject searchQuery = new BasicDBObject(Subject.ID, new ObjectId(subject.getId()));
 		collection.update(searchQuery, newDocument);
 	}
 

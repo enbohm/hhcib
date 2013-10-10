@@ -61,11 +61,15 @@ public class MongoUserService implements UserService {
 		DBObject dbObj = collection.findOne(new BasicDBObject(User.USERNAME,
 				userName));
 
-		if (dbObj != null && (password.equals(passwordFromDB(dbObj)))) {
+		if (credentialsValid(password, dbObj)) {
 			return User.creteUser(dbObj.get(User.ID).toString(), userName,
 					Email.of((String) dbObj.get("email")));
 		}
 		throw new UserAuthenticationException();
+	}
+
+	private boolean credentialsValid(String password, DBObject dbObj) {
+		return dbObj != null && (password.equals(passwordFromDB(dbObj)));
 	}
 
 	/**
@@ -200,11 +204,15 @@ public class MongoUserService implements UserService {
 		BasicDBObject dbObj = (BasicDBObject) collection
 				.findOne(new BasicDBObject(User.EMAIL, email.getEmail()));
 
-		if (dbObj != null) {
+		if (match(dbObj)) {
 			return dbObj.getString(User.USERNAME);
 		}
 
 		throw new UserNotFoundException();
+	}
+
+	private boolean match(BasicDBObject dbObj) {
+		return dbObj != null;
 	}
 
 	private List<String> fetchUserNames(DBCursor cursor) {
